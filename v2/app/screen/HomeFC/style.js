@@ -11,6 +11,10 @@ import {
   STATUS_BAR_HEIGHT
 } from './utils/responsive';
 const { width, height } = Dimensions.get("window");
+const { height: windowHeight } = Dimensions.get("window");
+
+
+const boxHeight = windowHeight / 1.5;
 const ITEM_WIDTH = width * 1 ;
 const ITEM_HEIGHT = ITEM_WIDTH * 1.1;
 const ITEM_HEIGHT2 = ITEM_WIDTH * 1.1;
@@ -68,16 +72,19 @@ const styles = StyleSheet.create({
         fontFamily: "AnekLatin-Regular"
       },
     imageContainer: {
-      height:ITEM_HEIGHTV,
+      height:boxHeight,
       // borderRadius: 4,
       backgroundColor: '#fff',
+      paddingTop:30,
+      paddingBottom:20,
       padding: 0,
-      zIndex:90
+      zIndex:90,
+
     },
     imageCard: {
       borderRadius: 6,
       width: ITEM_WIDTH,
-      height:ITEM_HEIGHTVV,
+      height:boxHeight,
       alignSelf:'center',
       backgroundColor: '#f3f4f5',
       // borderBottomLeftRadius:6,
@@ -87,7 +94,7 @@ const styles = StyleSheet.create({
     videoCard: {
       borderRadius: 6,
       width: ITEM_WIDTH,
-      height: ITEM_HEIGHTV,
+      height: boxHeight,
       backgroundColor: '#f3f4f5',
       alignItems:'center',
       alignSelf:'center',
@@ -97,7 +104,7 @@ const styles = StyleSheet.create({
     videoCardt: {
       borderRadius: 0,
       width: ITEM_WIDTH,
-      height: ITEM_HEIGHTV,
+      height:boxHeight,
       alignItems:'center',
       alignSelf:'center',
       justifyContent:'center'
@@ -115,18 +122,16 @@ const styles = StyleSheet.create({
       height:55,
       backgroundColor:'#fff',
       borderRadius:0,
-      // borderTopLeftRadius:6,
-      // borderTopRightRadius:6,
+     paddingVertical:15,
       alignSelf:'center',
-      marginTop:10,
       flexDirection:'row',
       justifyContent:'space-between',
       paddingHorizontal:10,
       alignItems:'center'
     },
     userImgCover:{
-      width:45,
-      height:45,
+      width:42,
+      height:42,
       borderRadius:100,
    
     },
@@ -452,7 +457,7 @@ const styles = StyleSheet.create({
       justifyContent:'center',
       alignItems:'center',
       position:'absolute',
-      bottom:20,
+      bottom:50,
       right:10
     },
     loveCover:{
@@ -463,7 +468,7 @@ const styles = StyleSheet.create({
       justifyContent:'center',
       alignItems:'center',
       position:'absolute',
-      bottom:200,
+      bottom:280,
       right:10
     },
     shareCover:{
@@ -474,7 +479,7 @@ const styles = StyleSheet.create({
       justifyContent:'center',
       alignItems:'center',
       position:'absolute',
-      bottom:110,
+      bottom:190,
       right:10
     },
 
@@ -485,7 +490,7 @@ const styles = StyleSheet.create({
       justifyContent:'center',
       alignItems:'center',
       position:'absolute',
-      bottom:140,
+      bottom:221,
       right:10
     },
     loveCount:{
@@ -535,7 +540,7 @@ marginTop:7,
       justifyContent:'center',
       alignItems:'center',
       position:'absolute',
-      bottom:70,
+      bottom:150,
       right:10  
     },
     walkImg:{
@@ -546,6 +551,131 @@ marginTop:7,
       fontSize: 12,
       fontFamily: "AnekLatin-Medium",
       textAlign:'center'
+    },
+    titleWrapper:{
+      flexDirection:'row',
+      justifyContent:'space-between',
+      alignItems:'center'
+    },
+    titleWord:{
+      color: '#000',
+      fontSize: 12,
+      fontFamily: "AnekLatin-Medium",
+      textAlign:'left'
+      
+    },
+    descWord:{
+      color: '#757575',
+      fontSize: 10,
+      fontFamily: "AnekLatin-Regular",
+      textAlign:'left'
+    },
+    posterCover:{
+      marginLeft:14,
+      alignItems:'flex-start',
+
+    },
+    dateWord:{
+      color: '#454545',
+      fontSize: 8,
+      fontFamily: "AnekLatin-Regular",
+      textAlign:'left'
+    },
+    veirifyCover:{
+      flexDirection:'row',
+      justifyContent:'space-between',
+      alignItems:'flex-start'
+    },
+    verifyImg:{
+      width:12,
+      height:12,
+      resizeMode:'contain',
+      marginLeft:5,
+      marginTop:2
+    },
+    previewContainer:{
+      width:wp('86%'),
+      // height:100,
+      borderRadius:6,
+      backgroundColor: 'rgba(12, 52, 52, 0.7)',
+      position:'absolute',
+      alignSelf:'flex-start',
+      marginLeft:5,
+      bottom:40,
+      padding:10,
+      paddingVertical:15,
+      flexDirection:'row',
+      justifyContent:'space-between'
+    },
+    descText:{
+      color: '#fff',
+      fontSize: 16,
+      fontFamily: "AnekLatin-Medium",
+      textAlign:'left',
+      width:wp('76%'),
+    },
+    moreCover:{
+      width:70,
+      height:20,
+      position:'absolute',
+      justifyContent:'center',
+      alignItems:'center',
+      borderRadius:3,
+      right:30,
+      bottom:-3
+    
+    },
+    readmore:{
+      color: '#00b300',
+      fontSize: 15,
+      fontFamily: "AnekLatin-Medium",
+      textTransform:'lowercase',
+      marginBottom:1,
+  
+    },
+    previewInner:{
+      // flexDirection:'row',
+      justifyContent:'space-between'
+    },
+    leftWrapper:{
+      flexDirection:'row',
+      justifyContent:'space-between'
+    },
+    followCover:{
+      alignItems:'center',
+      justifyContent:'center',
+      paddingHorizontal:12,
+      borderRadius:4,
+      borderWidth:1,
+      borderColor:'#99cb01',
+      marginRight:10
+    },
+    followText:{
+      color: '#99cb01',
+      fontSize: 10,
+      fontFamily: "AnekLatin-Regular",
+      textTransform:'capitalize',
+  
+    },
+    categoryCover:{
+      width:35,
+      height:35,
+      borderRadius:100,
+      alignItems:'center',
+      justifyContent:'center',
+      borderWidth:1,
+      borderColor:'rgba(12, 52, 52, 0.8)',
+      position:'absolute',
+      backgroundColor: 'rgba(52, 52, 52, 0.8)',
+      top:50,
+      right:10  
+
+    },
+    categoryText:{
+      color: '#99cb01',
+      fontSize: 16,
+      fontFamily: "AnekLatin-SemiBold",
+      textTransform:'capitalize',
     }
   });
 

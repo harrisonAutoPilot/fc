@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
       flexDirection:'row',
       justifyContent:'space-between',
       elevation:5,
-      shadowColor:'#000'
+      shadowColor:'#000',
+     
     },
     topInner:{
       flexDirection:'row',

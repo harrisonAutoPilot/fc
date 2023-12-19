@@ -85,29 +85,29 @@ const Onboarding = (props) => {
                 autoPlay={{enable: true , delay: 3000 }}>
                   
        {[
-          <View style={styles.bgImgCover}>
-               <Image key={'slide oneqw'} source={img0} style={styles.imgSize} />
+          <View style={styles.bgImgCover} key={1}>
+               <Image key={'slideoneqw'} source={img0} style={styles.imgSize} />
            </View>,
-              <View style={styles.bgImgCover}>
-                  <Image key={'slide one'} source={img1} style={styles.imgSize} />
+              <View style={styles.bgImgCover} key={2}>
+                  <Image key={'slideone'} source={img1} style={styles.imgSize} />
               </View>,
-              <View style={styles.bgImgCover}>
-                  <Image key={'slide two'} source={img2} style={styles.imgSize} />
+              <View style={styles.bgImgCover} key={3}>
+                  <Image key={'slidetwo'} source={img2} style={styles.imgSize} />
               </View>,
-             <View style={styles.bgImgCover}>
-              <Image key={'slide three'} source={img3} style={styles.imgSize} />
+             <View style={styles.bgImgCover} key={4}>
+              <Image key={'slidethree'} source={img3} style={styles.imgSize} />
              </View>,
-              <View style={styles.bgImgCover}>
-              <Image key={'slide four'} source={img4} style={styles.imgSize} />
+              <View style={styles.bgImgCover} key={5}>
+              <Image key={'slidefour'} source={img4} style={styles.imgSize} />
              </View>,
-              <View style={styles.bgImgCover}>
-              <Image key={'slide five'} source={img5} style={styles.imgSize} />
+              <View style={styles.bgImgCover} key={6}>
+              <Image key={'slideive'} source={img5} style={styles.imgSize} />
               </View>,
-            <View style={styles.bgImgCover}>
-            <Image key={'slide six'} source={img6} style={styles.imgSize} />
+            <View style={styles.bgImgCover} key={7}>
+            <Image key={'slidesix'} source={img6} style={styles.imgSize} />
             </View>, 
-             <View style={styles.bgImgCover}>
-             <Image key={'slide seven'} source={img7} style={styles.imgSize} />
+             <View style={styles.bgImgCover} key={9}>
+             <Image key={'slideseven'} source={img7} style={styles.imgSize} />
              </View>,  
         ]}
     </FadeCarousel>
@@ -120,29 +120,29 @@ const Onboarding = (props) => {
                 autoPlay={{enable: true , delay: 3000 }}>
                   
        {[
-              <View style={styles.smImgCover}>
-                  <Image key={1} source={img0} style={styles.imgSizeSm} />
+              <View style={styles.smImgCover} key={10}>
+                  <Image key={144} source={img0} style={styles.imgSizeSm} />
               </View>,
-               <View style={styles.smImgCover}>
-               <Image key={'slide two5'} source={img1} style={styles.imgSizeSm} />
+               <View style={styles.smImgCover}  key={11}> 
+               <Image key={'slidetwo5'} source={img1} style={styles.imgSizeSm} />
            </View>,
-              <View style={styles.smImgCover}>
-                  <Image key={'slide twoe'} source={img2} style={styles.imgSizeSm} />
+              <View style={styles.smImgCover} key={12}>
+                  <Image key={'slidewoe'} source={img2} style={styles.imgSizeSm} />
               </View>,
-             <View style={styles.smImgCover}>
-              <Image key={'slide threee'} source={img3} style={styles.imgSizeSm} />
+             <View style={styles.smImgCover} key={13}>
+              <Image key={'slidethreee'} source={img3} style={styles.imgSizeSm} />
              </View>,
-             <View style={styles.smImgCover}>
-             <Image key={'slide foure'} source={img4} style={styles.imgSizeSm} />
+             <View style={styles.smImgCover} key={14}>
+             <Image key={'slidefoure'} source={img4} style={styles.imgSizeSm} />
             </View>,
-               <View style={styles.smImgCover}>
-               <Image key={'slide fivee'} source={img5} style={styles.imgSizeSm} />
+               <View style={styles.smImgCover} key={15}> 
+               <Image key={'slidefivee'} source={img5} style={styles.imgSizeSm} />
               </View>,  
-               <View style={styles.smImgCover}>
-               <Image key={'slide sixe'} source={img6} style={styles.imgSizeSm} />
+               <View style={styles.smImgCover} key={16}>
+               <Image key={'slidesixe'} source={img6} style={styles.imgSizeSm} />
               </View>,
-               <View style={styles.smImgCover}>
-               <Image key={'slide sevene'} source={img7} style={styles.imgSizeSm} />
+               <View style={styles.smImgCover} key={17}>
+               <Image key={'slidesevene'} source={img7} style={styles.imgSizeSm} />
               </View>,
         ]}
     </FadeCarousel>
@@ -155,29 +155,29 @@ const Onboarding = (props) => {
                 autoPlay={{enable: true , delay: 3000 }}>
                   
        {[
-                <View style={styles.smImgCoverQue}>
-                <Text key={'slide one2'} style={styles.queBgL}>Dealing with addiction</Text>
+                <View style={styles.smImgCoverQue} key={18}>
+                <Text key={'slideone2'} style={styles.queBgL}>Dealing with addiction</Text>
               </View>,
-              <View style={styles.smImgCoverQue}>
-                   <Text key={'slide one3'} style={styles.queBgL}>Before signing that divorce paper</Text>
+              <View style={styles.smImgCoverQue} key={19}>
+                   <Text key={'slideone3'} style={styles.queBgL}>Before signing that divorce paper</Text>
               </View>,
-              <View style={styles.smImgCoverQue}>
-                   <Text key={'slide two2'} style={styles.queBg}>Carreer challenges ?</Text>
+              <View style={styles.smImgCoverQue} key={20}>
+                   <Text key={'slidetwo2'} style={styles.queBg}>Carreer challenges ?</Text>
               </View>,
-             <View style={styles.smImgCoverQue}>
-               <Text key={'slide three2'} style={styles.queBg}>Domestically abused ?</Text>
+             <View style={styles.smImgCoverQue} key={21}>
+               <Text key={'slidethree2'} style={styles.queBg}>Domestically abused ?</Text>
              </View>,
-              <View style={styles.smImgCoverQue}>
-              <Text key={'slide four2'} style={styles.queBg}>Are you frustrated ?</Text>
+              <View style={styles.smImgCoverQue} key={22}>
+              <Text key={'slidefour2'} style={styles.queBg}>Are you frustrated ?</Text>
             </View>,
-              <View style={styles.smImgCoverQue}>
-              <Text key={'slide five2'} style={styles.queBg}>Raped ?</Text>
+              <View style={styles.smImgCoverQue} key={23}>
+              <Text key={'slideffive2'} style={styles.queBg}>Raped ?</Text>
             </View>,
-           <View style={styles.smImgCoverQue}>
-           <Text key={'slide six2'} style={styles.queBg}>Post trauma?</Text>
+           <View style={styles.smImgCoverQue} key={24}>
+           <Text key={'slidedesix2'} style={styles.queBg}>Post trauma?</Text>
             </View>,
-              <View style={styles.smImgCoverQue}>
-              <Text key={'slide seven2'} style={styles.queBgL}>Going through marrital issues ?</Text>
+              <View style={styles.smImgCoverQue} key={25}>
+              <Text key={'slideaaseven2'} style={styles.queBgL}>Going through marrital issues ?</Text>
             </View>,
               
         ]}

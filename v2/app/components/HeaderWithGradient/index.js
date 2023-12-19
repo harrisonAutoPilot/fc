@@ -46,8 +46,8 @@ const HeaderWithGradient = (props) => {
 const styles = StyleSheet.create({
   top: {
    width:'100%',
- marginBottom:8,
-
+ marginBottom:1
+ 
   },
   center: {
    
