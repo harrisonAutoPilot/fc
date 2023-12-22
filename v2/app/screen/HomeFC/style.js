@@ -14,7 +14,7 @@ const { width, height } = Dimensions.get("window");
 const { height: windowHeight } = Dimensions.get("window");
 
 
-const boxHeight = windowHeight / 1.5;
+const boxHeight = windowHeight / 1.4;
 const ITEM_WIDTH = width * 1 ;
 const ITEM_HEIGHT = ITEM_WIDTH * 1.1;
 const ITEM_HEIGHT2 = ITEM_WIDTH * 1.1;
@@ -75,8 +75,6 @@ const styles = StyleSheet.create({
       height:boxHeight,
       // borderRadius: 4,
       backgroundColor: '#fff',
-      paddingTop:30,
-      paddingBottom:20,
       padding: 0,
       zIndex:90,
 
@@ -120,14 +118,16 @@ const styles = StyleSheet.create({
     infoCover:{
       width: ITEM_WIDTH,
       height:55,
-      backgroundColor:'#fff',
+      // backgroundColor:'#fff',
       borderRadius:0,
      paddingVertical:15,
       alignSelf:'center',
       flexDirection:'row',
       justifyContent:'space-between',
       paddingHorizontal:10,
-      alignItems:'center'
+      alignItems:'center',
+      position:'absolute',
+      top:2,
     },
     userImgCover:{
       width:42,
@@ -558,16 +558,16 @@ marginTop:7,
       alignItems:'center'
     },
     titleWord:{
-      color: '#000',
+      color: '#fff',
       fontSize: 12,
       fontFamily: "AnekLatin-Medium",
       textAlign:'left'
       
     },
     descWord:{
-      color: '#757575',
+      color: '#fff',
       fontSize: 10,
-      fontFamily: "AnekLatin-Regular",
+      fontFamily: "Playfair-Regular",
       textAlign:'left'
     },
     posterCover:{
@@ -576,7 +576,7 @@ marginTop:7,
 
     },
     dateWord:{
-      color: '#454545',
+      color: '#fff',
       fontSize: 8,
       fontFamily: "AnekLatin-Regular",
       textAlign:'left'
@@ -610,7 +610,7 @@ marginTop:7,
     descText:{
       color: '#fff',
       fontSize: 16,
-      fontFamily: "AnekLatin-Medium",
+      fontFamily: "Playfair-Regular",
       textAlign:'left',
       width:wp('76%'),
     },
@@ -647,11 +647,11 @@ marginTop:7,
       paddingHorizontal:12,
       borderRadius:4,
       borderWidth:1,
-      borderColor:'#99cb01',
+      borderColor:'#fff',
       marginRight:10
     },
     followText:{
-      color: '#99cb01',
+      color: '#fff',
       fontSize: 10,
       fontFamily: "AnekLatin-Regular",
       textTransform:'capitalize',
@@ -667,7 +667,7 @@ marginTop:7,
       borderColor:'rgba(12, 52, 52, 0.8)',
       position:'absolute',
       backgroundColor: 'rgba(52, 52, 52, 0.8)',
-      top:50,
+      top:70,
       right:10  
 
     },

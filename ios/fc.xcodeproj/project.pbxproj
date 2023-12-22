@@ -14,6 +14,17 @@
 		7699B88040F8A987B510C191 /* libPods-fc-fcTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-fc-fcTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		CE3163A42B303410005BF32F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3163A32B303410005BF32F /* AppDelegate.m */; };
+		40076DE3B83F48E0B4E885F4 /* AnekLatin-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D38062E3647C48E39BA9F1EF /* AnekLatin-Bold.ttf */; };
+		4FE7062BA608476ABA207AE5 /* AnekLatin-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E31D08E217FB4BB58D4F536B /* AnekLatin-ExtraBold.ttf */; };
+		D0F518ED0D634084943A7A79 /* AnekLatin-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 662322A7149A4E7EA03F21F9 /* AnekLatin-ExtraLight.ttf */; };
+		8AF6A7752B8A43ECA4103C8C /* AnekLatin-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33CD637966B948CC865D2CE5 /* AnekLatin-Light.ttf */; };
+		BC106091BE2C4ECDA95A92DF /* AnekLatin-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 208B02851932436084F7EF0F /* AnekLatin-Medium.ttf */; };
+		DFBCE3FF08544C56BC22FC3C /* AnekLatin-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54AA68C23F6843DD95248938 /* AnekLatin-Regular.ttf */; };
+		1D1367D27FE54A44BAB36726 /* AnekLatin-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5DBE9836A7D24722B57247A9 /* AnekLatin-SemiBold.ttf */; };
+		8E4449011E1D494A90481672 /* AnekLatin-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A32F71CACD0F4D5AB013BA19 /* AnekLatin-Thin.ttf */; };
+		2A22491F84A145949717174F /* Urbanist-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6469BF18BE0740ADA4DFF923 /* Urbanist-Medium.ttf */; };
+		2F6985C405F842268B72A047 /* Urbanist-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 633D8C8BDB2D4904845F23E6 /* Urbanist-Regular.ttf */; };
+		2DAA45C146B648B2A89E1A58 /* Urbanist-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A9B2F812B854F2AAE0A9A33 /* Urbanist-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +56,17 @@
 		89C6BE57DB24E9ADA2F236DE /* Pods-fc-fcTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fc-fcTests.release.xcconfig"; path = "Target Support Files/Pods-fc-fcTests/Pods-fc-fcTests.release.xcconfig"; sourceTree = "<group>"; };
 		CE3163A32B303410005BF32F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = fc/AppDelegate.m; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		D38062E3647C48E39BA9F1EF /* AnekLatin-Bold.ttf */ = {isa = PBXFileReference; name = "AnekLatin-Bold.ttf"; path = "../app/asset/font/AnekLatin-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E31D08E217FB4BB58D4F536B /* AnekLatin-ExtraBold.ttf */ = {isa = PBXFileReference; name = "AnekLatin-ExtraBold.ttf"; path = "../app/asset/font/AnekLatin-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		662322A7149A4E7EA03F21F9 /* AnekLatin-ExtraLight.ttf */ = {isa = PBXFileReference; name = "AnekLatin-ExtraLight.ttf"; path = "../app/asset/font/AnekLatin-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		33CD637966B948CC865D2CE5 /* AnekLatin-Light.ttf */ = {isa = PBXFileReference; name = "AnekLatin-Light.ttf"; path = "../app/asset/font/AnekLatin-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		208B02851932436084F7EF0F /* AnekLatin-Medium.ttf */ = {isa = PBXFileReference; name = "AnekLatin-Medium.ttf"; path = "../app/asset/font/AnekLatin-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		54AA68C23F6843DD95248938 /* AnekLatin-Regular.ttf */ = {isa = PBXFileReference; name = "AnekLatin-Regular.ttf"; path = "../app/asset/font/AnekLatin-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5DBE9836A7D24722B57247A9 /* AnekLatin-SemiBold.ttf */ = {isa = PBXFileReference; name = "AnekLatin-SemiBold.ttf"; path = "../app/asset/font/AnekLatin-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A32F71CACD0F4D5AB013BA19 /* AnekLatin-Thin.ttf */ = {isa = PBXFileReference; name = "AnekLatin-Thin.ttf"; path = "../app/asset/font/AnekLatin-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6469BF18BE0740ADA4DFF923 /* Urbanist-Medium.ttf */ = {isa = PBXFileReference; name = "Urbanist-Medium.ttf"; path = "../app/asset/font/Urbanist-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		633D8C8BDB2D4904845F23E6 /* Urbanist-Regular.ttf */ = {isa = PBXFileReference; name = "Urbanist-Regular.ttf"; path = "../app/asset/font/Urbanist-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4A9B2F812B854F2AAE0A9A33 /* Urbanist-SemiBold.ttf */ = {isa = PBXFileReference; name = "Urbanist-SemiBold.ttf"; path = "../app/asset/font/Urbanist-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +146,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				5C321B78B0414478A6C0E0AC /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -149,6 +172,25 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		5C321B78B0414478A6C0E0AC /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				D38062E3647C48E39BA9F1EF /* AnekLatin-Bold.ttf */,
+				E31D08E217FB4BB58D4F536B /* AnekLatin-ExtraBold.ttf */,
+				662322A7149A4E7EA03F21F9 /* AnekLatin-ExtraLight.ttf */,
+				33CD637966B948CC865D2CE5 /* AnekLatin-Light.ttf */,
+				208B02851932436084F7EF0F /* AnekLatin-Medium.ttf */,
+				54AA68C23F6843DD95248938 /* AnekLatin-Regular.ttf */,
+				5DBE9836A7D24722B57247A9 /* AnekLatin-SemiBold.ttf */,
+				A32F71CACD0F4D5AB013BA19 /* AnekLatin-Thin.ttf */,
+				6469BF18BE0740ADA4DFF923 /* Urbanist-Medium.ttf */,
+				633D8C8BDB2D4904845F23E6 /* Urbanist-Regular.ttf */,
+				4A9B2F812B854F2AAE0A9A33 /* Urbanist-SemiBold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -247,6 +289,17 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				40076DE3B83F48E0B4E885F4 /* AnekLatin-Bold.ttf in Resources */,
+				4FE7062BA608476ABA207AE5 /* AnekLatin-ExtraBold.ttf in Resources */,
+				D0F518ED0D634084943A7A79 /* AnekLatin-ExtraLight.ttf in Resources */,
+				8AF6A7752B8A43ECA4103C8C /* AnekLatin-Light.ttf in Resources */,
+				BC106091BE2C4ECDA95A92DF /* AnekLatin-Medium.ttf in Resources */,
+				DFBCE3FF08544C56BC22FC3C /* AnekLatin-Regular.ttf in Resources */,
+				1D1367D27FE54A44BAB36726 /* AnekLatin-SemiBold.ttf in Resources */,
+				8E4449011E1D494A90481672 /* AnekLatin-Thin.ttf in Resources */,
+				2A22491F84A145949717174F /* Urbanist-Medium.ttf in Resources */,
+				2F6985C405F842268B72A047 /* Urbanist-Regular.ttf in Resources */,
+				2DAA45C146B648B2A89E1A58 /* Urbanist-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

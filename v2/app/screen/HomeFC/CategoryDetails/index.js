@@ -51,7 +51,7 @@ const CategoryDetails = (props) => {
       <Text style={styles.titleText}>Relationship</Text>
     </View>
     <View style={styles.reasonCover}>
-      <Text style={styles.reasonText}>Contents that propels individuals to engage in positive goal-directed behavior.</Text>
+      <Text style={styles.reasonText}>Share the unique aspects, experiences, and feelings that define relationship. Moments and dynamics that make connection meaningful.</Text>
     </View>
     </>
     : props.title == 'G' ?
@@ -64,7 +64,7 @@ const CategoryDetails = (props) => {
       <Text style={styles.titleText}>Good News</Text>
     </View>
     <View style={styles.reasonCover}>
-      <Text style={styles.reasonText}>Contents that propels individuals to engage in positive goal-directed behavior.</Text>
+      <Text style={styles.reasonText}>Share positive and uplifting news or stories. Messages that kindle hope and positive transformation.</Text>
     </View>
     </>
     : props.title == 'C' ?
@@ -77,7 +77,7 @@ const CategoryDetails = (props) => {
       <Text style={styles.titleText}>Career</Text>
     </View>
     <View style={styles.reasonCover}>
-      <Text style={styles.reasonText}>Contents that propels individuals to engage in positive goal-directed behavior.</Text>
+      <Text style={styles.reasonText}>Provide insights into professional journey. Share key aspects, experiences,principles & achievements that define career path.</Text>
     </View>
     </>
     : props.title == 'F' ?
@@ -90,7 +90,7 @@ const CategoryDetails = (props) => {
       <Text style={styles.titleText}>Finance</Text>
     </View>
     <View style={styles.reasonCover}>
-      <Text style={styles.reasonText}>Contents that propels individuals to engage in positive goal-directed behavior.</Text>
+      <Text style={styles.reasonText}>Discuss financial topics, insights, and experiences. Share information about budgeting, investing, and personal finance strategies.</Text>
     </View>
     </>
     : props.title == 'P' ?
@@ -103,7 +103,7 @@ const CategoryDetails = (props) => {
       <Text style={styles.titleText}>Prayer</Text>
     </View>
     <View style={styles.reasonCover}>
-      <Text style={styles.reasonText}>Contents that propels individuals to engage in positive goal-directed behavior.</Text>
+      <Text style={styles.reasonText}>Prayer the act of seeking guidance, strength, or gratitude, creating a sense of mindfulness.</Text>
     </View>
     </>
 : props.title == 'H' ?
@@ -115,7 +115,7 @@ const CategoryDetails = (props) => {
   <Text style={styles.titleText}>Health</Text>
 </View>
 <View style={styles.reasonCover}>
-  <Text style={styles.reasonText}>Contents that propels individuals to engage in positive goal-directed behavior.</Text>
+  <Text style={styles.reasonText}>Share insights, tips, and experiences related to maintaining a healthy lifestyle. Discuss wellness, fitness routines, and personal health journeys.</Text>
 </View>
 </>
 :

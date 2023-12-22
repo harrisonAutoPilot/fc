@@ -1,0 +1,49 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "app/asset/font/AnekLatin-Bold.ttf",
+      "sha1": "e95e2e07d38246084f09ca48aaa6c39741a52c98"
+    },
+    {
+      "path": "app/asset/font/AnekLatin-ExtraBold.ttf",
+      "sha1": "ae6690c0de248a5eef0b856530d6e1cf6c46dd4e"
+    },
+    {
+      "path": "app/asset/font/AnekLatin-ExtraLight.ttf",
+      "sha1": "49fc41876cbffbc6961d09dc11df359122e9e0c7"
+    },
+    {
+      "path": "app/asset/font/AnekLatin-Light.ttf",
+      "sha1": "d4f62c9f61125cede4409b35acca239ef14923f2"
+    },
+    {
+      "path": "app/asset/font/AnekLatin-Medium.ttf",
+      "sha1": "f7d8956c7f40eda995163b934e1aa6bb4daa5c72"
+    },
+    {
+      "path": "app/asset/font/AnekLatin-Regular.ttf",
+      "sha1": "ba45ae9325349c126d7000cd0b84edca227b67a3"
+    },
+    {
+      "path": "app/asset/font/AnekLatin-SemiBold.ttf",
+      "sha1": "946a4a9baea2dfe08e75af0205b1da70e31eff4e"
+    },
+    {
+      "path": "app/asset/font/AnekLatin-Thin.ttf",
+      "sha1": "1f71ab6568ee1a37cf66e4004a1cd5f93705838e"
+    },
+    {
+      "path": "app/asset/font/Urbanist-Medium.ttf",
+      "sha1": "5bd28946819cb1f5c60be7209825125c3267a828"
+    },
+    {
+      "path": "app/asset/font/Urbanist-Regular.ttf",
+      "sha1": "0090bf610de3fe58148c9e3e3f7c4653f5093257"
+    },
+    {
+      "path": "app/asset/font/Urbanist-SemiBold.ttf",
+      "sha1": "8ebddc4514ac5b0c4cd8a7d091fea45ad423034d"
+    }
+  ]
+}

@@ -66,6 +66,10 @@
 		<string>AnekLatin-Regular.ttf</string>
 		<string>AnekLatin-SemiBold.ttf</string>
 		<string>AnekLatin-Thin.ttf</string>
+		<string>Segoe-Bold.ttf</string>
+		<string>Segoe-BoldItalic.ttf</string>
+		<string>Segoe-Italic.ttf</string>
+		<string>Segoe.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

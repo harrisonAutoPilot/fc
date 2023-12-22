@@ -9,7 +9,7 @@ import styles from './style'
 
 const AppointmentDateBottomSheet = (props) => {
     const bottomSheetCalendar = useRef(null);
-
+    const item = props.poster;
     const [startDate, setStartDate] = useState("")
     const [endDate, setEndDate] = useState("")
     const [fromDate, setFromDate] = useState("")
@@ -17,6 +17,8 @@ const AppointmentDateBottomSheet = (props) => {
     const [displayFrom, setDisplayFrom] = useState(true)
     const [displayTo, setDisplayTo] = useState(false)
 
+
+    console.log("the appointment details", item)
 
     const setPropsPeriod = (id) => {
         console.log("the period ...", id)
@@ -49,12 +51,17 @@ const AppointmentDateBottomSheet = (props) => {
 
                     <View style={styles.bottomSheet}>
                         <View style={styles.topContainer}>
-                        <Image source={require("@Assets2/image/toyinn.jpeg")} style={styles.userImg} />
                         <Image
-              style={styles.verImg}
-              source={require('@Assets2/image/verified.png')}
-            />
-                        <Text style={styles.userName}>Abraham Isaac</Text>
+                           style={styles.userImg} 
+                            source={item?.poster_img}
+                            resizeMode="cover"
+                          />
+                        {/* <Image  source={item.poster_img} style={styles.userImg} /> */}
+                        <Image
+                            style={styles.verImg}
+                            source={require('@Assets2/image/verified.png')}
+                            />
+                        <Text style={styles.userName}>{item?.poster}</Text>
                         </View>
                         <View style={styles.midContainer}>
                             <Text style={styles.intro}>Hello. I offer counselling for the following: </Text>

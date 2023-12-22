@@ -19,14 +19,8 @@ import RegConfirm from "@Screen2/Customers/Registration/RegConfirm";
 import LicencePreview from "@Screen2/Customers/Registration/LicencePreview"
 import StorePreview from "@Screen2/Customers/Registration/StorePreview"
 import SoftUpdate from "@Screen2/SoftUpdate";
-// import InCompleteOrderDetails from "@Screen2/IncompleteOrderDetails";
-// import GenProducts from "@Screen2/GenProducts"
-// import Review from "@Screen2/order/review";
-// import ViewReview from "@Screen2/order/viewReview"
-// import MyStore from "@Screen2/Customers/myStore";
-// import StoreSuccess from "@Screen2/myStore/addStore/storeSuccess"
-// import StoreDetails from "@Screen2/myStore/storeDetails"
-// import AddStore from "@Screen2/myStore/addStore";
+import HomeDetails from "@Screen2/HomeDetails";
+
 
 
 // The new screens
@@ -116,6 +110,7 @@ export const RootStackNavigator = () => {
             <RootStack.Group>
                 <RootStack.Screen name="Root" component={TabHomeNavigator} />
                 <RootStack.Screen name="AwaitVerification" component={ AwaitVerification} />
+                <RootStack.Screen name="HomeDetails" component={HomeDetails} />
             </RootStack.Group>
             {/* <RootStack.Group>
                 <RootStack.Screen name="ActivityReport" component={ActivityReport} />
