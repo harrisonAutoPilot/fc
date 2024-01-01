@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {View, Text, Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './style';
 import Home from '@Screen2/HomeFC';
 import DrawerScreen from '@Screen2/drawerScreen';
-import Catalogue from '@Screen2/Catalogue';
+import Search from '@Screen2/Search';
 // import Wallet from '@Screen2/Wallet';
  import CustomerRegistration from "@Screen2/Customers/Registration";
 import CustomersDashboard from '@Screen2/Customers/Dashboard';
@@ -23,15 +23,23 @@ export default TabHomeNavigator = () => {
   const [showMiddle, setShowMiddle] = useState(false);
   const [showActiveCustomer, setShowActiveCustomer] = useState(false)
   const [passProps, setPassProps] = useState()
-
-  const registerCustomers = () =>{
+  const bottomSheetRef = useRef(null);
+  
+  const addPost = () =>{
     setShowMiddle(false)
-    passProps.navigate("CustomerRegistration", { items, key: 1 })
+    passProps.navigate("AddPost", { items, key: 1 })
+  }
+
+  const closeSupportGroup = () =>{
+    passProps.navigate("SupportGroup")
+    setShowMiddle(false)
+    // bottomSheetRef.current.show()
   }
 
   const closeActive = () =>{
     setShowMiddle(false)
    setShowActiveCustomer(false)
+   bottomSheetRef.current.close()
   }
 
   return (
@@ -44,6 +52,7 @@ export default TabHomeNavigator = () => {
           tabBarActiveTintColor: '#3858CF',
           tabBarInactiveTintColor: '#45464F',
           tabBarStyle: styles.tabBarStyle,
+          tabBarHideOnKeyboard: true,
         }}>
         <Tab.Screen
           name="HomeScreen"
@@ -64,7 +73,7 @@ export default TabHomeNavigator = () => {
         />
        <Tab.Screen
           name="SearchScreen"
-          component={CustomersDashboard}
+          component={Search}
           options={({navigation: {isFocused}}) => ({
             tabBarLabel: 'Home',
             tabBarIcon: ({color}) => (
@@ -142,12 +151,12 @@ export default TabHomeNavigator = () => {
       <MiddleOption
           visibleMiddle ={showMiddle}
           returnBack={() => setShowMiddle(false)}
-          customerReg={registerCustomers}
-          activeCustomer={() => setShowActiveCustomer(true)}
+          customerReg={closeSupportGroup}
+          activeCustomer={addPost}
           />
 
        <ActiveCustomers
-          visibleActive ={showActiveCustomer}
+          visibleActive ={bottomSheetRef}
           returnBackActive={closeActive}
        
           

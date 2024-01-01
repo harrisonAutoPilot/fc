@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { FlatList, View, Text, TouchableOpacity, Image, RefreshControl } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import CatelogueCardPlaceholder from "../../Catalogue/CatelogueCardPlaceholder"
+import CatelogueCardPlaceholder from "../../SupportGroup/CatelogueCardPlaceholder"
 import styles from '../style';
 import { getNewProducts } from '@Request2/NewProducts';
 import Icon from 'react-native-vector-icons/Feather';

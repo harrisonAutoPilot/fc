@@ -5,6 +5,7 @@ import styles from "./style";
 import FIcon from "react-native-vector-icons/Foundation"
 import Icon from "react-native-vector-icons/Ionicons"
 import { TouchableOpacity } from "react-native-gesture-handler";
+import PDFReader from 'rn-pdf-reader-js'
 
 const ViewDocument = (props) => {
   const [showDocument, setShowDocument] = useState(false);

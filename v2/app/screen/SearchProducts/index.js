@@ -68,6 +68,8 @@ const SearchProducts = (props) => {
 
     };
 
+    
+
 
     const clearSearchText = () => {
 

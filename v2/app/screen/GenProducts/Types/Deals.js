@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Acon from 'react-native-vector-icons/AntDesign';
 import styles from '../style';
 import {getDeals} from '@Request2/Deal';
-import CatelogueCardPlaceholder from "../../Catalogue/CatelogueCardPlaceholder"
+import CatelogueCardPlaceholder from "../../SupportGroup/CatelogueCardPlaceholder"
 import { cleanupDealStatus } from "@Store2/Deal";
 import Icon from 'react-native-vector-icons/Feather';
 import {

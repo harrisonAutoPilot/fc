@@ -100,6 +100,11 @@ const HomeDetails = (props) => {
   };
 
  
+  const posterProfile = (items) =>{
+    props.navigation.navigate("PosterProfile", {item:items})
+}
+
+
 
   const closeDetails = (items) => {
     console.log("the item", items.id);
@@ -178,9 +183,6 @@ const HomeDetails = (props) => {
   };
 
 
-
-  console.log("the items", items);
-
   const LoveToggle = useCallback(
     ({ style, onPress, myHeartCount }) => (
       <View style={styles.loveCover}>
@@ -193,7 +195,7 @@ const HomeDetails = (props) => {
             <View>
               <Icon
                 name="hearto"
-                size={30}
+                size={25}
                 color="#fff"
                 style={styles.loveImg}
               />
@@ -207,7 +209,7 @@ const HomeDetails = (props) => {
             }}
           >
             <View>
-              <Icon name="heart" size={30} color="red" style={styles.loveImg} />
+              <Icon name="heart" size={25} color="red" style={styles.loveImg} />
               <Text style={styles.loveCount}>{myHeartCount}</Text>
             </View>
           </TouchableOpacity>
@@ -221,7 +223,7 @@ const HomeDetails = (props) => {
     ({ onPress, messageCount }) => (
       <View style={styles.commentCover}>
         <TouchableOpacity onPress={onPress}>
-          <Acon name="message-text-outline" size={30} color="#fff" />
+          <Acon name="message-text-outline" size={25} color="#fff" />
           <Text style={styles.loveCount}>{messageCount}</Text>
         </TouchableOpacity>
       </View>
@@ -260,7 +262,7 @@ const HomeDetails = (props) => {
         <TouchableOpacity onPress={onPress}>
           <Acon
             name="calendar-month-outline"
-            size={30}
+            size={25}
             color="#fff"
             style={styles.loveImg}
           />
@@ -430,7 +432,7 @@ const HomeDetails = (props) => {
               />
                <GoBack onPress={() => props.navigation.goBack()} />
               <View style={styles.infoCover}>
-                <TouchableOpacity style={styles.titleWrapper}>
+                <TouchableOpacity style={styles.titleWrapper} onPress={() => posterProfile(items)}>
                   <View style={styles.userImgCover}>
                     <Image
                       style={styles.posterImg}
@@ -478,7 +480,7 @@ const HomeDetails = (props) => {
               />
                 <GoBack onPress={() => props.navigation.goBack()} />
               <View style={styles.infoCover}>
-                <TouchableOpacity style={styles.titleWrapper}>
+                <TouchableOpacity style={styles.titleWrapper} onPress={() => posterProfile(items)}>
                   <View style={styles.userImgCover}>
                     <Image
                       style={styles.posterImg}

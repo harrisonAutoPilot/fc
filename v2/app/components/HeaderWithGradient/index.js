@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   profileName:{
     marginTop:24,
     color:'#5f9a32',
-    fontSize:24,
+    fontSize:18,
     fontFamily: "AnekLatin-SemiBold"
   },
   profileImg:{

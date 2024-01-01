@@ -70,7 +70,7 @@ const StackNavigator = () => {
 
         Platform.OS === "android" ? checkAndroidUpdate(): checkIosUpdate();
 
-        wait(1000).then(() => setTimer(true));
+        wait(5000).then(() => setTimer(true));
 
         (async () => {
             const checkCredential = await credentials();

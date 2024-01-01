@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from '../style';
 import { getKessington } from '@Request2/Kessington';
 import { cleanupKessingtonStatus } from "@Store2/Kessington";
-import CatelogueCardPlaceholder from "../../Catalogue/CatelogueCardPlaceholder"
+import CatelogueCardPlaceholder from "../../SupportGroup/CatelogueCardPlaceholder"
 import Icon from 'react-native-vector-icons/Feather';
 import {
     SuccessMsgViewTwo,

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { normalize, gw } from '../../utils/responsive';
+import { normalize, gw } from '../../CategoryDetails/utils/responsive';
 import {
   RECOMMEND_FEEDS,
   FOLLOWING_FEEDS,

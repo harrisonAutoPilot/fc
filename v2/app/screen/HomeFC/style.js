@@ -9,12 +9,12 @@ import {
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
   STATUS_BAR_HEIGHT
-} from './utils/responsive';
+} from './CategoryDetails/utils/responsive';
 const { width, height } = Dimensions.get("window");
 const { height: windowHeight } = Dimensions.get("window");
 
 
-const boxHeight = windowHeight / 1.4;
+const boxHeight =  windowHeight / 1.2;
 const ITEM_WIDTH = width * 1 ;
 const ITEM_HEIGHT = ITEM_WIDTH * 1.1;
 const ITEM_HEIGHT2 = ITEM_WIDTH * 1.1;
@@ -63,14 +63,7 @@ const styles = StyleSheet.create({
         // textTransform:'capitalize',
         fontFamily: "AnekLatin-Medium"
       },
-      descText:{
-        fontSize:13,
-        color:'#757575',
-        // textTransform:'capitalize',
-        marginTop:8,
-        lineHeight:18,
-        fontFamily: "AnekLatin-Regular"
-      },
+
     imageContainer: {
       height:boxHeight,
       // borderRadius: 4,
@@ -434,15 +427,15 @@ const styles = StyleSheet.create({
       
     },
     speakerImg:{
-      width: 18,
-      height: 18,
+      width: 15,
+      height: 15,
       // position:'absolute',
       alignSelf:'center',
       zIndex:900,
     },
     shareImg:{
-      width: 25,
-      height: 25,
+      width: 20,
+      height: 20,
       alignSelf:'center',
       zIndex:900,
     },
@@ -451,7 +444,7 @@ const styles = StyleSheet.create({
       height:35,
       flexDirection:'row',
       borderRadius:100,
-      backgroundColor: 'rgba(52, 52, 52, 0.8)',
+      // backgroundColor: 'rgba(52, 52, 52, 0.8)',
       alignSelf:'flex-end',
       zIndex:9000, 
       justifyContent:'center',
@@ -609,9 +602,10 @@ marginTop:7,
     },
     descText:{
       color: '#fff',
-      fontSize: 16,
+      fontSize: 14,
       fontFamily: "Playfair-Regular",
       textAlign:'left',
+      lineHeight:18,
       width:wp('76%'),
     },
     moreCover:{
@@ -627,7 +621,7 @@ marginTop:7,
     },
     readmore:{
       color: '#00b300',
-      fontSize: 15,
+      fontSize: 14,
       fontFamily: "AnekLatin-Medium",
       textTransform:'lowercase',
       marginBottom:1,
@@ -657,9 +651,10 @@ marginTop:7,
       textTransform:'capitalize',
   
     },
+
     categoryCover:{
-      width:35,
-      height:35,
+      width:32,
+      height:32,
       borderRadius:100,
       alignItems:'center',
       justifyContent:'center',
@@ -676,7 +671,8 @@ marginTop:7,
       fontSize: 16,
       fontFamily: "AnekLatin-SemiBold",
       textTransform:'capitalize',
-    }
+    },
+
   });
 
 export default styles;

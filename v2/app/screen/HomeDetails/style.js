@@ -105,8 +105,8 @@ videoCard:{
     zIndex:900,
   },
   shareImg:{
-    width: 25,
-    height: 25,
+    width: 20,
+    height: 20,
     alignSelf:'center',
     zIndex:900,
   },
@@ -322,8 +322,8 @@ marginTop:7,
 
   },
   categoryCover:{
-    width:35,
-    height:35,
+    width:32,
+    height:32,
     borderRadius:100,
     alignItems:'center',
     justifyContent:'center',
@@ -331,7 +331,7 @@ marginTop:7,
     borderColor:'rgba(12, 52, 52, 0.8)',
     position:'absolute',
     backgroundColor: 'rgba(52, 52, 52, 0.8)',
-    top:70,
+    top:50,
     right:10  
 
   },
@@ -371,6 +371,7 @@ marginTop:7,
     height:80,
     borderRadius:4,
     elevation:2,
+    shadowColor: '#fff'
  
   },
   cardContent:{
@@ -448,7 +449,7 @@ marginTop:7,
     justifyContent:'center',
     height:30,
     width:30,
-    left:20,
+    left:25,
     top:20,
     backgroundColor:'rgba(52,52, 52, 0.8)'
   }

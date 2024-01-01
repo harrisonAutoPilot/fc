@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     color: 'rgba(27, 27, 31, 1)',
     fontSize: 22,
     fontFamily: 'AnekLatin-SemiBold',
-    lineHeight: 28,
-    marginLeft: 10,
+    marginLeft: 5,
+    marginTop:-5,
   },
   inputStyle:{
     width:wp('100%'),

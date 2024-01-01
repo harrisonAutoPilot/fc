@@ -12,6 +12,8 @@ import {visitStore, leaveVisitedStore,currentVisitedStore, getAgentStores} from 
 import {cleanUpVisitedStoreData,cleanUpCurrentStore,  cleanUpAgentStore} from '@Store2/Stores';
 import Loader from '@Screen2/loader';
 import Geolocation from 'react-native-geolocation-service';
+import BottomSheet from "react-native-gesture-bottom-sheet";
+
 import { getCustomers } from "@Request2/Customer";
 
 const ActiveCustomers = props => {
@@ -218,33 +220,34 @@ const ActiveCustomers = props => {
   };
 
   return (
-    <Modal
-      isVisible={props.visibleActive}
-      onBackdropPress={props.returnBackActive}
-      onSwipeComplete={() => setShowActiveModal(false)}
-      swipeDirection="left"
-      animationIn="slideInUp"
-      animationInTiming={300}
-      animationOut="slideOutDown"
-      animationOutTiming={300}
-      useNativeDriver={false}
-      hasBackdrop={true}
-      // backdropColor="rgba(194, 197, 221, 1)"
-      backdropOpacity={0.5}
-      coverScreen={true}>
-      <Pressable
-        style={styles.outsideModal}
-        onPress={event => {
-          if (event.target == event.currentTarget) {
-            setShowActiveModal(false);
-          }
-        }}>
-        <View style={styles.body5}>
+    // <Modal
+    //   isVisible={props.visibleActive}
+    //   onBackdropPress={props.returnBackActive}
+    //   onSwipeComplete={() => setShowActiveModal(false)}
+    //   swipeDirection="left"
+    //   animationIn="slideInUp"
+    //   animationInTiming={300}
+    //   animationOut="slideOutDown"
+    //   animationOutTiming={300}
+    //   useNativeDriver={false}
+    //   hasBackdrop={true}
+    //   // backdropColor="rgba(194, 197, 221, 1)"
+    //   backdropOpacity={0.5}
+    //   coverScreen={true}>
+    //   <Pressable
+    //     style={styles.outsideModal}
+    //     onPress={event => {
+    //       if (event.target == event.currentTarget) {
+    //         setShowActiveModal(false);
+    //       }
+    //     }}>
+    <BottomSheet hasDraggableIcon radius={1} sheetBackgroundColor="#fff"  ref={props.visibleActive} height={830} >
+        <View>
           <View style={styles.headerStyle}>
             <TouchableOpacity style={styles.touchCover} onPress={props.returnBackActive}>
               <Icon name="x" size={22} color="#000" />
             </TouchableOpacity>
-            <Text style={styles.headerTitle}>Select Store</Text>
+            <Text style={styles.headerTitle}>Support Group</Text>
           </View>
           <View style={styles.inputCover}>
           <Icon name="search" size={14} style={styles.searchIcon} color="#767680" />
@@ -279,8 +282,8 @@ const ActiveCustomers = props => {
         
         </View>
     
-      </Pressable>
-    </Modal>
+  
+    </BottomSheet>
   );
 };
 

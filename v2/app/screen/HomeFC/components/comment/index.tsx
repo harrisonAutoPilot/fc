@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Modal from 'react-native-modal';
-import { gh, SCREEN_WIDTH } from "../../utils/responsive";
+import { gh, SCREEN_WIDTH } from "../../CategoryDetails/utils/responsive";
 
 const Comment: React.FC = () => {
     const [visible, setVisible] = useState(true);

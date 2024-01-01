@@ -10,7 +10,7 @@ export default EmptyPending = (props) => (
             <Image source={require("@Assets2/image/customer.png")} style={styles.emptyImg} />
         </View>
         <Text style={styles.emptyTextBg}>Nothing here</Text>
-        <Text style={styles.emptyTextSm}>Pending customers will show here</Text>
+        <Text style={styles.emptyTextSm}>You dont have any recurrent appointment</Text>
       
        
     </View>

@@ -100,7 +100,7 @@ const CheckOutModal = props => {
               onChangeText={text=>setNote(text)}
               multiline={true}
               numberOfLines={10}
-        />
+            />
             </View>
           <TouchableOpacity
               style={styles.confirmCover}

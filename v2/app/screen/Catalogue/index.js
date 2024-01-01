@@ -253,20 +253,28 @@ dispatch(searchProducts({
       <>
         {active === item.id ? (
           <TouchableOpacity
+            style={styles.scrollFlex}
             onPress={() => {
               selectBtn(item.id);
               selectCategory(item.name);
             }}>
+              <View style={styles.capCover}>
+
+              </View>
             <View style={styles.miniCard}>
               <Text style={styles.miniCardText}>{item.menu}</Text>
             </View>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
+            style={styles.scrollFlex}
             onPress={() => {
               selectBtn(item.id);
               selectCategory(item.name);
             }}>
+           <View style={styles.capCover}>
+
+          </View>
             <View style={styles.miniCardInactive}>
               <Text style={styles.miniCardTextInactive}>{item.menu}</Text>
             </View>
@@ -316,7 +324,7 @@ dispatch(searchProducts({
     <View style={styles.main}>
     <StatusBar barStyle="dark-content" backgroundColor='rgba(221, 225, 255, 1)' hidden={false} />
         <CatalogHeaderComponent
-          title="Catalog"
+          title="Faceless Support Group"
           onPress={openNotification}
           onPressBack={goBack}
           onPressCart={openCart}

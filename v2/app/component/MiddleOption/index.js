@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react';
-import {View, Text,Pressable, TouchableOpacity} from 'react-native';
+import {View, Text,Pressable,Image, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import styles from './style';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -17,9 +17,12 @@ const MiddleOption = props => {
     <TouchableOpacity onPress={onPress} >
     <View style={styles.cardCover}>
       <View style={styles.circleCover}>
-        <Icon name="person-add-alt" size={18} color="#fff" />
+      <Image
+            source={require('@Assets2/image/Support-Groups-01.png')}
+            style={styles.sgImg}
+          />
       </View>
-      <Text style={styles.cardText}>{title}</Text>
+      <Text style={styles.cardTextSm}>{title}</Text>
     </View>
     </TouchableOpacity>
   ), []);
@@ -32,7 +35,10 @@ const MiddleOption = props => {
     <TouchableOpacity onPress={onPress}>
     <View style={styles.cardCoverSm}>
       <View style={styles.circleCoverSm}>
-        <Zcon name="calendar-edit" size={18} color="rgba(51, 83, 203, 1)" />
+          <Image
+            source={require('@Assets2/image/button.png')}
+            style={styles.sgImg}
+          />
       </View>
       <Text style={styles.cardTextSm}>{title}</Text>
     </View>
@@ -52,7 +58,7 @@ const MiddleOption = props => {
       animationOut="slideOutDown"
       animationOutTiming={300}
       useNativeDriver={false}
-      hasBackdrop={true}
+      hasBackdrop={false}
       // backdropColor="rgba(194, 197, 221, 3)"
       backdropOpacity={0.7}
       coverScreen={true}>
@@ -63,24 +69,25 @@ const MiddleOption = props => {
             setShowRetrieve(false);
           }
         }}>
-        <View style={styles.body5}>
-           <CardList 
-              title ="Register Customer"
-              onPress={props.customerReg}
-            />
-          <CardListBottom 
-              icon="calendar-edit"
-              title ="Check In"
-              onPress={props.activeCustomer}
-            />    
+       <View style={styles.body5}>
+        <View style={styles.flexCam}>
+        <CardList 
+            title ="FC Support Group"
+            onPress={props.customerReg}
+          />
+        <CardListBottom 
+           title ="Make A Post"
+           onPress={props.activeCustomer}
+          />    
         </View>
-        <View style={styles.closeCover}>
-          <TouchableOpacity onPress={props.returnBack}>
-            <Fcon name="x" size={20} color="rgba(186, 26, 26, 1)" />
-          </TouchableOpacity>
-        </View>
-      </Pressable>
-    </Modal>
+      </View>
+      <View style={styles.closeCover}>
+        <TouchableOpacity onPress={props.returnBack}>
+          <Fcon name="x" size={15} color="rgba(186, 26, 26, 1)" />
+        </TouchableOpacity>
+      </View>
+    </Pressable>
+  </Modal>
   );
 };
 

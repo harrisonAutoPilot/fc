@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: 20,
-    fontFamily: "Urbanist-Regular",
+    fontFamily: "Playfair-Regular",
     lineHeight: 28,
     color: "#212121",
     letterSpacing: 0.2,
@@ -26,10 +26,12 @@ const styles = StyleSheet.create({
     
   },
   outsideModal:{
-    top:hp('30%')
+    top:hp('36%'),
+
+
   },
   body5: {
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     borderRadius: 10,
     paddingVertical:10,
 
@@ -38,14 +40,14 @@ const styles = StyleSheet.create({
     width:35,
     height:35,
     borderRadius:100,
-    backgroundColor:"rgba(51, 83, 203, 1)",
     justifyContent:'center',
     alignItems:'center',
     marginRight:10,
+
   },
   closeCover:{
-    width:55,
-    height:55,
+    width:45,
+    height:45,
     // position:'absolute',
     bottom:hp('-3%'),
     alignSelf:'center',
@@ -64,7 +66,7 @@ const styles = StyleSheet.create({
     width:35,
     height:35,
     borderRadius:100,
-    backgroundColor:"rgba(217, 217, 217, 1)",
+    // backgroundColor:"rgba(217, 217, 217, 1)",
     justifyContent:'center',
     alignItems:'center',
     marginRight:10,
@@ -73,31 +75,54 @@ const styles = StyleSheet.create({
   flexDirection:'row',
   justifyContent:'flex-start',
   alignItems:'center',
-  paddingHorizontal:20,
-  paddingVertical:10,
-  borderBottomWidth:1,
-  borderBottomColor:"#f5f5f5",
+  paddingHorizontal:3,
+  alignSelf:'flex-start',
+  paddingVertical:3,
+  backgroundColor:'#f5f5f5',
+  borderRadius:30,
+  width:'50%',
+  marginLeft:40,
+  borderWidth:1,
+  borderColor:'#f5f5f5',
+  elevation:2,
+  shadowColor:'#fff'
+
 
   },
   cardCoverSm:{
     flexDirection:'row',
     justifyContent:'flex-start',
     alignItems:'center',
-    paddingHorizontal:20,
-    paddingVertical:10,
+    paddingHorizontal:3,
+    paddingVertical:3,
+    alignSelf:'flex-end',
+    backgroundColor:'#f5f5f5',
+    borderRadius:30,
+    width:'50%',
+    marginTop:5,
+    marginRight:40,
+    borderWidth:1,
+    borderColor:'#f5f5f5',
+    elevation:2,
+    shadowColor:'#fff'
 
   
     },
   cardText:{
     color:"rgba(27, 27, 31, 1)",
     fontSize: 16,
-    fontFamily: "AnekLatin-SemiBold",
+    fontFamily: "Playfair-Regular",
     lineHeight: 24,
+  },
+  sgImg:{
+    width:35,
+    height:35,
+    borderRadius:100,
   },
   cardTextSm:{
     color:"rgba(27, 27, 31, 1)",
-    fontSize: 16,
-    fontFamily: "AnekLatin-Regular",
+    fontSize: 14,
+    fontFamily: "Playfair-Regular",
     lineHeight: 24,
   },
   imageHolder: {
@@ -109,7 +134,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#B48F40',
     marginTop: 10,
-    fontFamily: "Urbanist-SemiBold",
+    fontFamily: "Playfair-Regular",
     letterSpacing: 0.1,
     marginBottom: 5,
     lineHeight: 24,
@@ -125,7 +150,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
     color: '#424242',
     marginTop: 10,
-    fontFamily: "Urbanist-Regular",
+    fontFamily: "Playfair-Regular",
     letterSpacing: 0.25,
     fontStyle:'normal',
     fontWeight:"400",

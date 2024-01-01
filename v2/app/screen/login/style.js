@@ -83,7 +83,7 @@ export default styles = StyleSheet.create({
         flex: 1
     },
     formInputFieldFlex: {
-        flex: 0.8
+        flex: 0.7
     },
     dropDownTextInput:{
         justifyContent: "space-between",

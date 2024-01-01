@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from '../style';
 import {getPopularProducts} from '@Request2/PopularProducts';
 import { cleanPopularProducts } from "@Store2/PopularProducts";
-import CatelogueCardPlaceholder from "../../Catalogue/CatelogueCardPlaceholder"
+import CatelogueCardPlaceholder from "../../SupportGroup/CatelogueCardPlaceholder"
 import Icon from 'react-native-vector-icons/Feather';
 import {
     SuccessMsgViewTwo,

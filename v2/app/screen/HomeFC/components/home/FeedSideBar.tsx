@@ -10,8 +10,8 @@ import {
   ViewStyle
 } from 'react-native';
 import Colors from '../../constants/Colors';
-import abbreviateNum from '../../utils/abbreviateNum';
-import { gw } from '../../utils/responsive';
+import abbreviateNum from '../../CategoryDetails/utils/abbreviateNum';
+import { gw } from '../../CategoryDetails/utils/responsive';
 
 interface Props {
   style: StyleProp<ViewStyle>;

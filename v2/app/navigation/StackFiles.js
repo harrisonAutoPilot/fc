@@ -19,6 +19,7 @@ import RegConfirm from "@Screen2/Customers/Registration/RegConfirm";
 import LicencePreview from "@Screen2/Customers/Registration/LicencePreview"
 import StorePreview from "@Screen2/Customers/Registration/StorePreview"
 import SoftUpdate from "@Screen2/SoftUpdate";
+import Catalogue from "@Screen2/Catalogue";
 import HomeDetails from "@Screen2/HomeDetails";
 
 
@@ -54,16 +55,14 @@ import FormImageUploadSignUp from '@Screen2/signup/FormImageUpload';
 import FormConfirmPinDetailsSignUp from '@Screen2/signup/FormConfirmPinDetails';
 import PhoneVerification from '@Screen2/signup/PhoneVerification';
 import ContactSupport from "@Screen2/contactSupport";
+import SupportGroup from "@Screen2/SupportGroup"
+import PosterProfile from "@Screen2/PosterProfile"
 import AwaitVerification from '@Screen2/signup/awaitVerification';
 import SignUpSuccess from '@Screen2/signup/signUpSuccess';
 import Settings from "@Screen2/settings";
-// import ContactManager from "@Screen2/contactManager";
-// import SearchCart from "@Screen2/cartSearch"
+import BookReader from "@Screen2/BookReader"
+import AddPost from "@Screen2/addPost"
 
-// import OrderDetails from "@Screen2/orderDetails";
-// import OrderStatus from "@Screen2/order/orderStatus";
-// // import Deals from "@Screen2/products/Deals";
-// import Order from "@Screen2/order";
 
 const RootStack = createStackNavigator();
 const LoginStack = createStackNavigator();
@@ -111,6 +110,12 @@ export const RootStackNavigator = () => {
                 <RootStack.Screen name="Root" component={TabHomeNavigator} />
                 <RootStack.Screen name="AwaitVerification" component={ AwaitVerification} />
                 <RootStack.Screen name="HomeDetails" component={HomeDetails} />
+                <RootStack.Screen name="PosterProfile" component={PosterProfile} />
+                <RootStack.Screen name="SupportGroup" component={SupportGroup} />
+                <RootStack.Screen name="BookReader" component={BookReader} />
+                <RootStack.Screen name="AddPost" component={AddPost} />
+                <RootStack.Screen name="Catalogue" component={Catalogue} />
+             
             </RootStack.Group>
             {/* <RootStack.Group>
                 <RootStack.Screen name="ActivityReport" component={ActivityReport} />

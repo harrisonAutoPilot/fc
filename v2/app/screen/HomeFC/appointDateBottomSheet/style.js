@@ -1,6 +1,9 @@
 import { StyleSheet, Dimensions, Platform } from "react-native";
 
-
+import {
+    heightPercentageToDP as hp,
+    widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 const styles = StyleSheet.create({
 
     container:{
@@ -141,8 +144,70 @@ issueDate:{
     fontFamily: "AnekLatin-Medium",
     color: "purple",
     letterSpacing: 0.25, 
-}
-    
+},
+issueDateNew:{
+    fontSize: 16,
+    fontFamily: "AnekLatin-Medium",
+    color: "purple",
+    letterSpacing: 0.25, 
+    marginTop:-10,
+    marginBottom:10
+},
+dateContainer:{
+    paddingHorizontal:20,
+    padding:10,
+},
+inputContainer:{
+    width:wp('90%'),
+    height:180,
+    borderWidth:1,
+    borderColor:"#bfbfbf",
+    borderRadius:4,
+    alignSelf:'center',
+    borderWidth:1,
+    borderColor:'#1B1B1F'
+  },
+  input:{
+    padding:20,
+    fontSize: 16,
+    fontFamily: "AnekLatin-Regular",
+    color: "#1B1B1F",
+    letterSpacing: 0.25, 
+    textAlignVertical: 'top',
+  },
+  
+  confirmCover:{
+    width: '95%',
+    paddingHorizontal: 50,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    borderRadius: 30,
+    backgroundColor: '#99cb01',
+    alignItems: 'center',
+    alignSelf:'center', 
+    marginTop:20
+  },
+  confirmText:{
+    fontSize: 14,
+    fontFamily: 'AnekLatin-Medium',
+    lineHeight: 20,
+    color: '#fff',
+    letterSpacing: 0.1,
+    marginRight: 10,
+  },
+  confirmCoverChange:{
+    width: '90%',
+    paddingHorizontal: 50,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    borderRadius: 30,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    alignSelf:'center', 
+    marginTop:20
+  },
 });
 
 export default styles

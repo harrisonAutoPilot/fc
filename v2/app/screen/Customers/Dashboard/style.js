@@ -105,20 +105,20 @@ subHeader:{
     backgroundColor:'#fff',
 },
 activeSubHeader:{
-    width: wp("30%"),
+    width:wp("24%"),
     borderBottomWidth: 4,
-    borderColor: 'rgba(51, 83, 203, 1)',
-    padding: 20,
+    borderColor: '#99cb01',
+    padding: 5,
     alignSelf:"center",
     alignItems:"center",
     justifyContent:'center',
    
 },
 activeSubHeader2:{
-  width: wp("30%"),
+  width:wp("24%"),
   borderBottomWidth: 4,
   borderColor: 'rgba(51, 83, 203, 1)',
-  padding: 10,
+  padding: 5,
   alignSelf:"center",
   alignItems:"center",
   justifyContent:'center',
@@ -126,10 +126,10 @@ activeSubHeader2:{
  
 },
 inActiveSubHeader:{
-    width:wp("30%"),
+    width:wp("24%"),
     borderBottomWidth: 0,
     borderColor: 'transparent',
-    padding: 20,
+    padding: 5,
     alignSelf:"center",
     alignItems:"center",
     justifyContent:'center',
@@ -139,7 +139,7 @@ inActiveSubHeader2:{
   width:wp("30%"),
   borderBottomWidth: 4,
   borderColor: 'transparent',
-  padding: 10,
+  padding: 5,
   alignSelf:"center",
   alignItems:"center",
   justifyContent:'center',
@@ -149,7 +149,7 @@ activeSubHeaderText:{
     fontSize: 12,
     fontFamily: 'AnekLatin-SemiBold',
     lineHeight: 20,
-    color: 'rgba(51, 83, 203, 1)',
+    color: '#99cb01',
     letterSpacing: 0.2,
     textTransform: 'uppercase',
 },
@@ -251,7 +251,7 @@ bottomCover:{
     alignItems: 'center',
     paddingTop: 10,
     backgroundColor:'#f5f5f5',
-    height:Platform.OS === 'ios' ? hp('75%') : hp('73%'),
+    height:Platform.OS === 'ios' ? hp('75%') : hp('80%'),
 },
 descCover:{
 width:wp('60%'),
@@ -300,5 +300,131 @@ tnLine:{
   backgroundColor:'#e6e6e6',
   marginVertical:3
 },
+// this is for the new card
+sentCard:{
+  width:wp('92%'),
+  backgroundColor:'#fff',
+  borderRadius:4,
+  flexDirection:'row',
+  justifyContent:'space-between',
+  padding:10,
+  paddingVertical:20,
+  marginBottom:10,
+},
+sentCardInnerLeft:{
+  width:wp('60%'),
+  flexDirection:'row',
+  justifyContent:"flex-start",
 
+},
+calendarCard:{
+  borderRadius:4,
+  alignItems:'center'
+},
+calendarImg:{
+  width:60,
+  height:60,
+  resizeMode:'contain',
+  borderRadius:100 
+},
+sentCardContentLeft:{
+  paddingLeft:10,
+  marginTop:-5
+},
+counsellorName:{
+  fontSize: 14,
+  fontFamily: 'AnekLatin-Medium',
+  lineHeight: 20,
+  color: '#1B1B1F',
+  letterSpacing: 0.2,
+},
+counselDate:{
+  fontSize: 12,
+  fontFamily: 'AnekLatin-Regular',
+  lineHeight: 20,
+  color: '#1B1B1F',
+  letterSpacing: 0.2,
+},
+bottomMenu:{
+  flexDirection:'row',
+  justifyContent:'flex-start',
+  marginTop:5
+},
+smFlex:{
+  flexDirection:'row',
+  justifyContent:'space-between',
+  marginRight:10
+},
+countText:{
+  color: '#454545',
+  fontSize: 12,
+  fontFamily: "AnekLatin-Regular",
+  marginLeft:5
+},
+titleContainer:{
+  paddingHorizontal:10,
+  paddingVertical:5
+},
+statusCover:{
+  paddingHorizontal:10,
+  height:18,
+  backgroundColor:'#D83939',
+  alignItems:'center',
+  justifyContent:'center',
+  borderRadius:2,
+  
+},
+statusCoverScheduled:{
+  paddingHorizontal:10,
+  height:18,
+  backgroundColor:'green',
+  alignItems:'center',
+  justifyContent:'center',
+  borderRadius:2,
+  
+},
+statusCoverIn:{
+  paddingHorizontal:10,
+  height:18,
+  backgroundColor:'#e68a00',
+  alignItems:'center',
+  justifyContent:'center',
+  borderRadius:2,
+  
+},
+statusText:{
+  color: '#fff',
+  fontSize: 10,
+  fontFamily: "AnekLatin-Regular",
+  marginTop:-2,
+  textTransform:'capitalize'
+
+},
+timerCover:{
+  width:30,
+  height:30,
+  alignItems:'center',
+  justifyContent:'center',
+  padding:5,
+  borderRadius:100,
+  position:'absolute',
+  backgroundColor:'#fff',
+  right:-2,
+  top:40,
+},
+noVideoCover:{
+  width:60,
+  height:60,
+  // borderRadius:100,
+  position:'absolute',
+  alignItems:'center',
+  justifyContent:'center',
+  top:20,
+  right:10,
+},
+callImg:{
+  width:50,
+  height:50,
+  // borderRadius:100,
+}
 })

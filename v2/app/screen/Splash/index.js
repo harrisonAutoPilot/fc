@@ -1,34 +1,49 @@
-import React from "react";
-import { View, StatusBar, Animated, Easing } from "react-native";
+import React, { useEffect,useState, useRef} from 'react';
+import { View, StatusBar,Text, Animated,Image, Easing } from "react-native";
+import LottieView from 'lottie-react-native'
 import styles from "./style";
 
 const SplashScreen = () => {
-    const spinValue = new Animated.Value(0);
 
-    Animated.loop(
-        Animated.timing(
-            spinValue,
-            {
-                toValue: 1,
-                duration: 3000,
-                easing: Easing.linear,
-                useNativeDriver: true
-            }
-        )).start()
+    const [animated, setAnimated] = useState(new Animated.Value(150))
 
-    const spin = spinValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['0deg', '360deg']
-    })
+
+
+    useEffect(() => {
+        Animated.spring(animated,{
+            toValue:200,
+            duration:2000,
+            friction:1,
+            tension:20,
+            useNativeDriver:true
+          }).start();
+    }, []);
+
+   
+    const animatedStyle = { transform: [  {translateY:animated} ] };
+
     return (
         <View style={styles.body}>
             <StatusBar hidden />
             <View style={styles.imageHolder}>
-            <Animated.Image
-                       
-                        source={require("@Assets/image/rh_logo_splashscreen.png")} 
-                        style={[styles.image, {transform: [{ rotate: spin }], width: 100,
-                        height: 100}]} resizeMode="contain"  />
+            <LottieView     
+                source={require("@Assets2/image/initiativeCompany.json")} 
+                style={{flex:1, alignItems:'center', margin:0}} 
+                autoPlay
+                loop={true}
+                resizeMode="cover" 
+                 />
+           <Animated.View style={[styles.middleContainer, animatedStyle]}>
+            <Image     
+                source={require("@Assets2/image/mee.jpg")} 
+                style={{width:70, height:70, borderRadius:100}} 
+                resizeMode="cover" 
+                 /> 
+           <Text style={styles.fText}>FC</Text>
+            </Animated.View>
+            <View style={styles.bottomCover}>
+            <Text style={styles.cText}>Faceless Counselling</Text>
+            </View>
             </View>
         </View>
     )

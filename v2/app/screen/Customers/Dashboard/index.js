@@ -17,6 +17,9 @@ import {useFocusEffect} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './style';
 import InActive from './Inactive';
+import Sent from './sent'
+import Incoming from "./incoming"
+import Scheduled from "./scheduled"
 import Pending from './Pending';
 import Active from './Active';
 import {getCustomers} from '@Request2/Customer';
@@ -70,11 +73,11 @@ const CustomersDashboard = props => {
   return (
     <SafeAreaView style={styles.safeAreaStyle}>
     <View style={styles.view}>
-        <StatusBar barStyle="dark-content" backgroundColor='#fff' hidden={false} />
+        <StatusBar barStyle="dark-content" backgroundColor='#fff' hidden={true} />
       <View style={styles.topNav}>
         <View style={styles.leftNav}>
           <View style={styles.greetCover}>
-            <Text style={styles.nameText}>Customers</Text>
+            <Text style={styles.nameText}>Appointment</Text>
           </View>
         </View>
         <View style={styles.rightNav}>
@@ -113,7 +116,7 @@ const CustomersDashboard = props => {
                     : styles.inActiveSubHeaderText,
                   styles.miniSubHeaderText,
                 ]}>
-                PENDING
+                SENT
               </Text>
             </View>
             <View style={styles.firstInnerHeader}>
@@ -138,7 +141,7 @@ const CustomersDashboard = props => {
                   : styles.inActiveSubHeaderText,
                 styles.miniSubHeaderText,
               ]}>
-              ACTIVE
+              INCOMING
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -159,17 +162,40 @@ const CustomersDashboard = props => {
                   : styles.inActiveSubHeaderText,
                 styles.miniSubHeaderText,
               ]}>
-              INACTIVE
+            SCHEDULED
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              activeId === 4
+                ? styles.activeSubHeader
+                : styles.inActiveSubHeader,
+              styles.miniSubHeader,
+            ]}
+            onPress={() => {
+              showActive(4);
+              setSearch('');
+            }}>
+            <Text
+              style={[
+                activeId === 4
+                  ? styles.activeSubHeaderText
+                  : styles.inActiveSubHeaderText,
+                styles.miniSubHeaderText,
+              ]}>
+            RECURRENT
             </Text>
           </TouchableOpacity>
         </View>
 
         {activeId === 1 ? (
-          <Pending details={reg_details} props={props} result={result} />
+          <Sent details={reg_details} props={props} result={result} />
         ) : activeId === 2 ? (
-          <Active details={custom_details} props={props} result={result} />
+          <Incoming details={custom_details} props={props} result={result} />
         ) : activeId === 3 ? (
-          <InActive details={custom_details} props={props} result={result} />
+          <Scheduled details={custom_details} props={props} result={result} />
+        ) : activeId === 4 ? (
+          <Pending details={custom_details} props={props} result={result} />
         ) : null}
       </View>
     </View>

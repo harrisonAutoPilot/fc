@@ -125,15 +125,17 @@ const FormDetails = ({ navigation }) => {
                                                     title="Password"
                                                     placeholder=""
                                                     placeholderTextColor="#757575"
-                                                    name="other_name"
+                                                    name="password"
+                                                    secureTextEntry
                                                     {...props}
                                                     width="100%"
                                                 />
                                                  <InputField
                                                     title="Confirm Password"
                                                     placeholder=""
+                                                    secureTextEntry
                                                     placeholderTextColor="#757575"
-                                                    name="other_name"
+                                                    name="c_password"
                                                     {...props}
                                                     width="100%"
                                                 />

@@ -6,41 +6,45 @@ import greater from '../assets/greater.jpeg'
 import wounded from '../assets/cb1c6c230ce21bf2.jpg'
 import abraham from '../assets/abraham.jpeg'
 import kid from '../assets/kid.jpeg'
-import book from '../assets/book.jpeg'
+import seb from '../asset/image/SEB-PIC-400x400.jpg'
 import baba from '../assets/baba.jpeg'
 import koi from '../assets/koi.jpeg'
-import rela from '../assets/rela.jpeg'
-import issue from '../assets/issue1.jpg'
+import redeem from '../asset/image/Rccg_logo.png'
+import kenny from '../asset/image/1663153221711.jpeg'
 import vd1 from '../assets/3700e6d86669441f.mp4'
 import vd2 from '../assets/3480cf6ea72b7c47.mp4'
 import vd3 from '../assets/27e6c97320d6c59e.mp4'
-import whaa from '../assets/whaaa.mp4'
+
+
+import diabetes from '../asset/image/gggb.jpeg'
+import marriage from '../asset/image/190509-child-marriages-main-kh.jpg'
+import raap from '../asset/image/channels4_profile.jpg'
 
 export const group = [
     {
         id: '1',
-        organization: 'My Scars',
-        title: 'Dealing with masterbation - how to overcome it',
-        users: 70,
-        image_url: issue,
+        title: 'Dealing with diabetes',
+        members: 1240,
+        image_url: diabetes,
         iconName: 'location-pin',
-        poster_img: wounded,
+        role:'Host',
+        time:'Wed, Fri',
+        host_img: wounded,
         host: 'Sage',
         post_title: 'Rejections made me stronger',
         post_desc: 'In this life, i have gone through alot of challenges, that i really didnt believe that i could skale through. the truth is that you dont know how strong you are until being strong is your only optionss',
-        post_date: '3 days ago',
-        post_like: '12',
-        post_relate: '4',
-        video: vd1
+      
     },
     {
         id: '2',
         organization: 'Wounded Healers',
-        title: 'The challenges of early marriage and how to survive it',
-        users: 46,
-        image_url: issue,
+        title: 'The challenges of early marriage',
+        members: 570,
+        time:'Fri',
+        role:'Member',
+        image_url: marriage,
         iconName: 'location-pin',
-        poster_img: wounded,
+        host_img: wounded,
         host: 'DeepLola',
         post_title: 'if only we understood',
         post_desc: 'this is where we all have to agree that in relationship, we have to exercise what i call the 3 MAIN RECIPIES. First is communication',
@@ -52,12 +56,14 @@ export const group = [
     {
         id: '3',
         organization: 'Closure Closet',
-        users: 38,
-        title: 'I was raped',
-        image_url: sebMessage,
+        time:'Tue, Thur',
+        title: 'Koinonia Prayer Department',
+        members: 1200,
+        role:'Member',
+        image_url: raap,
         iconName: 'location-pin',
-        poster_img: abraham,
-        host: 'Gnexdor',
+        host_img: kenny,
+        host: 'Kehinde Omole',
         post_title: 'Dont Give up',
         post_desc: 'Your never giving up altitude will, make your enemies give up on you. A story was once told about a your man from Ogwashi-uku village is Delta state',
         post_date: '4 days ago',
@@ -68,10 +74,13 @@ export const group = [
     {
         id: '4',
         organization: 'I AM NOT A MISTAKE',
-        title: 'Incest - Who and how to deal with it',
-        users: 41,
-        poster_img: kid,
-        host: 'FaithIt',
+        title: 'Redeem - New Convert Follow Up',
+        members: 902,
+        host_img: seb,
+        image_url: redeem,
+        time:'Thur',
+        role:'Host',
+        host: 'Sebastine Okonofua',
         post_title: 'The way to greatness',
         post_desc: 'Indeed the way to greatness is just one step out of our comfort zone',
         post_date: 'a week ago',
@@ -84,9 +93,11 @@ export const group = [
         id: '5',
         organization: 'sobrity',
         title: 'I drank a little too much',
-        users: 68,
+        members: 210,
+        time:'Mon, Fri',
         iconName: 'location-pin',
-        poster_img: kid,
+        image_url: diabetes,
+        host_img: kid,
         host: 'Mike & Her',
         post_title: 'All blessing is from God',
         post_desc: 'Your never giving up altitude will, make your enemies give up on you. A story was once told about a your man from Ogwashi-uku village is Delta state',
@@ -98,11 +109,13 @@ export const group = [
     {
         id: '6',
         organization: 'Soft truth',
-        title: 'How to deal with smoking in the 21st century',
-        users: 112,
+        title: 'smoking in the 21st century',
+        members: 455,
         iconName: 'location-pin',
-        poster_img: kid,
-        poster_img: abraham,
+        time:'Wed',
+        image_url: diabetes,
+        host_img: kid,
+        host_img: abraham,
         host: 'BlueDream',
         post_title: 'All blessing comes from God, through men',
         post_desc: 'this is where we all have to agree that...',

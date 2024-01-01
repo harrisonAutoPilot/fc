@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import styles from '../style';
 import {getBackInStock} from "@Request2/BackInStock"
 import { cleanupBackInStockStatus } from "@Store2/backInStock";
-import CatelogueCardPlaceholder from "../../Catalogue/CatelogueCardPlaceholder"
+import CatelogueCardPlaceholder from "../../SupportGroup/CatelogueCardPlaceholder"
 
 import {
     SuccessMsgViewTwo,

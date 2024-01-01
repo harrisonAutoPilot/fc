@@ -134,7 +134,7 @@ const FormPhoneDetails = ({ navigation }) => {
 
         setLoader(true);
 
-        dispatch(checkPhoneDetails({ phone: `${data.code}${data.phone}` }))
+        dispatch(checkPhoneDetails({ phone: `${234}${data.phone}` }))
             .unwrap()
             .then((suc) => {
 
@@ -208,16 +208,17 @@ const FormPhoneDetails = ({ navigation }) => {
 
                                             <View style={styles.inputFieldView}>
 
-                                                <CountryCodeDropdown
-                                                dropDown={() =>showDropDownBottomSheet(props, "code")}
-                                                    {...props}
+                                            <CountryCodeDropdown
+                                                    dropDown={() =>showDropDownBottomSheet(props, "code")}
                                                     width={"30%"}
-                                                    placeholder="+000"
+                                                    {...props}
+                                                    placeholder="+234"
                                                     name="code"
                                                     title="Code"
                                                     add={add}
-                                                />
+                                                    
 
+                                                />
                                                 <InputField
                                                     title="Phone"
                                                     placeholder="8094XXXXXX"

@@ -453,4 +453,14 @@ justifyContent:'center'
             alignSelf:'center',
             alignItems:'center'
         },
+        scrollFlex:{
+            flexDirection:'row'
+        },
+    capCover:{
+        width:60,
+        height:60,
+       borderRadius:100,
+       backgroundColor:'#00b300',
+       zIndex:900,
+        }
 })

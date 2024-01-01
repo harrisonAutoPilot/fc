@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     pinInputHolder: {
-        paddingVertical: Platform.OS === "ios" ? 25 : 5,
+        paddingVertical: Platform.OS === "ios" ? 25 : 20,
         paddingHorizontal: 10,
         marginTop: 15,
         borderRadius: 5,

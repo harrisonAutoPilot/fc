@@ -1,10 +1,12 @@
 import 'react-native-gesture-handler';
 import React, {useState, useRef} from "react";
-import { View,Image, Text} from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import { View,Image, Text,TextInput, TouchableOpacity} from "react-native";
+// import Icon from "react-native-vector-icons/MaterialIcons";
 import { Calendar } from 'react-native-calendars';
 import BottomSheet from "react-native-gesture-bottom-sheet";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './style'
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const AppointmentDateBottomSheet = (props) => {
@@ -13,12 +15,13 @@ const AppointmentDateBottomSheet = (props) => {
     const [startDate, setStartDate] = useState("")
     const [endDate, setEndDate] = useState("")
     const [fromDate, setFromDate] = useState("")
+    const [showNote, setShowNote] = useState(false)
     const [toDate, setToDate] = useState("")
     const [displayFrom, setDisplayFrom] = useState(true)
     const [displayTo, setDisplayTo] = useState(false)
+    const [note, setNote] = useState("")
 
-
-    console.log("the appointment details", item)
+    // console.log("the appointment details", item)
 
     const setPropsPeriod = (id) => {
         console.log("the period ...", id)
@@ -47,9 +50,10 @@ const AppointmentDateBottomSheet = (props) => {
 
     return (
   
-                 <BottomSheet sheetBackgroundColor="#fff"  hasDraggableIcon ref={props.bottomSheetRefStart} height={600} >
+                 <BottomSheet sheetBackgroundColor="#fff"  hasDraggableIcon ref={props.bottomSheetRefStart} height={580} >
 
-                    <View style={styles.bottomSheet}>
+                  <ScrollView style={{flex:1}}>
+                  <View style={styles.bottomSheet}>
                         <View style={styles.topContainer}>
                         <Image
                            style={styles.userImg} 
@@ -68,13 +72,22 @@ const AppointmentDateBottomSheet = (props) => {
                             <Text style={styles.issues}>Marriage Dispute (Family)</Text>
                             <Text style={styles.issues}>Relationship </Text>
                             <Text style={styles.issues}>Depression & Addiction</Text>
-                            <Text style={styles.issueDate}>Pick an a Date for Faceless Counseling</Text>
+                            { !showNote  ?
+                           <View>
+                             <Text style={styles.issueDate}>Pick a Date for Faceless Counseling</Text>
+                          </View>
+                            :
+                            null
+                            }
                         </View>
+                    { !showNote  ?
                     <Calendar
                         onDayPress={day => {
                         // setFromDate(day?.dateString);
                         // props.startDate(day?.dateString)
-                        props.close()
+                        setStartDate(day?.dateString)
+                        setShowNote(true)
+                        // props.close()
                         }}
                         // markedDates={{
                         // [fromDate]: {selected: true, disableTouchEvent: true, selectedColor: 'rgba(51, 83, 203, 1)'}
@@ -97,8 +110,40 @@ const AppointmentDateBottomSheet = (props) => {
                             '2023-11-30': {selected: true, marked: true, selectedColor: 'purple'},
                           }}
                     />
+                      :
+                      <View style={styles.dateContainer}>
+                     
+                     <Text style={styles.issueDateNew}>Selected Date : {startDate}</Text>
+                        <View style={styles.inputContainer}>
+                            <TextInput
+                            style={styles.input}
+                            placeholder='Add a short note to your request (optional)'
+                            value={note}
+                            onChangeText={text=>setNote(text)}
+                            multiline={true}
+                            numberOfLines={10}
+                            />
+                            </View>
+                        
+                      <TouchableOpacity
+                       onPress={() => setShowNote(false)}
+                        style={styles.confirmCoverChange}>
+                            
+                            <Text style={styles.confirmText}>Change Appointment Date</Text>
+                            <Icon name="calendar" size={16} color="#fff" />
+                      </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={styles.confirmCover}>
+                            
+                            <Text style={styles.confirmText}>Make Appointment</Text>
+                            <Icon name="calendar-check" size={16} color="#fff" />
+                      </TouchableOpacity>
                        
                     </View>
+                        }
+                    </View>
+                  </ScrollView>
     
                 </BottomSheet>
 
