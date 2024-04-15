@@ -1,17 +1,36 @@
 export default slides = [
     {
-        id: "pharmacy",
-        title: "For Pharmacies",
-        desc: "Shop or hospital dispensary where medicinal drugs are prepared or sold."
+        id: "Family",
+        title: "Family",
+      
     },
     {
-        id: "chemist",
-        title: "For Chemists",
-        desc: "Shop where medicinal drugs are sold, and in which toiletries and other medical goods are purchased."
+        id: "Relationship",
+        title: "Relationship",
+      
     },
     {
-        id: "hospital",
-        title: "For Hospitals",
-        desc: "Health care institution providing treatment with specialized health science."
+        id: "Finance",
+        title: "Finance",
+       
+    },
+    {
+        id: "Career",
+        title: "Career",
+    },
+    {
+        id: "Health",
+        title: "Health",
+       
+    },
+    {
+        id: "Prayer",
+        title: "Prayer",
+       
+    },
+    {
+        id: "Good News",
+        title: "Good News",
+       
     }
 ]

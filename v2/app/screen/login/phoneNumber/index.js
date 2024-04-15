@@ -38,7 +38,7 @@ const Login = (props) => {
 
 
     const loginState = {
-        phone: "",
+        email: "",
         code: ""
     
     };
@@ -87,7 +87,7 @@ const Login = (props) => {
 
 
     const submit = async (data) => {
-        const newData = { phone: `${'234'}${data.phone}` }
+        const newData = { email: data.email }
       
         props.navigation.navigate("Pin", { data: newData });
 
@@ -137,28 +137,13 @@ const Login = (props) => {
 
                                             <View style={styles.inputFieldView}>
 
-                                                <CountryCodeDropdown
-                                                    dropDown={() =>showDropDownBottomSheet(props, "code")}
-                                                    width={"30%"}
-                                                    {...props}
-                                                    placeholder="+234"
-                                                    name="code"
-                                                    title="Code"
-                                                    add={add}
-                                                    
-
-                                                />
-
-                                                <InputField
-                                                    title="Phone"
-                                                    placeholder="8094XXXXXX"
+                                            <InputField
+                                                    title="Email"
+                                                    placeholder="ebube@gmail.com"
                                                     placeholderTextColor="#757575"
-                                                    keyboardType="number-pad"
-                                                    maxLength={11}
-                                                    name="phone"
+                                                    name="email"
                                                     {...props}
-                                                    width="65%"
-                        
+                                                    width="100%"
                                                 />
 
                                             </View>

@@ -2,7 +2,8 @@ import * as yup from "yup";
 
 
 const loginSchema = yup.object({
-    phone: yup.number().required("Required").test('len', 'Invalid Phone Number', val => {if(val) return (val.toString().length === 10) || (val.toString().length === 11 )}),
+  email: yup.string().trim().required("Email is required").email(),
+    // phon: yup.number().required("Required").test('len', 'Invalid Phone Number', val => {if(val) return (val.toString().length === 10) || (val.toString().length === 11 )}),
     // code: yup.number().required("Required")
 
 });
@@ -41,6 +42,15 @@ const addStoreSchema2 = yup.object({
 const nameSignupSchema = yup.object({
   firstname: yup.string().trim().required("Required"),
   lastname: yup.string().trim().required("Required")
+
+});
+
+const userSignupSchema = yup.object({
+  username: yup.string().trim().required("Required"),
+  email: yup.string().trim().required("Email is required").email(),
+  phone: yup.number().required("Required").test('len', 'Invalid Phone Number', val => {if(val) return (val.toString().length === 10) || (val.toString().length === 11 )}),
+  new_password: yup.number().required("Pin is required").test('len', 'Pin should be exactly 4 digits', val => {if(val) return val.toString().length === 4}),
+  retype_password: yup.number().required("Pin is required").oneOf([yup.ref('new_password'), null], 'Pins must match'),
 
 });
 
@@ -89,4 +99,4 @@ const addTeamSchema = yup.object({
 
 
 
-export { loginSchema,changePinSchema, checkSignupSchema,registerSchema, stateSignupSchema, pinSchema,requestSchema, nameSignupSchema, emailSignupSchema,addStoreSchema2, storeSignupSchema, reviewSchema, addTeamSchema }
+export { loginSchema,changePinSchema, checkSignupSchema,registerSchema, stateSignupSchema, pinSchema,requestSchema, nameSignupSchema,userSignupSchema, emailSignupSchema,addStoreSchema2, storeSignupSchema, reviewSchema, addTeamSchema }

@@ -9,7 +9,8 @@ export default styles = StyleSheet.create({
     mainBody: {
         paddingTop: 1,
         backgroundColor: "#fff",
-        height: hp('80%'),
+        // height: hp('100%'),
+        flex:1
  
     },
     main:{

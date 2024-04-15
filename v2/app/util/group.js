@@ -1,14 +1,9 @@
-import joy from '../assets/13fd344331122ef5.png'
-import relationship_issue from '../assets/abbuu.jpg'
-import sam from '../assets/sam.jpeg'
-import sebMessage from '../assets/sebMessage.jpeg'
-import greater from '../assets/greater.jpeg'
+
 import wounded from '../assets/cb1c6c230ce21bf2.jpg'
 import abraham from '../assets/abraham.jpeg'
 import kid from '../assets/kid.jpeg'
 import seb from '../asset/image/SEB-PIC-400x400.jpg'
-import baba from '../assets/baba.jpeg'
-import koi from '../assets/koi.jpeg'
+
 import redeem from '../asset/image/Rccg_logo.png'
 import kenny from '../asset/image/1663153221711.jpeg'
 import vd1 from '../assets/3700e6d86669441f.mp4'
@@ -26,6 +21,7 @@ export const group = [
         title: 'Dealing with diabetes',
         members: 1240,
         image_url: diabetes,
+        requestId:'00677443',
         iconName: 'location-pin',
         role:'Host',
         time:'Wed, Fri',
@@ -39,6 +35,7 @@ export const group = [
         id: '2',
         organization: 'Wounded Healers',
         title: 'The challenges of early marriage',
+        requestId:'00674423',
         members: 570,
         time:'Fri',
         role:'Member',
@@ -57,6 +54,7 @@ export const group = [
         id: '3',
         organization: 'Closure Closet',
         time:'Tue, Thur',
+        requestId:'35637443',
         title: 'Koinonia Prayer Department',
         members: 1200,
         role:'Member',
@@ -76,6 +74,7 @@ export const group = [
         organization: 'I AM NOT A MISTAKE',
         title: 'Redeem - New Convert Follow Up',
         members: 902,
+        requestId:'00677743',
         host_img: seb,
         image_url: redeem,
         time:'Thur',
@@ -95,6 +94,7 @@ export const group = [
         title: 'I drank a little too much',
         members: 210,
         time:'Mon, Fri',
+        requestId:'00670003',
         iconName: 'location-pin',
         image_url: diabetes,
         host_img: kid,
@@ -112,6 +112,7 @@ export const group = [
         title: 'smoking in the 21st century',
         members: 455,
         iconName: 'location-pin',
+        requestId:'02227443',
         time:'Wed',
         image_url: diabetes,
         host_img: kid,

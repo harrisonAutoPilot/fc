@@ -14,10 +14,10 @@ import CheckOut from "@Screen2/Checkout";
 import CustomerDetails from "@Screen2/Customers/AccountDetails";
 import CustomerRegistration from "@Screen2/Customers/Registration";
 // import CheckoutSuccess from "@Screen2/CheckoutSuccess";
-import CustomerSuccess from "@Screen2/CustomerSuccess";
-import RegConfirm from "@Screen2/Customers/Registration/RegConfirm";
-import LicencePreview from "@Screen2/Customers/Registration/LicencePreview"
-import StorePreview from "@Screen2/Customers/Registration/StorePreview"
+// import CustomerSuccess from "@Screen2/CustomerSuccess";
+// import RegConfirm from "@Screen2/Customers/Registration/RegConfirm";
+// import LicencePreview from "@Screen2/Customers/Registration/LicencePreview"
+// import StorePreview from "@Screen2/Customers/Registration/StorePreview"
 import SoftUpdate from "@Screen2/SoftUpdate";
 import Catalogue from "@Screen2/Catalogue";
 import HomeDetails from "@Screen2/HomeDetails";
@@ -46,6 +46,7 @@ import Pin from '@Screen2/login/pin';
 import ForgotPin from '@Screen2/login/resetPin';
 import ResetPwdSuccess from '@Screen2/login/resetPin/resetPinSuccess';
 import SelectCategorySignUp from '@Screen2/signup/SelectCategory';
+import SelectVector from '@Screen2/signup/SelectVector'
 import FormDetailsSignUp from '@Screen2/signup/FormDetails';
 import FormEmailDetailsSignUp from '@Screen2/signup/FormEmailDetails';
 import FormPhoneDetailsSignUp from '@Screen2/signup/FormPhoneDetails';
@@ -61,7 +62,9 @@ import AwaitVerification from '@Screen2/signup/awaitVerification';
 import SignUpSuccess from '@Screen2/signup/signUpSuccess';
 import Settings from "@Screen2/settings";
 import BookReader from "@Screen2/BookReader"
-import AddPost from "@Screen2/addPost"
+import AddPost from "@Screen2/addPost";
+import FcCall from "@Screen2/FcCall"
+import UserProfile from "@Screen2/UserProfile"
 
 
 const RootStack = createStackNavigator();
@@ -85,14 +88,14 @@ export const SoftUpdateNavigator = () => {
 };
 
 
-export const PhoneVerificationStackNavigator = () => {
-    return (
-        <PhoneVerificationStack.Group>
-            <PhoneVerificationStack.Screen name="PhoneVerification" component={PhoneVerification} options={{ gestureEnabled: false, gestureDirection: "horizontal" }} />
-        </PhoneVerificationStack.Group>
+// export const PhoneVerificationStackNavigator = () => {
+//     return (
+//         <PhoneVerificationStack.Group>
+//             <PhoneVerificationStack.Screen name="PhoneVerification" component={PhoneVerification} options={{ gestureEnabled: false, gestureDirection: "horizontal" }} />
+//         </PhoneVerificationStack.Group>
 
-    )
-};
+//     )
+// };
 
 export const SplashStackNavigator = () => {
     return (
@@ -108,74 +111,18 @@ export const RootStackNavigator = () => {
         <>
             <RootStack.Group>
                 <RootStack.Screen name="Root" component={TabHomeNavigator} />
-                <RootStack.Screen name="AwaitVerification" component={ AwaitVerification} />
+                <RootStack.Screen name="AwaitVerification" component={AwaitVerification} />
                 <RootStack.Screen name="HomeDetails" component={HomeDetails} />
                 <RootStack.Screen name="PosterProfile" component={PosterProfile} />
                 <RootStack.Screen name="SupportGroup" component={SupportGroup} />
                 <RootStack.Screen name="BookReader" component={BookReader} />
                 <RootStack.Screen name="AddPost" component={AddPost} />
                 <RootStack.Screen name="Catalogue" component={Catalogue} />
+                <RootStack.Screen name="FcCall" component={FcCall} />
+                <RootStack.Screen name="UserProfile" component={UserProfile} />
              
             </RootStack.Group>
-            {/* <RootStack.Group>
-                <RootStack.Screen name="ActivityReport" component={ActivityReport} />
-            </RootStack.Group> */}
-
-            {/* <RootStack.Group>
-                <RootStack.Screen name="Settings" component={Settings} />
-                <RootStack.Screen name="LogReport" component={LogReport} />
-                <RootStack.Screen name="Contact" component={Contact} />
-                <RootStack.Screen name="CallHistory" component={CallHistory} />
-                <RootStack.Screen name="CallDetails" component={CallDetails} />
-                <RootStack.Screen name="ContactManager" component={ContactManager} />
-
-            </RootStack.Group>
-
-            <RootStack.Group>
-
-                <RootStack.Screen name="StoreSuccess" component={StoreSuccess} />
-            </RootStack.Group> */}
-
-              {/* <RootStack.Group>
-                <RootStack.Screen name="Order" component={Order} />
-                <RootStack.Screen name="OrderDetails" component={OrderDetails} />
-                <RootStack.Screen name="OrderStatus" component={OrderStatus}
-                 options={{
-                    gestureDirection: 'vertical',
-                    cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
-                 }}
-               />
-                <RootStack.Screen name="Review" component={Review}
-                    options={{
-                        gestureDirection: 'vertical',
-                        cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
-                    }}
-                /> */}
-                {/* <RootStack.Screen name="ViewReview" component={ViewReview}
-                    options={{
-                        gestureDirection: 'vertical',
-                        cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
-                    }}
-                /> */}
-         
-
-            {/* <RootStack.Group>
-                <RootStack.Screen name="IncompleteOrderDetails" component={InCompleteOrderDetails} />
-            </RootStack.Group> */}
-
-            {/* <RootStack.Group>
-                <RootStack.Screen name="Notification" component={Notification} />
-                <RootStack.Screen name="NotificationDetail" component={NotificationDetail} />
-                <RootStack.Screen name="ContactSupport" component={ContactSupport} />
-                
-            </RootStack.Group> */}
-
-     
-
-            {/* <RootStack.Group>
-                <RootStack.Screen name="TransactionDetail" component={TransactionDetail} />
-            </RootStack.Group> */}
-
+           
 
            
 
@@ -193,6 +140,7 @@ export const LoginStackNavigator = () => {
             <LoginStack.Screen name="Pin" component={Pin} />
             <LoginStack.Screen name="ForgotPin" component={ForgotPin} />
             <LoginStack.Screen name="SelectCategory" component={SelectCategorySignUp} />
+            <LoginStack.Screen name="SelectVector" component={SelectVector} />
             <LoginStack.Screen name="FormDetails" component={FormDetailsSignUp} />
             <LoginStack.Screen name="FormEmailDetails" component={FormEmailDetailsSignUp} />
             <LoginStack.Screen name="FormPhoneDetails" component={FormPhoneDetailsSignUp} />
@@ -202,7 +150,7 @@ export const LoginStackNavigator = () => {
             <LoginStack.Screen name="ResetPwdSuccess" component={ResetPwdSuccess} />
             <LoginStack.Screen name="FormStateDetails" component={FormStateDetailsSignUp} />
             <LoginStack.Screen name="AwaitVerification" component={AwaitVerification} />
-           
+            <LoginStack.Screen name="PhoneVerification" component={PhoneVerification} />
            
         </LoginStack.Group>
 

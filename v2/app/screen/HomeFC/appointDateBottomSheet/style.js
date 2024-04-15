@@ -197,13 +197,13 @@ inputContainer:{
     marginRight: 10,
   },
   confirmCoverChange:{
-    width: '90%',
+    width: '95%',
     paddingHorizontal: 50,
     flexDirection: 'row',
     justifyContent: 'center',
     paddingVertical: 12,
     borderRadius: 30,
-    backgroundColor: 'red',
+    backgroundColor: '#ff9900',
     alignItems: 'center',
     alignSelf:'center', 
     marginTop:20

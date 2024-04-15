@@ -10,10 +10,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './style';
 import Home from '@Screen2/HomeFC';
 import DrawerScreen from '@Screen2/drawerScreen';
+import UserProfile from '@Screen2/UserProfile'
 import Search from '@Screen2/Search';
 // import Wallet from '@Screen2/Wallet';
  import CustomerRegistration from "@Screen2/Customers/Registration";
-import CustomersDashboard from '@Screen2/Customers/Dashboard';
+import AppointmentDashboard from '@Screen2/Appointment/Dashboard';
 import {MiddleOption, ActiveCustomers} from "@Component2"
 
 const Tab = createBottomTabNavigator();
@@ -49,7 +50,7 @@ export default TabHomeNavigator = () => {
           headerShown: false,
           tabBarShowLabel: false,
           tabBarLabelStyle: styles.tabLable,
-          tabBarActiveTintColor: '#3858CF',
+          tabBarActiveTintColor: '#99cb01',
           tabBarInactiveTintColor: '#45464F',
           tabBarStyle: styles.tabBarStyle,
           tabBarHideOnKeyboard: true,
@@ -114,7 +115,7 @@ export default TabHomeNavigator = () => {
 
       <Tab.Screen
           name="AppointmentScreen"
-          component={CustomersDashboard}
+          component={AppointmentDashboard}
           options={({navigation: {isFocused}}) => ({
             tabBarLabel: 'Home',
             tabBarIcon: ({color}) => (

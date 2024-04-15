@@ -4,6 +4,7 @@ import createSensitiveStorage from 'redux-persist-sensitive-storage';
 
 import authReducer from "./Auth";
 import agentReducer from "./Agent";
+import feedReducer from "./Feed";
 import orderReducer from "./CustomerOrder";
 import walletReducer from "./Wallet";
 import ratingReducer from "./Rating"
@@ -45,6 +46,7 @@ const persistedReducer = persistReducer(persistConfig, authReducer);
 
 export default combineReducers({
     auth: persistedReducer,
+    feed: feedReducer,
     wallet: walletReducer,
     order: orderReducer,
      customer: customerReducer,

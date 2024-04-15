@@ -4,6 +4,7 @@ import { View,Image, Text,TextInput, TouchableOpacity} from "react-native";
 // import Icon from "react-native-vector-icons/MaterialIcons";
 import { Calendar } from 'react-native-calendars';
 import BottomSheet from "react-native-gesture-bottom-sheet";
+import Config from "react-native-config";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './style'
 import { ScrollView } from 'react-native-gesture-handler';
@@ -57,7 +58,7 @@ const AppointmentDateBottomSheet = (props) => {
                         <View style={styles.topContainer}>
                         <Image
                            style={styles.userImg} 
-                            source={item?.poster_img}
+                           source={{ uri: item?.user?.avatar?.url !== "" ? `${Config.IMG_URL}${item?.user?.avatar?.url}` : null }}
                             resizeMode="cover"
                           />
                         {/* <Image  source={item.poster_img} style={styles.userImg} /> */}
@@ -93,21 +94,21 @@ const AppointmentDateBottomSheet = (props) => {
                         // [fromDate]: {selected: true, disableTouchEvent: true, selectedColor: 'rgba(51, 83, 203, 1)'}
                         // }}
                         markedDates={{
-                            '2023-11-04': {selected: true, marked: true, selectedColor: 'purple'},
-                            '2023-11-06': {selected: true, marked: true, selectedColor: 'purple'},
-                            '2023-11-08': {selected: true, marked: true, selectedColor: 'purple'},
-                            '2023-11-10': {selected: true, marked: true, selectedColor: 'purple'},
-                            '2023-11-11': {selected: true, marked: true, selectedColor: 'purple'},
-                            '2023-11-15': {selected: true, marked: true, selectedColor: 'purple'},
-                            '2023-11-22': {selected: true, marked: true, selectedColor: 'purple'},
+                            '2023-11-04': {selected: true, marked: true, selectedColor: '#99cc00'},
+                            '2023-11-06': {selected: true, marked: true, selectedColor: '#99cc00'},
+                            '2023-11-08': {selected: true, marked: true, selectedColor: '#99cc00'},
+                            '2023-11-10': {selected: true, marked: true, selectedColor: '#99cc00'},
+                            '2023-11-11': {selected: true, marked: true, selectedColor: '#99cc00'},
+                            '2023-11-15': {selected: true, marked: true, selectedColor: '#99cc00'},
+                            '2023-11-22': {selected: true, marked: true, selectedColor: '#99cc00'},
                             '2023-11-23': {marked: true},
-                            '2023-11-24': {selected: true, marked: true, selectedColor: 'purple'},
-                            '2023-11-25': {selected: true, marked: true, selectedColor: 'purple'},
-                            '2023-11-26': {selected: true, marked: true, selectedColor: 'purple'},
-                            '2023-11-27': {selected: true, marked: true, selectedColor: 'purple'},
-                            '2023-11-28': {selected: true, marked: true, selectedColor: 'purple'},
-                            '2023-11-29': {selected: true, marked: true, selectedColor: 'purple'},
-                            '2023-11-30': {selected: true, marked: true, selectedColor: 'purple'},
+                            '2023-11-24': {selected: true, marked: true, selectedColor: '#99cc00'},
+                            '2023-11-25': {selected: true, marked: true, selectedColor: '#99cc00'},
+                            '2023-11-26': {selected: true, marked: true, selectedColor: '#99cc00'},
+                            '2023-11-27': {selected: true, marked: true, selectedColor: '#99cc00'},
+                            '2023-11-28': {selected: true, marked: true, selectedColor: '#99cc00'},
+                            '2023-11-29': {selected: true, marked: true, selectedColor: '#99cc00'},
+                            '2023-11-30': {selected: true, marked: true, selectedColor: '#99cc00'},
                           }}
                     />
                       :

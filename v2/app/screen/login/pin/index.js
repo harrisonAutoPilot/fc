@@ -64,7 +64,7 @@ const Pin = ({ navigation, route }) => {
 
         const { p0, p1, p2, p3 } = data;
 
-        const values = { phone: route.params.data.phone, password: `${p0}${p1}${p2}${p3}` }
+        const values = { email: route.params.data.email, password: `${p0}${p1}${p2}${p3}` }
 
         console.log("this is the values", values)
         setErrMsg("");

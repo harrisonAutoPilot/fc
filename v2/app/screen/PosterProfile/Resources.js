@@ -82,7 +82,7 @@ const openDoc = (item) =>{
            
 
               <FlatList
-                   scrollEnabled={false}
+                    scrollEnabled={false}
                     showsVerticalScrollIndicator={false}
                     columnWrapperStyle= {styles.bottomCardCover}
                     numColumns = {3}

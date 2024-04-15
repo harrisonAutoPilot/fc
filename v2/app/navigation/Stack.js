@@ -80,49 +80,41 @@ const StackNavigator = () => {
         })()
     }, []);
 
-    useEffect(() => {
-        if (!isAuthenticated) {
-            dispatch(logout());
-        }
+    // useEffect(() => {
+    //     if (!isAuthenticated) {
+    //         dispatch(logout());
+    //     }
 
-        if(isAuthenticated && !loggedIn){
-            dispatch(getUser())
-        }
-    }, [isAuthenticated, loggedIn]);
+    //     if(isAuthenticated && !loggedIn){
+    //         dispatch(getUser())
+    //     }
+    // }, [isAuthenticated, loggedIn]);
 
 
     return (
         <Stack.Navigator
-            screenOptions={{
-                headerShown: false
-            }}
-        >
-            {
-            
-                timer
-                ?
-             
-                !phoneNumberVerfied  ?
+        screenOptions={{
+            headerShown: false
+        }}
+    >
+        {
+        
+            timer
+            ?
+        
+                isAuthenticated ?
 
-                    isAuthenticated ?
-
-                   
-                        RootStackNavigator()
-                        :
-
-                        LoginStackNavigator()
-                   
-
+               
+                    RootStackNavigator()
                     :
-                    
-                    PhoneVerificationStackNavigator()
-                    
-                    
-                :
-                 SplashStackNavigator()
-                  
-            }
-        </Stack.Navigator>
+
+                    LoginStackNavigator()
+               
+            :
+             SplashStackNavigator()
+              
+        }
+    </Stack.Navigator>
     )
 };
 

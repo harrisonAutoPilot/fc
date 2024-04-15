@@ -1,6 +1,9 @@
 import { StyleSheet, Platform } from "react-native";
 
-
+import {
+    heightPercentageToDP as hp,
+    widthPercentageToDP as wp,
+  } from 'react-native-responsive-screen';
 export default styles = StyleSheet.create({
     mainContainer: {
         backgroundColor: "#fff",
@@ -13,13 +16,24 @@ export default styles = StyleSheet.create({
     },
     signupPinTitleContainer: {
         paddingHorizontal: 28,
-        flex: 1
+        flexDirection:'column',
+        justifyContent:'space-between',
+
+        flex: 0.6
     },
+ 
     signupTitle: {
         color: "#171B2C",
         fontSize: 28,
         fontFamily: "AnekLatin-SemiBold",
         lineHeight: 36,
+        marginBottom: 8,
+    },
+    signupTitleV: {
+        color: "#171B2C",
+        fontSize: 22,
+        fontFamily: "AnekLatin-SemiBold",
+        lineHeight: 30,
         marginBottom: 8,
     },
     signupDesc: {
@@ -38,11 +52,51 @@ export default styles = StyleSheet.create({
 
     // Flatlist Items
     listContainer: {
-        flex: 2.3
+        flex: 2.3,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignSelf:'center'
+    
+    },
+    listContainerVector: {
+        height:'100%',
+        paddingTop:10,
+   
+    },
+    listContainerVector1: {
+        height:hp('60%'),
+        paddingTop:10,
+   
     },
     categoryTitle: {
         color: "#171B2C",
-        fontSize: 16,
+        fontSize: 14,
+        fontFamily: "AnekLatin-SemiBold",
+        lineHeight: 24,
+        letterSpacing: 0.25,
+        marginBottom: 4
+
+    },
+    categoryTitleSm: {
+        color: "#171B2C",
+        fontSize: 12,
+        fontFamily: "AnekLatin-Regular",
+        lineHeight: 18,
+        letterSpacing: 0.25,
+        // marginBottom: 4
+
+    },
+    bottomCardCover:{
+        // width:'100%',
+       flexDirection:'row',
+       justifyContent:'space-between',
+       alignItems:'center',
+       paddingLeft:1,
+       zIndex:90
+   },
+    categoryTitleWhite: {
+        color: "#fff",
+        fontSize: 14,
         fontFamily: "AnekLatin-SemiBold",
         lineHeight: 24,
         letterSpacing: 0.25,
@@ -58,10 +112,26 @@ export default styles = StyleSheet.create({
 
     },
     categoryTitleView: {
-        width: "80%"
+        width: '80%'
+
+    },
+    categoryTitleViewVector: {
+        width: '85%'
 
     },
     renderItemContainer: {
+        width:'47%',
+        marginBottom: 16,
+        borderWidth: 1,
+        borderColor: "#C2C5DD",
+        borderRadius: 8,
+        padding: 14,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        backgroundColor:"#fff"
+    },
+    renderItemContainerV: {
+        width:'47%',
         marginBottom: 16,
         borderWidth: 1,
         borderColor: "#C2C5DD",
@@ -72,14 +142,31 @@ export default styles = StyleSheet.create({
         backgroundColor:"#fff"
     },
     activeRenderItemContainer: {
-        borderColor: "#3353CB",
-        backgroundColor: "#DDE1FF"
+        width:'47%',
+        borderColor: "#5f9a32",
+        backgroundColor: "#5f9a32"
+
+    },
+    activeRenderItemContainerV: {
+        width:'47%',
+        borderColor: "#5f9a32",
+        // backgroundColor: "#5f9a32"
 
     },
     continueBtnView: {
         flex: 0.4
     },
-
+    continueBtnViewVector: {
+     
+       paddingTop:20
+      
+    },
+    continueBtnViewVector1: {
+     
+        paddingTop:20,
+        marginTop:20,
+       
+     },
     // Form Details
     formContainer: {
         marginTop: 20,
@@ -91,7 +178,7 @@ export default styles = StyleSheet.create({
         marginBottom: 10,
     },
     formInputFieldFlex: {
-        flex: 0.7,
+        flex: 0.8,
     },
     formInputFieldFlexStore: {
         minHeight: "75%"
@@ -326,8 +413,90 @@ export default styles = StyleSheet.create({
         color: "rgba(51, 83, 203, 1)",
         letterSpacing: 0.2,
         alignSelf:"center"
-    }
+    },
+    maskImg:{
+        width:80,
+        height:80,
+        borderRadius:200,
+        // resizeMode:'contain'
+    },
+    maskImgSm:{
+        width:50,
+        height:50,
+        // resizeMode:'contain'
+    },
+    photoCover:{
+        width: 60,
+        height: 60,
+        alignSelf:'center',
+        borderRadius:100,
+        zIndex:900,
+        resizeMode:'cover'
+    },
+    uploadedContainer:{
+        width:100,
+        height:100,
+        borderRadius:100,
+        backgroundColor: 'rgba(52, 52, 52, 0.8)',
+        alignSelf:'center',
+        position:'absolute',
+        right:wp('5%'),
+        top:hp('66%'),
+        flexDirection:'row',
+        justifyContent:'center',
+        zIndex:9000, 
+    },
 
+ // COUNTRYCODE DROPDOWN OUTER BOX
 
+ dropDownContainer:{
+    borderWidth: 1.2,
+    borderColor: '#5A5D72',
+    borderRadius: 5,
+    marginTop: 15,
+    height: 55,   
+    
+},
+dropDownLabelView: {
+    position: "absolute",
+    top: -10,
+    left: 10,
+    backgroundColor: "#fff",
+    paddingHorizontal: 5,
+    zIndex: 2
+},
+dropDownLabelViewTeam:{
+    position: "absolute",
+    top: -10,
+    left: 10,
+    backgroundColor: "#f5f5f5",
+    paddingHorizontal: 5,
+    zIndex: 2
+},
+dropDownLabelText: {
+    fontSize: 12,
+    fontFamily: "AnekLatin-Regular",
+    lineHeight: 16,
+    color: "#45464F",
+    letterSpacing: 0.2,
+    textTransform: "capitalize"
+},
+dropDownTextInput:{
+    justifyContent: "space-between",
+    alignItems: "center",
+    // alignSelf: "center",
+    flex: 1,
+    flexDirection: "row",
+    width: "100%",
+    paddingHorizontal: 15
+
+},
+dropDownTextInputTitle: {
+    fontSize: 16,
+    fontFamily: "AnekLatin-Regular",
+    color: "#424242",
+    letterSpacing: 0.5,
+    width: "80%"
+},
 })
 

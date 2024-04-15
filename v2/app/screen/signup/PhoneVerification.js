@@ -128,25 +128,27 @@ const PhoneVerification = (props) => {
 
         setLoader(true);
 
-        dispatch(verifyPin(values))
-        .unwrap()
-        .then(() => {
+        props.navigation.navigate("SelectCategory")
+        // dispatch(getUserDetails({ pinverification: values }))
 
-            setLoader(false);
+        // dispatch(verifyPin(values))
+        // .unwrap()
+        // .then(() => {
 
-            dispatch(getUser());
-         props.navigation.navigate("Login");
+        //     setLoader(false);
 
-          
+        //     dispatch(getUser())
 
-        })
-        .catch(err => {
+      
 
-            setLoader(false);
+        // })
+        // .catch(err => {
 
-            setErrMsg(err.msg);
+        //     setLoader(false);
 
-        })
+        //     setErrMsg(err.msg);
+
+        // })
 
     };
 
@@ -188,7 +190,7 @@ const PhoneVerification = (props) => {
 
             <View style={styles.signupPinTitleContainer}>
 
-                <Text style={styles.signupTitle}>Phone Verification</Text>
+                <Text style={styles.signupTitle}>Email Verification</Text>
 
                 <Text style={styles.signupDesc}>This helps to confirm your account
                     by verifying that’s it really you.</Text>
@@ -257,7 +259,7 @@ const PhoneVerification = (props) => {
                                         <OnboardinBtn
                                             title="CONTINUE"
                                             onPress={props.handleSubmit}
-                                            backgroundColor="#3353CB"
+                                            backgroundColor="#5f9a32"
                                             color="#fff"
                                             disabled={disable(props)}
                                             disabledBackgroundColor="rgba(31, 31, 31, 0.12)"

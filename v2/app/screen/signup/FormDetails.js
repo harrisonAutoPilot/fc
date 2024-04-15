@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Keyboard, TouchableWithoutFeedback, SafeAreaView } from "react-native";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ProgressBar from "./ProgressBar";
 
 
 import styles from "./style";
 import { LoginHeader, InputField, FormikValidator, OnboardinBtn } from "@Component2";
-import { nameSignupSchema } from "@Helper2/Schema";
+import { userSignupSchema } from "@Helper2/Schema";
 import { getUserDetails } from "@Store2/Auth";
 import disable from "@Helper2/disable";
+import CountryCodeDropdown from "./CountryCodeDropdown";
 import { ScrollView } from "react-native-gesture-handler";
 
 
@@ -20,15 +21,24 @@ const FormDetails = ({ navigation }) => {
 
     const [progress, setProgress] = useState(25);
 
-
+    const [add] = useState("+");
     const goBack = () => navigation.goBack();
 
+    const [getProps, setProps] = useState(null);
+
+    const [propsname, setPropsName] = useState(null);
+
+
+    const { countryCodeStatus, countryCodeData, errors } = useSelector((state) => state.auth);
 
     const signupState = {
 
-        firstname: "",
-        lastname: "",
-        other_name:""
+        username: "",
+        email: "",
+        phone:"",
+        new_password:"",
+        retype_password:"",
+        code:"234"
 
     };
 
@@ -52,9 +62,10 @@ const FormDetails = ({ navigation }) => {
     const submit = async (data) => {
 
     console.log("the other name", data)
-        dispatch(getUserDetails({ name: `${data.firstname} ${data.lastname}` }));
+        dispatch(getUserDetails({ username: data.username, email:data.email,  phone: `${'234'}${data.phone}`, password:data.new_password, name:'obi'  }));
 
-        navigation.navigate("FormPhoneDetails");
+        // navigation.navigate("FormPhoneDetails");
+        navigation.navigate("SelectCategory")
 
     };
 
@@ -91,7 +102,7 @@ const FormDetails = ({ navigation }) => {
                                 <FormikValidator
                                     style={styles.formFlex}
                                     initialValues={signupState}
-                                    validationSchema={nameSignupSchema}
+                                    validationSchema={userSignupSchema}
                                     onSubmit={(values) => {
                                         submit(values)
                                     }}>
@@ -104,38 +115,67 @@ const FormDetails = ({ navigation }) => {
 
                                                
 
-                                                    <InputField
-                                                        title="Username"
-                                                        placeholder="Unique username"
-                                                        placeholderTextColor="#757575"
-                                                        name="firstname"
-                                                        {...props}
-                                                        width="100%"
-                                                    />
+                                                <InputField
+                                                    title="Username"
+                                                    placeholder="Unique username"
+                                                    placeholderTextColor="#757575"
+                                                    name="username"
+                                                    {...props}
+                                                    width="100%"
+                                                />
                                              
                                                 <InputField
                                                     title="Email"
                                                     placeholder="ebube@gmail.com"
                                                     placeholderTextColor="#757575"
-                                                    name="lastname"
+                                                    name="email"
+                                                    {...props}
+                                                    width="100%"
+                                                />
+                                                 <View style={styles.inputFieldView}>
+
+                                                    <CountryCodeDropdown
+                                                        dropDown={() =>showDropDownBottomSheet(props, "code")}
+                                                        width={"25%"}
+                                                        {...props}
+                                                        placeholder="+234"
+                                                        name="code"
+                                                        title="Code"
+                                                        add={add}
+                                                        
+
+                                                    />
+
+                                                    <InputField
+                                                        title="Phone"
+                                                        placeholder="8094XXXXXX"
+                                                        placeholderTextColor="#757575"
+                                                        keyboardType="number-pad"
+                                                        maxLength={11}
+                                                        name="phone"
+                                                        {...props}
+                                                        width="70%"
+
+                                                    />
+
+                                                    </View>
+                                                 <InputField
+                                                    title="PIN"
+                                                    placeholder="4 DIGIT PIN"
+                                                    placeholderTextColor="#757575"
+                                                    name="new_password"
+                                                    secureTextEntry
+                                                    maxLength={4}
                                                     {...props}
                                                     width="100%"
                                                 />
                                                  <InputField
-                                                    title="Password"
-                                                    placeholder=""
-                                                    placeholderTextColor="#757575"
-                                                    name="password"
+                                                    title="Confirm PIN"
+                                                    placeholder="4 DIGIT PIN"
                                                     secureTextEntry
-                                                    {...props}
-                                                    width="100%"
-                                                />
-                                                 <InputField
-                                                    title="Confirm Password"
-                                                    placeholder=""
-                                                    secureTextEntry
+                                                    maxLength={4}
                                                     placeholderTextColor="#757575"
-                                                    name="c_password"
+                                                    name="retype_password"
                                                     {...props}
                                                     width="100%"
                                                 />

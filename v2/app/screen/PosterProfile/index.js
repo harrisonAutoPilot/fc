@@ -14,6 +14,7 @@ import {
   Alert,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
+import Config from "react-native-config";
 import Icon from 'react-native-vector-icons/Feather';
 import Acon from "react-native-vector-icons/MaterialCommunityIcons";
 import MediaPost from './MediaPost';
@@ -133,7 +134,7 @@ const PosterProfile = props => {
     <ScrollView style={{flex:1}}>
     <StatusBar barStyle="dark-content" backgroundColor='#fff' hidden={false} />
         <PosterHeaderComponent
-          title={`@${items.poster}`}
+          title={`@${items?.user?.username}`}
           // onPress={openNotification}
           onPressBack={goBack}
           // onPressCart={openCart}
@@ -144,7 +145,7 @@ const PosterProfile = props => {
             <View style={styles.imgCover}>
             <Image
                 style={styles.posterImg}
-                source={items.poster_img}
+                source={{ uri:`${Config.IMG_URL}${items?.user?.avatar?.url}`}}
                 resizeMode="contain"
               />
             </View>

@@ -34,6 +34,7 @@ import Kessington from './TabModules/Types/Kessington';
 import BackInStock from './TabModules/Types/BackInStock';
 import PopularItems from './TabModules/Types/PopularItems';
 import NewItems from './TabModules/Types/NewItems';
+import GroupIntroBottomSheet from "./groupIntro"
 
 
 
@@ -45,17 +46,20 @@ const ViewTypes = {
 const SupportGroup = props => {
   const dispatch = useDispatch();
   const [active, setActive] = useState('1');
+  const [category, setCategory] = useState('Categories');
   const [searchCategory, setSearchCategory] = useState('');
   const [searchCategoryArray, setSearchCategoryArray] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [result, setResult] = useState([])
   const [priceCat, setPriceCat] = useState("CHEMIST")
-  const [category, setCategory] = useState('Categories');
+
   const [objectValues, setObjectValues] = useState()
   const [err, setErr] = useState('');
-  const [trackSearchStatus, setTrackSearchStatus] = useState(false);
+  const [groupData, setGroupData] = useState();
   const [kessProductDetails, setKessProductDetails] = useState({});
   const [productDetails, setProductDetails] = useState({});
+
+  const bottomSheetRefGroup = useRef();
 
   const [sortId, setSortId] = useState("");
 
@@ -90,6 +94,15 @@ const SupportGroup = props => {
     console.log("the item", item)
     setPriceCat(item)
     bottomSheet.current.close()
+  }
+
+  const closeGroupSheet = () => {
+    bottomSheetRefGroup.current.close();
+  };
+
+  const showGroup = (item) =>{
+    bottomSheetRefGroup.current.show();
+    setGroupData(item)
   }
 
 
@@ -288,7 +301,7 @@ dispatch(searchProducts({
   const ListView = ({item}) => (
   
      <View>
-      <TouchableOpacity key={item.id}>
+      <TouchableOpacity key={item.id} onPress={() => showGroup(item)} >
       <View style={styles.roomCard}>
 
 <View style={styles.roomFlexTop}>
@@ -366,7 +379,7 @@ dispatch(searchProducts({
 
   return (
     <SafeAreaView style={styles.safeAreaStyle}>
-       <StatusBar barStyle="dark-content" backgroundColor='rgba(221, 225, 255, 1)' hidden={false} />
+       <StatusBar barStyle="dark-content" backgroundColor='#fff' hidden={false} />
     <View style={styles.main}>
    
         <CatalogHeaderComponent
@@ -478,7 +491,15 @@ dispatch(searchProducts({
         </View>
         }
 </View>
-<PriceBottomSheet
+    <GroupIntroBottomSheet
+        bottomSheetRefStart={bottomSheetRefGroup }
+        data={groupData}
+        close={closeGroupSheet}
+        
+      />
+
+
+    <PriceBottomSheet
        bottomSheet={bottomSheet} 
        props={props}
        objList = {(item) =>  setObjectValues(item)}

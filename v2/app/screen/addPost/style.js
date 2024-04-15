@@ -307,7 +307,7 @@ topNav: {
         width:wp('80'),
         height:60,
         position:"absolute",
-        bottom:hp('8%'),
+        bottom:hp('3%'),
         alignSelf:'center',
         flexDirection:'row',
         justifyContent:'center'
@@ -338,9 +338,13 @@ topNav: {
     },
     inputContainer:{
         width:wp('90%'),
-        height:hp('60%'),
+        height:hp('30%'),
         alignSelf:'center',
         justifyContent:'flex-start',
+        borderColor:"rgba(121, 116, 126, 0.12)",
+        borderRadius:8,
+        backgroundColor:"#f5f5f5",
+        borderRadius:4,
     },
     input:{
         color: "#1B1B1F",
@@ -356,6 +360,66 @@ topNav: {
         borderColor:'rgba(118, 118, 128, 1)',
         borderWidth:0,
         justifyContent:'flex-start'
+    },
+    inputStyle:{
+        color: "#5A5D72",
+        fontSize: 14,
+        fontFamily: "AnekLatin-Medium",
+        lineHeight: 18,
+        marginLeft:5,
+    },
+    categoryContainer:{
+        flexDirection:'row',
+        justifyContent:'flex-start',
+        width:'89%',
+        paddingHorizontal:20,
+        paddingVertical:15,
+        alignItems:'center'
+    },
+    categoryImgCover:{
+        width:40,
+        height:40,
+        borderRadius:100,
+        backgroundColor:'#000',
+        marginRight:10,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    singleText:{
+        color: "#fff",
+        fontSize:18,
+        fontFamily: "AnekLatin-Medium",
+        letterSpacing: 0.1, 
+       },
+    innerCover:{
+    flexDirection:'row',
+    justifyContent:'flex-start',
+    alignItems:'center'
+    },
+    categoryText:{
+        color: "#5A5D72",
+        fontSize: 14,
+        fontFamily: "AnekLatin-Medium",
+        lineHeight: 18,
+    },
+    inputCover:{
+      width:"88%",
+      alignSelf:"center",
+      flexDirection:"row",
+      paddingHorizontal:8,
+      paddingVertical:2,
+      borderWidth:1,
+      borderColor:"rgba(121, 116, 126, 0.12)",
+      borderRadius:8,
+      backgroundColor:"rgba(121, 116, 126, 0.08)",
+      height:45,
+      marginTop:30,
+      marginBottom:8,
+      alignItems: "center"
+    },
+    searchIcon:{
+      marginTop:Platform.OS === "android" ? 2 : 4,
+      paddingLeft:10,
     },
     photoCover:{
         width: 100,
@@ -389,6 +453,99 @@ topNav: {
         marginHorizontal:10,
         marginTop:-8
     },
-
-
+    errView:{
+        paddingVertical: 14,
+        paddingHorizontal: 16,
+        backgroundColor: "#BA1A1A",
+        marginHorizontal: 16,
+        borderRadius: 8,
+        shadowColor: 'rgba(0, 0, 0, 0.1)',
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.9,
+        shadowRadius: 2,
+        elevation: 2,
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 20
+    },
+    errText:{
+        fontSize: 14,
+        fontFamily: "AnekLatin-Regular",
+        letterSpacing: 0.25,
+        marginLeft: 13,
+        color: "#fff"
+    },
+    toastCover: {
+        position: "absolute",
+        bottom: 0,
+        width: wp('100%'),
+        zIndex:9000
+      },
+      sucView: {
+        paddingTop: 14,
+        paddingHorizontal: 16,
+        backgroundColor: "rgba(16, 109, 52, 1)",
+        shadowColor: 'rgba(0, 0, 0, 0.1)',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 1,
+        elevation: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        padding: 30
+      },
+      sinkContainer:{
+        width:wp('92%'),
+        position:'absolute',
+        bottom:hp('5.5%'),
+        height:90,
+        backgroundColor:'#E8EEF1',
+        borderRadius:4,
+        borderWidth:0,
+        flexDirection:'row',
+        borderColor:'#f5f5f5',
+        alignSelf:'center',
+        justifyContent:'space-around',
+        alignItems:'center',
+        zIndex:900,
+        paddingRight:10,
+      },
+      sinkText:{
+        color: 'rgba(27, 27, 31, 1)',
+        fontSize: 14,
+        fontFamily: 'AnekLatin-Regular',
+        lineHeight: 20,
+      },
+      sinkImg:{
+        width:90,
+        height:90,
+        resizeMode:"contain",
+      },
+      sinkContainer1:{
+        width:wp('90%'),
+        flexDirection:'row',
+        height:90,
+       borderWidth:1,
+       borderColor:'#E8EEF1',
+       borderStyle:'solid',
+        borderRadius:6,
+        flexDirection:'row',
+        alignSelf:'center',
+        justifyContent:'flex-start',
+        alignItems:'center',
+        zIndex:900,
+        paddingRight:10,
+      },
+      sinkText1:{
+        color: '#0066ff',
+        fontSize: 16,
+        fontFamily: 'AnekLatin-Medium',
+        lineHeight: 20,
+      },
+      sinkImg1:{
+        width:90,
+        height:90,
+        resizeMode:"contain",
+        marginRight:20,
+      },
 })

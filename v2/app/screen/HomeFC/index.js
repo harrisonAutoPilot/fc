@@ -15,17 +15,22 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import {useSelector, useDispatch} from 'react-redux';
 import { ViewPropTypes } from "deprecated-react-native-prop-types";
 import Icon from "react-native-vector-icons/AntDesign";
 import Acon from "react-native-vector-icons/MaterialCommunityIcons";
 import { MaterialIndicator } from "react-native-indicators";
-
-import { data } from "../../util/data";
+import { getAllFeeds,unLikeFeed, getFeedComments, addFeedComment} from "@Request2/Feed";
+import data from "./data"
+import { group } from "../../util/group";
+import {getUser} from "@Request2/Auth";
+import Loader from "@Screen2/loader";
+import {cleanAllFeed} from "@Store2/Feed";
 
 const { width } = Dimensions.get("screen");
 import styles from "./style";
 import Video from "react-native-video";
-import Loader from "@Screen2/loader";
+
 import HeaderWithGradient from "../../components/HeaderWithGradient";
 import {
   OffsetYProvider,
@@ -39,13 +44,21 @@ import {
 } from "react-native-responsive-screen";
 import CategoryDetails from "./CategoryDetails";
 
+
 import RenderCategoriesMenu from "./RenderCategoriesMenu"
+import ImageView from "./ImageView";
 
 const ITEM_WIDTH = width * 1;
 const ITEM_HEIGHT = ITEM_WIDTH * 3.2;
 const ITEM_HEIGHTV = ITEM_WIDTH * 1.35;
 
 const Home = ({ navigation, props }) => {
+  const dispatch = useDispatch();
+
+  const { allFeedData, allFeedStatus, allFeedErrors } = useSelector((state) => state.feed);
+  const {user} = useSelector((state) => state.auth);
+  const [active, setActive] = useState('1');
+  const [category, setCategory] = useState('Categories');
   const [isLoading, setIsLoading] = useState(false);
   const [mute, unMute] = React.useState(true);
   const [onRepeat, setOnRepeat] = useState(false);
@@ -58,10 +71,12 @@ const Home = ({ navigation, props }) => {
   const [onEnd, setOnEnd] = useState(false);
   const [pause, setPause] = useState(false);
   const { height: windowHeight } = Dimensions.get("window");
-  const boxHeight = windowHeight / 1.2;
+  // const boxHeight = windowHeight / 1.2; //1.2
+  const boxHeight =  windowHeight / 1.3;
   const [showCategory, setShowCategory] = useState(false);
   const [catItem, setCatItem] = useState();
   const bottomSheetRefApDate = useRef();
+  const bottomSheetRefMessage = useRef();
   const [scrollUp, setScrollUp] = useState(0)
 
   const [heartCount, setHeartCount] = useState(249);
@@ -79,6 +94,69 @@ const Home = ({ navigation, props }) => {
     }
 
    }, [scrollUp]);
+
+
+   useEffect(() => {
+      dispatch(getAllFeeds());
+      dispatch(getUser()) 
+  
+  }, [])
+
+
+  const selectBtn = id => {
+    setActive(id);
+  };
+  
+  const selectCategory = name => {
+    setCategory(name);
+  };
+
+  const ScrollList = (props, index) => {
+    const item = props.item;
+    const redirectToNavigationDetail = props.navigation;
+
+    return (
+      <>
+        {active === item.id ? (
+          <TouchableOpacity
+          style={styles.scrollFlex}
+            onPress={() => {
+              selectBtn(item.id);
+              selectCategory(item.name);
+            }}>
+               <View style={styles.capCover}>
+               <Image
+                source={item?.image_url}
+                style={styles.groupImg}
+                resizeMode="cover"
+              />
+
+              </View>
+              {/* <Text style={styles.miniCardTextInactive}>{item.title}</Text> */}
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+          style={styles.scrollFlex}
+            onPress={() => {
+              selectBtn(item.id);
+              selectCategory(item.name);
+            }}>
+               <View style={styles.capCoverInactive}>
+               <Image
+                source={item?.image_url}
+                style={styles.groupImg}
+                resizeMode="cover"
+              />
+             
+              </View>
+              {/* <Text style={styles.miniCardTextInactive}>{item.title}</Text> */}
+          </TouchableOpacity>
+        )}
+      </>
+    );
+  };
+
+
 
   const changeHeart = () => {
     setHeartCount(heartCount + 1);
@@ -98,7 +176,7 @@ const Home = ({ navigation, props }) => {
   };
 
 
-
+// console.log("this are the list of feeds", allFeedData)
 
   const ApointmentToggle = useCallback(
     ({ onPress }) => (
@@ -165,7 +243,7 @@ const Home = ({ navigation, props }) => {
     []
   );
 
-  console.log("the value", detailsValue);
+ 
 
 
 
@@ -173,18 +251,41 @@ const Home = ({ navigation, props }) => {
     <View style={styles.container}>
       <StatusBar
         barStyle="dark-content"
-        backgroundColor="rgba(110, 191, 12, 1)"
+        backgroundColor="#fff"
         hidden={true}
       />
-       {/* {!showTopBar ?
-      <HeaderWithGradient title="FEEDS" profileName={styles.headerText} />
+    
+        {/* {!showTopBar ?
+      // <HeaderWithGradient title="FEEDS" profileName={styles.headerText} />
+          <View style={styles.miniHeader}>
+          <FlatList
+            horizontal
+            data={group}
+            renderItem={ScrollList}
+            keyExtractor={item => item.id}
+            showsHorizontalScrollIndicator={false}
+            scrollEnabled
+          />
+        </View>
         :
         null
-        } */}
+        }  */}
          
       {/* Scrollable Content */}
-
-      <View style={{ height: hp("100%") }}>
+      <View style={styles.headerCover}>
+        <Text style={styles.headerTitle}>Faceless Counselling</Text>
+      </View>
+      <View style={styles.miniHeader}>
+      <FlatList
+              horizontal
+              data={group}
+              renderItem={ScrollList}
+              keyExtractor={item => item.id}
+              showsHorizontalScrollIndicator={false}
+              scrollEnabled
+            />
+     </View>
+     <View style={{ height:"84%"}}>
         <OffsetYProvider
           columnsPerRow={1}
           listItemHeight={boxHeight}
@@ -193,15 +294,15 @@ const Home = ({ navigation, props }) => {
         >
           {({ setOffsetY }) => (
             <FlatList
-              data={data}
+              data={allFeedData?.data}
               removeClippedSubviews={true}
               onScroll={(ev) => {
                 setOffsetY(ev.nativeEvent.contentOffset.y);
                 setScrollUp(ev?.nativeEvent?.velocity?.y.toString().slice(0,1))
-                console.log('the onsroll event',(scrollUp))
+                // console.log('the onsroll event',(scrollUp))
                
               }}
-              initialNumToRender={3}
+              initialNumToRender={20}
               keyExtractor={(item) => item.id}
               renderItem={({ item, index }) => (
                 <IndexProvider index={index}>
@@ -210,11 +311,11 @@ const Home = ({ navigation, props }) => {
                    currentIndex={index}
                    currentVisibleIndex={index}
                    navigation={navigation}
+                   userData={user}
+
                   //  items={item}
                    item={item}
                    index={index}
-                 
-                  
                  />
                   )}
                 </IndexProvider>
@@ -224,11 +325,16 @@ const Home = ({ navigation, props }) => {
         </OffsetYProvider>
       </View>
 
+    
       <AppointmentDateBottomSheet
         bottomSheetRefStart={bottomSheetRefApDate}
         poster={apDetails}
         close={closeApointmentSheet}
       />
+ {/* <AppointmentDateBottomSheet
+        bottomSheetRefMessage={bottomSheetRefMessage}
+
+      /> */}
 
       <CategoryDetails
         visibleCategory={showCategory}

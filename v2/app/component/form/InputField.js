@@ -37,6 +37,7 @@ const InputField = (props) => {
                     value={values[name]}
                     style={[props.styles, styles.labelTitle]}
                     placeholder={placeholder}
+                    maxLength={props.maxLength}
                     placeholderTextColor={props.placeholderTextColor}
                     editable={props?.editable}
                     multiline={props?.multiline}

@@ -29,12 +29,12 @@ const AppointmentDetailBottomSheet = (props) => {
     // console.log("the appointment details", item)
 
     const setPropsPeriod = (id) => {
-        console.log("the period ...", id)
+        // console.log("the period ...", id)
         if(id == 'last_3_months'){
           
            bottomSheetCalendar.current?.show();
            const date = {startDate:startDate, endDate: endDate}
-           console.log("just to know the start and end date", date)
+          //  console.log("just to know the start and end date", date)
            props.setPeriod(date && date);
            props.setEnd(endDate)
            props.setStart(startDate)
@@ -42,7 +42,7 @@ const AppointmentDetailBottomSheet = (props) => {
             props.setPeriod(id);
             setStartDate("")
             setEndDate("")
-            console.log("just to know the start and end date", id)
+            // console.log("just to know the start and end date", id)
         }  
 
     };
@@ -52,7 +52,7 @@ const AppointmentDetailBottomSheet = (props) => {
       setOnPick(true)
     }
 
-console.log("the time", item.appointment_date)
+
 
    const title =`Pick Appointment time for ${item?.counsellor_name}`;
 
@@ -92,7 +92,7 @@ console.log("the time", item.appointment_date)
                           date={date}
                           mode="time"
                           onConfirm={(date) => {
-                            console.log("the time", date)
+                            // console.log("the time", date)
                             // setOnPick(true)
                             confirmTime()
                             setOpen(false)
@@ -124,7 +124,7 @@ console.log("the time", item.appointment_date)
                             </View>
                             <TouchableOpacity
                           onPress={() => setShowNote(false)}
-                            style={styles.confirmCoverChange}>
+                            style={styles.confirmCoverChangeV2}>
                                 
                                 <Text style={styles.confirmText}>Reschedule Appointment Date</Text>
                                 <Icon name="calendar" size={16} color="#fff" />

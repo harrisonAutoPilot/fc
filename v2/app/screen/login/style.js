@@ -52,7 +52,7 @@ export default styles = StyleSheet.create({
         borderColor: '#5A5D72',
         borderRadius: 5,
         marginTop: 15,
-        height: 60,   
+        height: 55,   
         
     },
     dropDownLabelView: {

@@ -1,24 +1,17 @@
-import joy from '../assets/13fd344331122ef5.png'
-import relationship_issue from '../assets/abbuu.jpg'
+
 import sam from '../assets/sam.jpeg'
 import sebMessage from '../assets/sebMessage.jpeg'
 import toyin from '../assets/toyinn.jpeg'
 import wounded from '../assets/cb1c6c230ce21bf2.jpg'
 import abraham from '../assets/abraham.jpeg'
 import kid from '../assets/kid.jpeg'
-import book from '../assets/book.jpeg'
-import baba from '../assets/baba.jpeg'
-import koi from '../assets/koi.jpeg'
-import rela from '../assets/rela.jpeg'
 import issue from '../assets/issue1.jpg'
 import vd1 from '../assets/3700e6d86669441f.mp4'
 import vd2 from '../assets/3480cf6ea72b7c47.mp4'
-import vd3 from '../assets/27e6c97320d6c59e.mp4'
-import whaa from '../assets/whaaa.mp4'
-import scholar from '../assets/scholar.mp4'
+
 import jude from '../assets/jude.jpg'
 import money from '../assets/money.mp4'
-import nofight from '../assets/nofight.mp4'
+
 import period from '../assets/period.mp4'
 import homeland from '../assets/homeland.jpeg'
 
@@ -27,13 +20,14 @@ export const users = [
     id: '1',
     type:"video",
     image_url:jude,
+    follower:'240',
+    following:'160',
     title:'Family | Relationship | Health',
     iconName: 'location-pin',
     intro:'Hi, I am here to help you build your health,and nurture your entire well-being',
     category:'H',
     poster_img:homeland,
-    follower:'240',
-    following:'160',
+  
     posts:'1',
     poster:'Mike&Her',
     post_title:'if only we understood',
@@ -69,11 +63,11 @@ export const users = [
     type:"video",
     category:'F',
     title:'Finance | Moltivation | Relationship',
-    intro:'Hello everyone, I am here to help build financial empowerment, build wealth, and achieve financial well-being',
-    image_url:issue,
     follower:'680',
     following:'210',
     posts:'3',
+    intro:'Hello everyone, I am here to help build financial empowerment, build wealth, and achieve financial well-being',
+    image_url:issue,
     iconName: 'location-pin',
     poster_img:sam,
     poster:'Scholar',
@@ -91,10 +85,10 @@ export const users = [
       category:'M',
       image_url:issue,
       title:'Career | Moltivation | Health',
-      intro:'Hi, I am here to build meaningful connections, nurture a loving relationship, and create a foundation of trust and understanding.',
       follower:'107',
       following:'603',
       posts:'2',
+      intro:'Hi, I am here to build meaningful connections, nurture a loving relationship, and create a foundation of trust and understanding.',
       iconName: 'location-pin',
       poster_img:wounded,
       poster:'Wounded_Healer',
@@ -111,10 +105,10 @@ export const users = [
       image_url:sebMessage,
       category:'G',
       follower:'459',
-      intro:'Hi, I am here to embrace the teachings of the Good news, seek spiritual enlightenment, and live a life guided by faith and compassion.',
+      posts:'2',
       following:'290',
       title:'Family | Good News | Moltivation | Relationship',
-      posts:'2',
+      intro:'Hi, I am here to embrace the teachings of the Good news, seek spiritual enlightenment, and live a life guided by faith and compassion.',    
       iconName: 'location-pin',
       poster_img:abraham,
       poster:'Gnexdor',

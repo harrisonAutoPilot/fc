@@ -1,11 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { countryCodeList,login,register, getUser, updateUserPassword,forgotPin,getPhoneVerificationPin,verifyPin, checkEmailDetails, updateUserDetails,checkPhoneDetails, deleteUserAccount, updateUserImage,checkAddressDetails,agentAnalytics,agentCheckin,getAgentCheckinStatus,callHistoryLog} from "@Request2/Auth";
+import {interestList,avartarList,registerUser,unFollowUser, followUser, countryCodeList,login,register, getUser, updateUserPassword,forgotPin,getPhoneVerificationPin,verifyPin, checkEmailDetails, updateUserDetails,checkPhoneDetails, deleteUserAccount, updateUserImage,checkAddressDetails,agentAnalytics,agentCheckin,getAgentCheckinStatus,callHistoryLog} from "@Request2/Auth";
 
 
 export const authSlice = createSlice({
     name: "auth",
     initialState: {
         isAuthenticated: false,
+        interestListStatus:"idle",
+        interestListData:{},
+        avartarListStatus:"idle",
+        avartarListData :{},
+        followStatus:"idle",
+        unFollowStatus:"idle",
+        followErrors:{},
+        unfollowErrors:{},
+        followData:{},
+        unFollowData:{},
         user: {},
         status: "idle",
         deleteAccount: "idle",
@@ -71,6 +81,30 @@ export const authSlice = createSlice({
             state.update = "idle"
             state.deleteAccount ="idle"
         },
+        cleanInterest: (state) => {
+            state.errors = {}
+            state.interestListStatus = "idle"
+            state.interestListData = {}
+           
+        },
+        cleanAvartar: (state) => {
+            state.errors = {}
+            state.avartarListStatus = "idle"
+            state.avartarListData  = {}
+           
+        },
+        cleanFollowUser: (state) => {
+            state.followErrors = {}
+            state.followStatus = "idle"
+            state.followData = {}  
+        },
+        
+        cleanUnFollowUser: (state) => {
+            state.unfollowErrors = {}
+            state.unFollowStatus = "idle"
+            state.unFollowData = {}  
+        },
+        
         cleanLoginStatus: (state) => {
             state.errors = {}
             state.loginStatus = "idle"
@@ -148,6 +182,38 @@ export const authSlice = createSlice({
 
    
 
+            builder
+            .addCase(interestList.pending, state => {
+                state.interestListStatus = "pending";
+                state.interestListData = [];
+                state.errors = {};
+            })
+            .addCase(interestList.fulfilled, (state, { payload }) => {
+                state.interestListStatus = "success";
+                state.interestListData = payload;
+            })
+            .addCase(interestList.rejected, (state, { payload }) => {
+                state.interestListStatus = "failed";
+                state.errors = payload;
+            })
+
+           
+
+            builder
+            .addCase(avartarList.pending, state => {
+                state.avartarListStatus = "pending";
+                state.avartarListData = [];
+                state.errors = {};
+            })
+            .addCase(avartarList.fulfilled, (state, { payload }) => {
+                state.avartarListStatus = "success";
+                state.avartarListData = payload;
+            })
+            .addCase(avartarList.rejected, (state, { payload }) => {
+                state.avartarListStatus = "failed";
+                state.errors = payload;
+            })
+            
 
         builder
             .addCase(getUser.pending, state => {
@@ -214,6 +280,69 @@ export const authSlice = createSlice({
                 state.registerStatus = "failed";
                 state.errors = payload;
             })
+
+
+
+            builder
+            .addCase(registerUser.pending, state => {
+                state.registerStatus = "pending";
+                state.errors = {};
+                state.user = {};
+                state.isAuthenticated = false;
+                state.userVerified = false;
+
+            })
+            .addCase(registerUser.fulfilled, (state, action) => {
+                state.registerStatus = "success";
+                state.isAuthenticated = true;
+                state.userVerified = action?.payload?.user.user_verified;
+                state.phoneNumberVerfied = true
+                // state.signedIn = true;
+            })
+            .addCase(registerUser.rejected, (state, { payload }) => {
+                state.registerStatus = "failed";
+                state.errors = payload;
+            })
+
+            builder
+            .addCase(followUser.pending, state => {
+                state.followStatus = "pending";
+                state.likeErrors = {};
+                state.followData = {}
+            })
+            .addCase(followUser.fulfilled, (state, action) => {
+                state.followStatus = "success";
+                state.followErrors = {}; 
+                state.followData = action.payload
+
+            })
+            .addCase(followUser.rejected, (state, { payload }) => {
+                state.followStatus = "failed";
+                state.followErrors = payload;
+                state.followData = {}
+            })
+
+            builder
+            .addCase(unFollowUser.pending, state => {
+                state.unFollowStatus = "pending";
+                state.unfollowErrors = {};
+                state.unFollowData = {}
+            })
+            .addCase(unFollowUser.fulfilled, (state, action) => {
+                state.unFollowStatus = "success";
+                state.unfollowErrors = {}; 
+                state.unFollowData = action.payload
+
+            })
+            .addCase(unFollowUser.rejected, (state, { payload }) => {
+                state.unFollowStatus = "failed";
+                state.unfollowErrors = payload;
+                state.unFollowData = {}
+            })
+
+
+
+
 
             // builder
             // .addCase(updateUserDetails.pending, state => {
@@ -412,6 +541,6 @@ export const authSlice = createSlice({
     }
 });
 
-export const { logout,cleanCountryCodeStatus,getUserDetails,cleanCheckAddress,cleanRegisterStatus, cleanCheckEmail,cleanPhoneVerificationStatus, cleanUserDetails,cleanCheckPhone, cleanLoginStatus, cleanup,cleanDisableAc,cleanAnalytics } = authSlice.actions
+export const { logout,cleanCountryCodeStatus,cleanUnFollowUser,cleanFollowUser,cleanInterest,cleanAvartar, getUserDetails,cleanCheckAddress,cleanRegisterStatus, cleanCheckEmail,cleanPhoneVerificationStatus, cleanUserDetails,cleanCheckPhone, cleanLoginStatus, cleanup,cleanDisableAc,cleanAnalytics } = authSlice.actions
 
 export default authSlice.reducer;

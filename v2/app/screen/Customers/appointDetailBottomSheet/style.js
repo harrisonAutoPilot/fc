@@ -122,7 +122,7 @@ alignItems:'flex-start'
       },
       midContainer:{
         width:'100%',
-        paddingHorizontal:20,
+        paddingHorizontal:30,
         paddingVertical:10,
         justifyContent:'flex-start',
         alignItems:'flex-start'
@@ -166,12 +166,13 @@ dateContainerTime:{
     alignItems:'center'
 },
 inputContainer:{
-    width:wp('90%'),
+    width:wp('89%'),
     height:80,
     borderRadius:4,
     alignSelf:'center',
     borderWidth:1,
-    borderColor:'#1B1B1F'
+    borderColor:'#bfbfbf',
+
   },
   input:{
     padding:10,
@@ -180,6 +181,7 @@ inputContainer:{
     color: "#000",
     letterSpacing: 0.25, 
     textAlignVertical: 'top',
+
   },
   
   confirmCover:{
@@ -203,7 +205,19 @@ inputContainer:{
     marginRight: 10,
   },
   confirmCoverChange:{
-    width: '90%',
+    width: '95%',
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    borderRadius: 30,
+    backgroundColor: '#ff9900',
+    alignItems: 'center',
+    alignSelf:'center', 
+    marginTop:30
+  },
+  confirmCoverChangeV2:{
+    width: '88%',
     paddingHorizontal: 30,
     flexDirection: 'row',
     justifyContent: 'center',

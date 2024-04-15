@@ -27,7 +27,7 @@ const PosterHeaderComponent = (props) => {
     </View>
     <View style={styles.rightNav}>
       
-    <TextTicker
+    {/* <TextTicker
           style={styles.textTicker}
           duration={10000}
           loop
@@ -36,7 +36,7 @@ const PosterHeaderComponent = (props) => {
           marqueeDelay={1000}
         >
          Not Character Defamation!, No Name Calling!, A Safe space to learn, heal & Grow
-        </TextTicker>
+        </TextTicker> */}
     </View>
   </View>
   

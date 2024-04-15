@@ -8,7 +8,7 @@ import {
 export default styles = StyleSheet.create({
     mainBody: {
         paddingTop: 1,
-        backgroundColor:'rgba(221, 225, 255, 1)',
+        backgroundColor:'#fff',
         height: "100%",
         flex: 1
     },
@@ -18,7 +18,8 @@ export default styles = StyleSheet.create({
     },
     safeAreaStyle:{
         flex:1,
-        backgroundColor:'rgba(221, 225, 255, 3)'
+        backgroundColor:'#fff'
+        // backgroundColor:'rgba(221, 225, 255, 3)'
       },
 // started the new design
 topNav: {
@@ -27,7 +28,7 @@ topNav: {
     justifyContent: 'space-between',
     paddingHorizontal: 10,
     alignSelf: 'center',
-    backgroundColor:'rgba(221, 225, 255, 1)'
+    backgroundColor:'#fff'
   },
   leftNav: {
     width: wp('85%'),
@@ -332,8 +333,8 @@ topNav: {
         borderRadius: 5
     },
     changePriceCover:{
-flexDirection:'row',
-justifyContent:'center'
+    flexDirection:'row',
+    justifyContent:'center'
     },
     changePriceText:{
         fontSize: 10,
@@ -421,14 +422,14 @@ justifyContent:'center'
         paddingHorizontal:20,
         paddingVertical:4,
         borderRadius:30,
-        backgroundColor:"rgba(51, 83, 203, 1)",
+        backgroundColor:"#000",
         marginHorizontal:5
          },
          miniCardInactive:{
             paddingHorizontal:20,
             paddingVertical:4,
             borderRadius:30,
-            backgroundColor:"#fff",
+            backgroundColor:"#f5f5f5",
             borderWidth:0,
             borderColor:"rgba(194, 197, 221, 1)",
             marginHorizontal:5
@@ -469,7 +470,7 @@ justifyContent:'center'
         width:50,
         height:50,
        borderRadius:100,
-       backgroundColor:"rgba(51, 83, 203, 1)",
+       backgroundColor:"#000",
        zIndex:900,
        position:'absolute',
        alignItems:'center',
@@ -480,7 +481,7 @@ justifyContent:'center'
         width:50,
         height:50,
         borderRadius:100,
-        backgroundColor:"#fff",
+        backgroundColor:"#f5f5f5",
         alignItems:'center',
         justifyContent:'center',
         zIndex:900,
@@ -516,8 +517,12 @@ roomCard:{
     backgroundColor:'#fff',
     alignSelf:'center',
     borderRadius:6,
+    borderWidth:1,
+    borderColor:'#bfbfbf',
     justifyContent:'space-between',
     padding:10,
+    elevation:0.2,
+    shadowColor:'#fff',
    marginBottom:10,
 },
 roomFlexTop:{
@@ -539,7 +544,7 @@ hostCover:{
     width:40,
     height:40,
     borderRadius:4,
-    backgroundColor:'#00b300'
+
 },
 hostName:{
     color: "#000",

@@ -5,7 +5,7 @@ import { apiRequest } from "@Request2/Request";
 export const login = createAsyncThunk("auth/login",
     async (user, thunkAPI) => {
         const Axios = await AxiosBase();
-        return apiRequest(Axios.post('api/v1/agent/login', user),
+        return apiRequest(Axios.post('api/v1/user/login', user),
             thunkAPI, "auth")
     });
 
@@ -34,6 +34,51 @@ export const login = createAsyncThunk("auth/login",
       ),
       thunkAPI, "auth")
     });
+
+
+        //this is the endpoint i use to get the list of interests
+        export const interestList = createAsyncThunk("auth/user/interest",
+        async (_, thunkAPI) => {
+            const Axios = await AxiosBase();
+            return apiRequest(Axios.get('api/v1/interests'), thunkAPI)
+        });
+
+    
+    
+        //this is the endpoint i use to get the list of vector avartar
+        export const avartarList = createAsyncThunk("auth/user/avartar",
+        async (_, thunkAPI) => {
+            const Axios = await AxiosBase();
+            return apiRequest(Axios.get('api/v1/avatars'), thunkAPI)
+        });
+
+
+  
+
+        // this is the endpoint i use to register new users
+        export const registerUser = createAsyncThunk("auth/create",
+        async (values, thunkAPI) => {
+        const Axios = await AxiosBase();
+        return apiRequest(Axios.post('api/v1/user/create', values),
+            thunkAPI, "auth")
+    });
+
+
+    export const followUser = createAsyncThunk("user/follow",
+    async (id, thunkAPI) => {
+        const Axios = await AxiosBase();
+        return apiRequest(Axios.get(`api/v1/user/follow/${id}`), thunkAPI)
+    });
+
+
+    export const unFollowUser = createAsyncThunk("user/unfollow",
+    async (id, thunkAPI) => {
+        const Axios = await AxiosBase();
+        return apiRequest(Axios.delete(`api/v1/user/unfollow/${id}`), thunkAPI)
+    });
+
+
+
 
 
 export const getUser = createAsyncThunk("auth/user",
