@@ -11,7 +11,7 @@ const EmptyComment = () => {
     <View style={styles.emptyContainer}>
      <View>
      <Image 
-          source={require("@Assets2/image/comment-2.png")}
+          source={require("@Assets2/image/emptyBox.png")}
           style={styles.storeImg}
           />
          

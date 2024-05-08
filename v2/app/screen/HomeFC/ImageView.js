@@ -21,7 +21,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 import Fcon from "react-native-vector-icons/Feather";
 import Acon from "react-native-vector-icons/MaterialCommunityIcons";
 import { MaterialIndicator } from "react-native-indicators";
-// import {unLikeFeed,likeFeed} from "@Request2/Feed";
+import moment from 'moment';
 import {unFollowUser, followUser,} from "@Request2/Auth";
 import {cleanFeedLike, cleanFeedUnLike} from "@Store2/Feed";
 import { getAllFeeds,unLikeFeed,likeFeed, getFeedComments} from "@Request2/Feed";
@@ -159,9 +159,6 @@ useEffect(() => {
   
   }, [followStatus]);
 
-  console.log("the item ....", item.url)
-
-  console.log("the config", Config?.IMG_URL)
 
 useEffect(() => {
 
@@ -378,7 +375,8 @@ if (unFollowStatus === "failed") {
               />
             </View>
             <Text style={styles.descWord}>Family | Relationship | Career</Text>
-            <Text style={styles.dateWord}>{item?.post_date}</Text>
+            <Text style={styles.dateWord}>{moment(item?.updated_at).fromNow()}</Text>
+            {/* <Text style={styles.dateWord}>{item?.post_date}</Text> */}
           </View>
         </TouchableOpacity>
         <View style={styles.leftWrapper}>

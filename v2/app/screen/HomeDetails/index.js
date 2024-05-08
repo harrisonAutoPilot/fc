@@ -16,23 +16,30 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Video from "react-native-video";
+import {useSelector, useDispatch} from 'react-redux';
 import { ViewPropTypes } from "deprecated-react-native-prop-types";
 import Icon from "react-native-vector-icons/AntDesign";
 import Acon from "react-native-vector-icons/MaterialCommunityIcons";
 import { MaterialIndicator } from "react-native-indicators";
 import VideoPlayer from "react-native-video-controls";
+import {getUser, getUserById} from "@Request2/Auth";
+import Config from "react-native-config";
 import { data } from "../../util/data";
 import CategoryDetails from "../HomeFC/CategoryDetails";
 import AppointmentDateBottomSheet from "../HomeFC/appointDateBottomSheet";
 import styles from "./style";
 import Loader from "@Screen2/loader";
+import moment from 'moment';
+import NewItems from "../PosterProfile/TabModules/Types/NewItems";
 const { width } = Dimensions.get("screen");
 
 const HomeDetails = (props) => {
+  const dispatch = useDispatch();
   const [showDocument, setShowDocument] = useState(false);
   const [newPostItem, setNewPostItem] = useState()
   // const items = props.route.params.item;
   const [items, setItems] = useState(props.route.params.item)
+  const {userIdData} = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(false);
   const [mute, unMute] = React.useState(false);
   const [onRepeat, setOnRepeat] = useState(false);
@@ -65,6 +72,7 @@ const HomeDetails = (props) => {
   }
 
   useEffect(() => {
+    dispatch(getUserById(items.user_id))
     if (newPostItem && checkNewPost) {
 
     setItems(newPostItem)
@@ -78,6 +86,7 @@ const HomeDetails = (props) => {
 
 
   const showDetails = (items) => {
+    console.log("the category", items)
     setShowCategory(true);
     setCatItem(items);
   };
@@ -140,13 +149,15 @@ const HomeDetails = (props) => {
               item.type == 'img' ?
               <Image
               style={styles.smImageCard}
-              source={item.image_url}
+              // source={item.image_url}
+              source={{ uri: item?.url !== "" ? `${Config?.SPACE_URL}${item?.url}` : null}}
               resizeMode="cover"
             />
             :
            <View>
              <Video
-                source={item?.video}
+                // source={item?.video}
+                source={{ uri: `${Config?.SPACE_URL}${item?.url}` && `${Config?.SPACE_URL}${item?.url}`}}
                 style={styles.smVideoCard}
                 muted={mute}
                 onLoad={() => {
@@ -182,6 +193,8 @@ const HomeDetails = (props) => {
     );
   };
 
+
+console.log("the itemmmmm", items)
 
   const LoveToggle = useCallback(
     ({ style, onPress, myHeartCount }) => (
@@ -318,13 +331,14 @@ const HomeDetails = (props) => {
                   <View style={styles.userImgCover}>
                     <Image
                       style={styles.posterImg}
-                      source={items?.poster_img}
+                      // source={items?.poster_img}
+                      source={{ uri: userIdData?.avatar?.url !== "" ? `${Config?.IMG_URL}${userIdData?.avatar?.url}` : null}}
                       resizeMode="cover"
                     />
                   </View>
                   <View style={styles.posterCover}>
                     <View style={styles.veirifyCover}>
-                      <Text style={styles.titleWord}>@{items.poster}</Text>
+                      <Text style={styles.titleWord}>@{userIdData.username}</Text>
                       <Image
                         source={require("@Assets2/image/verified.png")}
                         style={styles.verifyImg}
@@ -338,8 +352,8 @@ const HomeDetails = (props) => {
                 </TouchableOpacity>
               </View>
               <CategoryToggle
-                category={items.category}
-                onPress={() => showDetails(items.category)}
+                 category={items?.interest?.display_name?.charAt(0)}
+                 onPress={() => showDetails(items?.interest?.display_name?.charAt(0))}
               />
 
               <LoveToggle myHeartCount={heartCount} />
@@ -357,7 +371,8 @@ const HomeDetails = (props) => {
             <>
               <Image
                 style={styles.imageCard}
-                source={items.image_url}
+                // source={items.image_url}
+                source={{ uri: items?.url !== "" ? `${Config?.SPACE_URL}${items?.url}` : null}}
                 resizeMode="cover"
               />
                <GoBack onPress={() => props.navigation.goBack()} />
@@ -366,13 +381,13 @@ const HomeDetails = (props) => {
                   <View style={styles.userImgCover}>
                     <Image
                       style={styles.posterImg}
-                      source={items.poster_img}
+                      source={{ uri: userIdData?.avatar?.url !== "" ? `${Config?.IMG_URL}${userIdData?.avatar?.url}` : null}}
                       resizeMode="cover"
                     />
                   </View>
                   <View style={styles.posterCover}>
                     <View style={styles.veirifyCover}>
-                      <Text style={styles.titleWord}>@{items.poster}</Text>
+                      <Text style={styles.titleWord}>@{userIdData.username}</Text>
                       <Image
                         source={require("@Assets2/image/verified.png")}
                         style={styles.verifyImg}
@@ -386,8 +401,8 @@ const HomeDetails = (props) => {
                 </TouchableOpacity>
               </View>
               <CategoryToggle
-                category={items.category}
-                onPress={() => showDetails(items.category)}
+                category={items?.interest?.display_name?.charAt(0)}
+                onPress={() => showDetails(items?.interest?.display_name?.charAt(0))}
               />
 
               <LoveToggle myHeartCount={heartCount} />
@@ -415,7 +430,8 @@ const HomeDetails = (props) => {
                 }}
                 toggleResizeModeOnFullscreen={true}
                 resizeMode="cover"
-                source={items?.video}
+                source={{ uri: `${Config?.SPACE_URL}${items?.url}` && `${Config?.SPACE_URL}${items?.url}`}}
+                // source={items?.video}
                 showOnStart={true}
                 controls={false}
                 disableSeekbar={false}
@@ -436,13 +452,14 @@ const HomeDetails = (props) => {
                   <View style={styles.userImgCover}>
                     <Image
                       style={styles.posterImg}
-                      source={items?.poster_img}
+                      // source={items?.poster_img}
+                      source={{ uri: userIdData?.avatar?.url !== "" ? `${Config?.IMG_URL}${userIdData?.avatar?.url}` : null}}
                       resizeMode="cover"
                     />
                   </View>
                   <View style={styles.posterCover}>
                     <View style={styles.veirifyCover}>
-                      <Text style={styles.titleWord}>@{items.poster}</Text>
+                      <Text style={styles.titleWord}>@{userIdData.username}</Text>
                       <Image
                         source={require("@Assets2/image/verified.png")}
                         style={styles.verifyImg}
@@ -451,13 +468,13 @@ const HomeDetails = (props) => {
                     <Text style={styles.descWord}>
                       Family | Relationship | Career
                     </Text>
-                    <Text style={styles.dateWord}>{items.post_date}</Text>
+                    <Text style={styles.dateWord}>{moment(items?.updated_at).fromNow()}</Text>
                   </View>
                 </TouchableOpacity>
               </View>
               <CategoryToggle
-                category={items.category}
-                onPress={() => showDetails(items.category)}
+               category={items?.interest?.display_name?.charAt(0)}
+               onPress={() => showDetails(items?.interest?.display_name?.charAt(0))}
               />
 
               <LoveToggle myHeartCount={heartCount} />
@@ -475,7 +492,8 @@ const HomeDetails = (props) => {
             <>
               <Image
                 style={styles.imageCard}
-                source={items.image_url}
+                // source={items.image_url}
+                source={{ uri: items?.url !== "" ? `${Config?.SPACE_URL}${items?.url}` : null}}
                 resizeMode="cover"
               />
                 <GoBack onPress={() => props.navigation.goBack()} />
@@ -484,13 +502,14 @@ const HomeDetails = (props) => {
                   <View style={styles.userImgCover}>
                     <Image
                       style={styles.posterImg}
-                      source={items.poster_img}
+                      // source={items.poster_img}
+                      source={{ uri: userIdData?.avatar?.url !== "" ? `${Config?.IMG_URL}${userIdData?.avatar?.url}` : null}}
                       resizeMode="cover"
                     />
                   </View>
                   <View style={styles.posterCover}>
                     <View style={styles.veirifyCover}>
-                      <Text style={styles.titleWord}>@{items.poster}</Text>
+                      <Text style={styles.titleWord}>@{userIdData?.username}</Text>
                       <Image
                         source={require("@Assets2/image/verified.png")}
                         style={styles.verifyImg}
@@ -499,13 +518,13 @@ const HomeDetails = (props) => {
                     <Text style={styles.descWord}>
                       Family | Relationship | Career
                     </Text>
-                    <Text style={styles.dateWord}>{items.post_date}</Text>
+                    <Text style={styles.dateWord}>{moment(items?.updated_at).fromNow()}</Text>
                   </View>
                 </TouchableOpacity>
               </View>
               <CategoryToggle
-                category={items.category}
-                onPress={() => showDetails(items.category)}
+                category={items?.interest?.display_name?.charAt(0)}
+                onPress={() => showDetails(items?.interest?.display_name?.charAt(0))}
               />
 
               <LoveToggle myHeartCount={heartCount} />

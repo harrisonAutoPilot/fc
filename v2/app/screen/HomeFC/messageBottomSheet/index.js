@@ -41,10 +41,6 @@ const MessageBottomSheet = (props) => {
     const userImg = `${Config.API_URL}${props.userData?.avatar?.url}`
 
 
-
-console.log("this is the future",userImg)
-
-
     useEffect(() => {
     
       dispatch(getFeedComments(props?.message1?.id))
@@ -169,10 +165,6 @@ const passIt = `${newValue}${search}`;
       );
     };
   
-
-
-
-console.log("this item .. result", feedCommentData, addCommentData, addCommentErrors, props?.message1)
 
     return (
   

@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   scrollContentContainer: {
     alignItems: "center",
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
   },
   descCover: {
     width: ITEM_WIDTH,
@@ -75,31 +75,29 @@ const styles = StyleSheet.create({
   imageCard: {
     borderRadius: 10,
     width: ITEM_WIDTH - 20,
-    height: "76%",
+    height: "77%",
     alignSelf: "center",
+    borderRadius: 10,  
+  },
+  imageCardU: {
     borderRadius: 10,
-    // backgroundColor: 'pink',
-    // borderBottomLeftRadius:6,
-    // borderBottomRightRadius:6,
-    // borderRadius:0
+    width: ITEM_WIDTH - 20,
+    height: "77%",
+    alignSelf: "center",
+    borderRadius: 10,  
   },
   imageCardImg: {
     borderRadius: 10,
     width: ITEM_WIDTH - 20,
     height: "100%",
     alignSelf: "center",
-
     borderRadius: 10,
-    // borderBottomLeftRadius:6,
-    // borderBottomRightRadius:6,
-    // borderRadius:0
   },
   videoCard: {
     borderRadius: 6,
     width: ITEM_WIDTH,
     height: boxHeight,
-    backgroundColor: "#bfbfbf",
-    // backgroundColor:'#00b300',
+    backgroundColor: "#fff",
     alignItems: "center",
     alignSelf: "center",
     justifyContent: "center",
@@ -121,11 +119,6 @@ const styles = StyleSheet.create({
   imageCardd: {
     width: ITEM_WIDTH,
     height: ITEM_HEIGHT2,
-    // backgroundColor: '#bfbfbf',
-    // backgroundColor:'#00b300',
-    // borderBottomLeftRadius:6,
-    // borderBottomRightRadius:6,
-
     borderRadius: 0,
     backgroundColor: "#fff",
   },
@@ -139,8 +132,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical:3,
     borderRadius: 10,
-    // position:'absolute',
-    // top:2,
     backgroundColor: "#fff",
   },
   userImgCover: {
@@ -468,7 +459,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    bottom: 90,
+    bottom:'13%',
     right: 13,
   },
   loveCover: {

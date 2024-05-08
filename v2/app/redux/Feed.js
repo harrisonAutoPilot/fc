@@ -1,6 +1,6 @@
 import { createSlice} from "@reduxjs/toolkit";
-import {addFeed, getAllFeeds, likeFeed, unLikeFeed, getFeedComments,addFeedComment} from "@Request2/Feed";
-
+import {addFeed, getAllFeeds, likeFeed, unLikeFeed, getFeedComments,addFeedComment,getFeedById, deleteFeedMedia} from "@Request2/Feed";
+import dict from "@Helper2/dict";
 export const feedSlice = createSlice({
     name: "feed",
     initialState: {
@@ -11,7 +11,16 @@ export const feedSlice = createSlice({
         addFeedDetail:{},
         allFeedStatus:"idle",
         allFeedErrors:{},
+        allFeedDataMore:[],
         allFeedData:{},
+
+        deleteFeedStatus:"idle",
+        deleteFeedErrors:{},
+        deleteFeedData:{},
+
+        feedIdStatus:"idle",
+        feedIdErrors:{},
+        feedIdData:{},
         likeStatus:"idle",
         likeData:{},
         likeErrors:{},
@@ -46,10 +55,22 @@ export const feedSlice = createSlice({
             state.feedStatus = "idle"
             state. addFeedDetail = {}
         },
+
+        cleanDeleteFeed: (state) => {
+            state.deleteFeedErrors = {}
+            state.deleteFeedStatus = "idle"
+            state. deleteFeedData = {}
+        },
         cleanAllFeed: (state) => {
             state.allFeedErrors = {}
             state.allFeedStatus = "idle"
             state. allFeedData = {}
+            state.allFeedDataMore = []
+        },
+        cleanFeedIdStatus: (state) => {
+            state.feedIdErrors = {}
+            state.feedIdStatus = "idle"
+            state.feedIdData = {}
         },
         cleanFeedLike: (state) => {
             state.likeErrors = {}
@@ -106,6 +127,7 @@ export const feedSlice = createSlice({
             })
             .addCase(getAllFeeds.fulfilled, (state, action) => {
                 state.allFeedData = action.payload;
+                state.allFeedDataMore = dict(state.allFeedDataMore, action.payload.data);
                 state.allFeedStatus = "success";
                 state.allFeedErrors = {};
                 state.loaded = "success";
@@ -189,11 +211,45 @@ export const feedSlice = createSlice({
             })
 
  
+            builder
+            .addCase(getFeedById.pending, state => {
+                state.feedIdStatus = "pending";
+                state.feedIdErrors = {};
+            })
+          
+                .addCase(getFeedById.fulfilled, (state, action) => {
+                state.feedIdStatus = "success";
+                state.feedIdData = action?.payload;
+                
+            })
+            .addCase(getFeedById.rejected, (state, action)=> {
+                state.feedIdStatus = "failed";
+                state.feedIdErrors = action.payload;
+               
+            })
+
+
+            builder
+            .addCase(deleteFeedMedia.pending, state => {
+                state.deleteFeedStatus = "pending";
+                state.deleteFeedData = [];
+                state.deleteFeedErrors = {};
+            })
+            .addCase(deleteFeedMedia.fulfilled, (state, { payload }) => {
+                state.deleteFeedStatus = "success";
+                state.deleteFeedData = payload;
+                state.deleteFeedErrors ={}
+            })
+            .addCase(deleteFeedMedia.rejected, (state, { payload }) => {
+                state.deleteFeedStatus = "failed";
+                state.deleteFeedErrors = payload;
+            })
+            
         
     }
 
 });
 
-export const { cleanup,cleanAddFeed,cleanAllFeed,cleanFeedLike,cleanFeedUnLike,cleanFeedComment,cleanAddComment} = feedSlice.actions
+export const { cleanup,cleanAddFeed,cleanAllFeed,cleanFeedLike,cleanFeedUnLike,cleanFeedComment,cleanAddComment,cleanFeedIdStatus,cleanDeleteFeed} = feedSlice.actions
 
 export default feedSlice.reducer;

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {interestList,avartarList,registerUser,unFollowUser, followUser, countryCodeList,login,register, getUser, updateUserPassword,forgotPin,getPhoneVerificationPin,verifyPin, checkEmailDetails, updateUserDetails,checkPhoneDetails, deleteUserAccount, updateUserImage,checkAddressDetails,agentAnalytics,agentCheckin,getAgentCheckinStatus,callHistoryLog} from "@Request2/Auth";
+import {interestList,avartarList,registerUser,unFollowUser, followUser, countryCodeList,login,register, getUser, updateUserPassword,forgotPin,getPhoneVerificationPin,verifyPin, checkEmailDetails, updateUserDetails,checkPhoneDetails, deleteUserAccount, updateUserImage,checkAddressDetails,agentAnalytics,agentCheckin,getAgentCheckinStatus,callHistoryLog,getUserInterest,addDescription,syncAppointmentDate,getUserById,getAvailableDate,getAvailableDateByUserId,createAppointment,addAppointmentMessage,avartarUpdate} from "@Request2/Auth";
 
 
 export const authSlice = createSlice({
@@ -9,17 +9,44 @@ export const authSlice = createSlice({
         interestListStatus:"idle",
         interestListData:{},
         avartarListStatus:"idle",
+        availableDateStatus:"idle",
+        availableDateErrors:{},
+        availableDateData:{},
+        interest:{},
+        createApStatus:"idle",
+        createApErrors:{},
+        createApData:{},
+        avartarUpdateStatus:"idle",
+        avartarUpdateErrors:{},
+        avartarUpdateData:{},
+        addMessageStatus:"'idle",
+        addMessageErrors:{},
+        addMessageData:{},
+        userDateStatus:"idle",
+        userDateData:{},
+        userDateErrors:{},
         avartarListData :{},
+        userIdStatus:"idle",
+        userIdErrors:{},
+        userIdData:{},
+        descStatus:"idle",
         followStatus:"idle",
         unFollowStatus:"idle",
+        interestStatus:"idle",
+        syncStatus:"idle",
+        syncErrors:{},
+        syncData:{},
         followErrors:{},
         unfollowErrors:{},
         followData:{},
+        descErrors:{},
+        descData:{},
         unFollowData:{},
         user: {},
         status: "idle",
         deleteAccount: "idle",
         errors: {},
+        interestErrors : {},
         checkInErrors:{},
         analyticsData:{},
         callHistoryStatus:"idle",
@@ -81,6 +108,21 @@ export const authSlice = createSlice({
             state.update = "idle"
             state.deleteAccount ="idle"
         },
+        cleanSync:(state) => {
+            state.syncStatus = "idle"
+            state.syncErrors = {}
+            state.syncData = {}
+        },
+        cleanCreateAppointment: (state) =>{
+        state.createApStatus = "idle"
+        state.createApErrors = {}
+        state.createApData = {}
+        },
+        cleanAddMessage:(state) =>{
+            state.addMessageStatus = "idle"
+            state.addMessageErrors = {}
+            state.addMessageData = {}
+        },
         cleanInterest: (state) => {
             state.errors = {}
             state.interestListStatus = "idle"
@@ -92,6 +134,36 @@ export const authSlice = createSlice({
             state.avartarListStatus = "idle"
             state.avartarListData  = {}
            
+        },
+        cleanAvartarUpdate: (state) => {
+            state.avartarUpdateErrors = {}
+            state.avartarUpdateStatus = "idle"
+            state.avartarUpdateData  = {}
+           
+        },
+        
+        cleanAvailableDate:(state) =>{
+            state.availableDateStatus = "idle"
+            state.availableDateData = {}
+            state.availableDateErrors = {}
+        },
+        cleanUserAvailableDate:(state) =>{
+            state.userDateStatus = "idle"
+            state.userDateData = {}
+            state.userDateErrors = {}
+        },
+
+
+        cleanAddDescription: (state) => {
+            state.descErrors = {}
+            state.descStatus = "idle"
+            state.descData  = {}
+           
+        },
+        cleanUserInterest:(state) =>{
+            state.interestErrors = {}
+            state.interestStatus = "idle"
+            state.interest = {}
         },
         cleanFollowUser: (state) => {
             state.followErrors = {}
@@ -108,6 +180,11 @@ export const authSlice = createSlice({
         cleanLoginStatus: (state) => {
             state.errors = {}
             state.loginStatus = "idle"
+        },
+        cleanUserIdStatus: (state) => {
+            state.userIdErrors = {}
+            state.userIdStatus = "idle"
+            state.userIdData = {}
         },
         cleanRegisterStatus: (state) => {
             state.errors = {}
@@ -179,8 +256,6 @@ export const authSlice = createSlice({
                 state.errors = payload;
                 state.isAuthenticated = false
             })
-
-   
 
             builder
             .addCase(interestList.pending, state => {
@@ -340,23 +415,24 @@ export const authSlice = createSlice({
                 state.unFollowData = {}
             })
 
+            builder
+            .addCase(getUserInterest.pending, state => {
+                state.interestStatus = "pending";
+                state.interest = {}
+                state.interestErrors = {};
+            })
+            .addCase(getUserInterest.fulfilled, (state, {payload}) => {
+                state.interestStatus = "success"; 
+                console.log("the flexing uuuuuu", payload)
+                state.interest = payload;
+                state.interestErrors = {};
+            })
+            .addCase(getUserInterest.rejected, (state, { payload }) => {
+                state.interestStatus = "failed";
+                state.interest = {};
+                state.interestErrors = payload;
+            })
 
-
-
-
-            // builder
-            // .addCase(updateUserDetails.pending, state => {
-            //     state.update = "pending";
-            //     state.errors = {};
-            // })
-            // .addCase(updateUserDetails.fulfilled, (state, {payload}) => {
-            //     state.update = "success";
-            //     state.errors = {};
-            // })
-            // .addCase(updateUserDetails.rejected, (state, { payload }) => {
-            //     state.update = "failed";
-            //     state.errors = payload;
-            // })
 
             builder
             .addCase(deleteUserAccount.pending, state => {
@@ -368,7 +444,6 @@ export const authSlice = createSlice({
                 state.errors = {};
             })
             .addCase(deleteUserAccount.rejected, (state, { payload }) => {
-              
                 state.deleteAccount = "failed";
                 state.errors = payload;
             })
@@ -388,8 +463,6 @@ export const authSlice = createSlice({
                 state.errors = payload;
             })
 
-
-     
 
             builder
             .addCase(countryCodeList.pending, state => {
@@ -504,9 +577,45 @@ export const authSlice = createSlice({
             .addCase(getAgentCheckinStatus.rejected, (state, action)=> {
                 state.myCheckInStatus = "failed";
                 state.checkInErrors = action.payload;
-                console.log("the redux error for checkin",action.payload)
+              
             })
             
+            builder
+            .addCase(getUserById.pending, state => {
+                state.userIdStatus = "pending";
+                state.userIdErrors = {};
+            })
+          
+                .addCase(getUserById.fulfilled, (state, action) => {
+                state.userIdStatus = "success";
+                state.userIdData = action?.payload;
+                
+            })
+            .addCase(getUserById.rejected, (state, action)=> {
+                state.userIdStatus = "failed";
+                state.checkInErrors = action.payload;
+               
+            })
+            
+
+            builder
+            .addCase(addDescription.pending, state => {
+                state.descStatus = "pending";
+                state.descErrors = {};
+            })
+          
+                .addCase(addDescription.fulfilled, (state, action) => {
+                state.descStatus = "success";
+                state.descData = action?.payload;
+                
+            })
+            .addCase(addDescription.rejected, (state, action)=> {
+                state.descStatus = "failed";
+                state.descErrors = action.payload;
+            
+            })
+            
+
 
             builder
             .addCase(agentCheckin.pending, state => {
@@ -537,10 +646,113 @@ export const authSlice = createSlice({
                 state.errors = payload;
             })
 
+
             
+            builder
+            .addCase( syncAppointmentDate.pending, state => {
+                state.syncStatus = "pending";
+                state.syncErrors = {};
+            })
+            .addCase( syncAppointmentDate.fulfilled, (state, { payload }) => {
+                state.syncStatus = "success";
+                state.syncData = payload;
+            })
+            .addCase( syncAppointmentDate.rejected, (state, { payload }) => {
+                state.syncStatus = "failed";
+                state.syncErrors = payload;
+            })
+
+
+            builder
+            .addCase(getAvailableDate.pending, state => {
+                state.availableDateStatus = "pending";
+                state.availableDateErrors = {};
+            })
+            .addCase(getAvailableDate.fulfilled, (state, { payload }) => {
+                state.availableDateStatus = "success";
+                state.availableDateData = payload;
+            })
+            .addCase(getAvailableDate.rejected, (state, { payload }) => {
+                state.availableDateStatus = "failed";
+                state.availableDateErrors = payload;
+            })
+
+            
+
+            builder
+            .addCase(getAvailableDateByUserId.pending, state => {
+                state.userDateStatus = "pending";
+                state.userDateErrors = {};
+            })
+            .addCase(getAvailableDateByUserId.fulfilled, (state, { payload }) => {
+                state.userDateStatus = "success";
+                state.userDateData = payload;
+            })
+            .addCase(getAvailableDateByUserId.rejected, (state, { payload }) => {
+                state.userDateStatus = "failed";
+                state.userDateErrors = payload;
+            })
+
+
+            
+
+            builder
+            .addCase(createAppointment.pending, state => {
+                state.createApStatus = "pending";
+                state.createApErrors = {};
+            })
+          
+                .addCase(createAppointment.fulfilled, (state, action) => {
+                state.createApStatus = "success";
+                state.createApData = action?.payload;
+                
+            })
+            .addCase(createAppointment.rejected, (state, action)=> {
+                state.createApStatus = "failed";
+                state.createApErrors = action.payload;
+            
+            })
+            
+            builder
+            .addCase(addAppointmentMessage.pending, state => {
+                state.addMessageStatus = "pending";
+                state.addMessageErrors = {};
+            })
+          
+                .addCase(addAppointmentMessage.fulfilled, (state, action) => {
+                state.addMessageStatus = "success";
+                state.addMessageData = action?.payload;
+                
+            })
+            .addCase(addAppointmentMessage.rejected, (state, action)=> {
+                state.addMessageStatus = "failed";
+                state.addMessageErrors = action.payload;
+            
+            })
+
+
+            
+
+            builder
+            .addCase(avartarUpdate.pending, state => {
+                state.avartarUpdateStatus = "pending";
+                state.avartarUpdateErrors = {};
+            })
+          
+                .addCase(avartarUpdate.fulfilled, (state, action) => {
+                state.avartarUpdateStatus = "success";
+                state.avartarUpdateData = action?.payload;
+                
+            })
+            .addCase(avartarUpdate.rejected, (state, action)=> {
+                state.avartarUpdateStatus = "failed";
+                state.avartarUpdateErrors = action.payload;
+            
+            })
+
     }
 });
 
-export const { logout,cleanCountryCodeStatus,cleanUnFollowUser,cleanFollowUser,cleanInterest,cleanAvartar, getUserDetails,cleanCheckAddress,cleanRegisterStatus, cleanCheckEmail,cleanPhoneVerificationStatus, cleanUserDetails,cleanCheckPhone, cleanLoginStatus, cleanup,cleanDisableAc,cleanAnalytics } = authSlice.actions
+export const { logout,cleanCountryCodeStatus,cleanUnFollowUser,cleanFollowUser,cleanInterest,cleanUserInterest,cleanAvartar, getUserDetails,cleanCheckAddress,cleanRegisterStatus, cleanCheckEmail,cleanPhoneVerificationStatus, cleanUserDetails,cleanCheckPhone, cleanLoginStatus, cleanup,cleanDisableAc,cleanAnalytics,cleanAddDescription,cleanSync,cleanUserIdStatus,cleanAvailableDate,cleanUserAvailableDate,cleanCreateAppointment,cleanAddMessage,cleanAvartarUpdate } = authSlice.actions
 
 export default authSlice.reducer;

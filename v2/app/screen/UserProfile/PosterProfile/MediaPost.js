@@ -34,7 +34,7 @@ const MediaPost = ({props, navigation,collections}) => {
     // const {items }= props.route.params.data;
     
 
-    console.log("this is from the other end", collections)
+    // console.log("this is from the other end", collections)
 
     const [objectValues, setObjectValues] = useState()
     const [duration, setDuration] = useState("6 Months")

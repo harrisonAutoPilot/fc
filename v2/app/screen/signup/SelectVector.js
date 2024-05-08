@@ -189,8 +189,6 @@ console.log("the id", selected)
         };
     });
 
-    console.log("the url",Config)
-
     const RenderItem = ({ item }) => {
 
         return (
@@ -275,6 +273,7 @@ console.log("the id", selected)
                     />
                
                 </View>
+                
                 {showBtn ?
                 <View style={style.continueBtnViewVector1}>
                     <OnboardinBtn

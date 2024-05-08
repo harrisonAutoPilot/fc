@@ -127,6 +127,11 @@ export default styles = StyleSheet.create({
     borderBottomWidth:1,
     borderBottomColor:'rgba(121, 116, 126, 0.16)',
         },
+        backArrow2:{
+            width:25,
+            height:25,
+            resizeMode:'contain'
+        },
     myTitle:{
         fontSize: 22,
         color: '#1B1B1F',

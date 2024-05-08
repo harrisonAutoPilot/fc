@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useCallback, useRef} from 'react';
+
 import {
   View,
   Text,
@@ -20,6 +21,8 @@ import Acon from "react-native-vector-icons/MaterialCommunityIcons";
 import MediaPost from './MediaPost';
 import Resources from './Resources';
 
+import {getUser, getUserById} from "@Request2/Auth";
+import {cleanUserIdStatus} from '@Store2/Auth';
 import styles from './style';
 import PosterHeaderComponent from "./PosterHeaderComponent"
 import { group } from "../../util/group";
@@ -35,8 +38,10 @@ const ViewTypes = {
 };
 
 const PosterProfile = props => {
-  const items = props.route.params.item
   const dispatch = useDispatch();
+  const {user, interest, interestErrors, interestStatus, userIdData} = useSelector((state) => state.auth);
+  const items = props.route.params.item
+
   const [active, setActive] = useState('1');
   const [searchCategory, setSearchCategory] = useState('');
   const [searchCategoryArray, setSearchCategoryArray] = useState([]);
@@ -59,6 +64,14 @@ const PosterProfile = props => {
   }
 
 
+
+  useEffect(() => {
+    dispatch(getUserById(items.user_id)) 
+
+}, [])
+
+
+console.log("the respose", userIdData)
 
   const SupportList = ({props}) =>
   group?.map((item, index) => (
@@ -156,15 +169,15 @@ const PosterProfile = props => {
             <View style={styles.topInnerContainer}>
               <View style={styles.topInnerFlex}>
                   <View style={styles.singleCover}>
-                    <Text style={styles.topPostTextCount}>{items.posts}</Text>
+                    <Text style={styles.topPostTextCount}>{userIdData.feedsCount}</Text>
                     <Text style={styles.topPostText}>Posts</Text>
                   </View>
                   <View style={styles.singleCover}>
-                  <Text style={styles.topPostTextCount}>{items.follower}</Text>
+                  <Text style={styles.topPostTextCount}>{userIdData.followersCount}</Text>
                   <Text style={styles.topPostText}>Followers</Text>
                   </View>
                   <View style={styles.singleCover}>
-                  <Text style={styles.topPostTextCount}>{items.following}</Text>
+                  <Text style={styles.topPostTextCount}>{userIdData.followingsCount}</Text>
                   <Text style={styles.topPostText}>Following</Text>
                   </View>
               </View>
@@ -182,10 +195,11 @@ const PosterProfile = props => {
           
            </View>
            <View style={styles.introContainer}>
-           
-            <Text style={styles.titleInit}>{items.poster}</Text>
-            <Text style={styles.titleText}>{items.title}</Text>
-            <Text style={styles.descText}>{items.intro}</Text>
+              {userIdData?.description == null ?
+            <Text style={styles.descText}>Hi my name is {userIdData?.username} I am here to learn, heal and have fun</Text>
+                :
+                <Text style={styles.descText}>{userIdData?.description}</Text>
+              }
            </View>
            <View style={styles.supportCardContainer}>
             <View style={styles.supportHeaderContainer}>

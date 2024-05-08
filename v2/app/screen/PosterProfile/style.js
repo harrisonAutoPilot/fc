@@ -80,7 +80,7 @@ topNav: {
     imgCover:{
         width:79,
         height:79,
-        borderWidth:2,
+        borderWidth:0,
         borderColor:'#99cb01',
         borderRadius:100,
         alignItems:'center',

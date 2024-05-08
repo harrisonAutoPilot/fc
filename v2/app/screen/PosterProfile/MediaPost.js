@@ -18,12 +18,14 @@ import Video from "react-native-video";
 import { InputField } from "@Component";
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from "./style";
-// import { getCustomers } from "@Request2/Customer";
+import { getFeedById} from "@Request2/Feed";
+import {cleanFeedIdStatus} from '@Store2/Feed';
+import Config from "react-native-config";
 
-import { data } from "../../util/data";
 
 const MediaPost = ({props, navigation,collections}) => {
     const dispatch = useDispatch();
+    const {feedIdData} = useSelector((state) => state.feed);
     const [refreshing, setRefreshing] = useState(false);
     const [sheetOpen, setSheetOpen] = useState(false);
     const [search, setSearch] = useState("")
@@ -35,9 +37,9 @@ const MediaPost = ({props, navigation,collections}) => {
     
 
     console.log("this is from the other end", collections)
+    console.log("this againoooooo", feedIdData)
 
-    const [objectValues, setObjectValues] = useState()
-    const [duration, setDuration] = useState("6 Months")
+
   
       const returnBack = () => {
           props.navigation.goBack();
@@ -50,6 +52,11 @@ const MediaPost = ({props, navigation,collections}) => {
         
           }
 
+          useEffect(() => {
+            dispatch(cleanFeedIdStatus())
+            dispatch(getFeedById(collections.user_id)) 
+        
+        }, [])
 
 
 
@@ -66,117 +73,6 @@ const MediaPost = ({props, navigation,collections}) => {
     }
 
 
-    // const ListView = ({ item, index }) => {
-
-    //     return (
-    //         {item?.poster == collections?.poster ?        
-             
-    //         <TouchableOpacity   key={item.id} onPress={() => playNew(item)}>
-    //         <>
-            
-    //              {item.type == 'video'  ?
-    //           <View style={styles.bottomCard} >
-    //             <Video
-    //              source={item?.video}
-    //              style={styles.smVideoCard}
-    //              muted={true}
-    //              onLoad={() => {
-    //             //    setTimeout(setSmPause(true), 5000)
-    //                setSmPause(true)
-    //              }}
-    //              rate={1.0}
-    //              resizeMode="cover"
-    //              volume={0.0}
-    //              paused={smPause}
-             
-    //            />
-    //            <View style={styles.miniPlay}>
-    //            <Image
-    //             source={require("@Assets2/image/film.png")}
-    //             style={styles.camImg}
-    //             resizeMode="contain"
-    //           />
-    //           </View>
-    //           </View>
-    //             :
-    //             <View style={styles.bottomCard}>
-    //              <Image
-    //                 style={styles.imageCard}
-    //                 source={item?.image_url}
-    //                 resizeMode="cover"
-    //                 />
-    //             </View> 
-    //         }
-              
-    //        </>
-           
-    //        </TouchableOpacity>
-    
-    //             :
-    //             null
-    //             }
-    //             </>
-    //             ),
-    //             []
-    //         );
-      
-
-            // const ListView = ({ item, index }) => {
-
-            //     return 
-            //         ({ item, index }) => (
-            //             <>
-            //             {item?.poster == collections?.poster ?        
-                         
-            //             <TouchableOpacity   key={item.id} onPress={() => playNew(item)}>
-            //             <>
-                        
-            //                  {item.type == 'video'  ?
-            //               <View style={styles.bottomCard} >
-            //                 <Video
-            //                  source={item?.video}
-            //                  style={styles.smVideoCard}
-            //                  muted={true}
-            //                  onLoad={() => {
-            //                 //    setTimeout(setSmPause(true), 5000)
-            //                    setSmPause(true)
-            //                  }}
-            //                  rate={1.0}
-            //                  resizeMode="cover"
-            //                  volume={0.0}
-            //                  paused={smPause}
-                         
-            //                />
-            //                <View style={styles.miniPlay}>
-            //                <Image
-            //                 source={require("@Assets2/image/film.png")}
-            //                 style={styles.camImg}
-            //                 resizeMode="contain"
-            //               />
-            //               </View>
-            //               </View>
-            //                 :
-            //                 <View style={styles.bottomCard}>
-            //                  <Image
-            //                     style={styles.imageCard}
-            //                     source={item?.image_url}
-            //                     resizeMode="cover"
-            //                     />
-            //                 </View> 
-            //             }
-                          
-            //            </>
-                       
-            //            </TouchableOpacity>
-                
-            //                 :
-            //                 null
-            //                 }
-            //                 </>
-            //                 ),
-            // };
-        
-
 
         
             const ListView = ({ item, index }) => {
@@ -191,7 +87,8 @@ const MediaPost = ({props, navigation,collections}) => {
                              {item.type == 'video'  ?
                           <View style={styles.bottomCard} >
                             <Video
-                             source={item?.video}
+                             source={{ uri: `${Config?.SPACE_URL}${item?.url}` && `${Config?.SPACE_URL}${item?.url}`}}
+                            //  source={item?.video}
                              style={styles.smVideoCard}
                              muted={true}
                              onLoad={() => {
@@ -216,7 +113,8 @@ const MediaPost = ({props, navigation,collections}) => {
                             <View style={styles.bottomCard}>
                              <Image
                                 style={styles.imageCard}
-                                source={item?.image_url}
+                                // source={item?.image_url}
+                                source={{ uri: item?.url !== "" ? `${Config?.SPACE_URL}${item?.url}` : null}}
                                 resizeMode="cover"
                                 />
                             </View> 
@@ -249,7 +147,7 @@ const MediaPost = ({props, navigation,collections}) => {
                     columnWrapperStyle= {styles.bottomCardCover}
                     numColumns = {3}
                     vertical
-                    data={data}
+                    data={feedIdData.data}
                     keyExtractor={item => item.id}
                     // ListEmptyComponent={EmptyPending}
                     renderItem={ListView}

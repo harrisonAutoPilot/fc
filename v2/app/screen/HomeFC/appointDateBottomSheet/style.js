@@ -135,7 +135,7 @@ intro:{
 },
 issues:{
     fontSize: 14,
-    fontFamily: "AnekLatin-Medium",
+    fontFamily: "AnekLatin-Regular",
     color: "#1B1B1F",
     letterSpacing: 0.25, 
 },
@@ -147,8 +147,8 @@ issueDate:{
 },
 issueDateNew:{
     fontSize: 16,
-    fontFamily: "AnekLatin-Medium",
-    color: "purple",
+    fontFamily: "AnekLatin-SemiBold",
+    color: "#1B1B1F",
     letterSpacing: 0.25, 
     marginTop:-10,
     marginBottom:10
@@ -159,13 +159,13 @@ dateContainer:{
 },
 inputContainer:{
     width:wp('90%'),
-    height:180,
+    height:120,
     borderWidth:1,
     borderColor:"#bfbfbf",
     borderRadius:4,
     alignSelf:'center',
     borderWidth:1,
-    borderColor:'#1B1B1F'
+    // borderColor:'#1B1B1F'
   },
   input:{
     padding:20,
@@ -175,7 +175,12 @@ inputContainer:{
     letterSpacing: 0.25, 
     textAlignVertical: 'top',
   },
-  
+  submitBtnContainer: {
+   
+    marginTop:20,
+    height:50,
+
+},
   confirmCover:{
     width: '95%',
     paddingHorizontal: 50,
@@ -188,6 +193,18 @@ inputContainer:{
     alignSelf:'center', 
     marginTop:20
   },
+  disabledCover:{
+    width: '95%',
+    paddingHorizontal: 50,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    borderRadius: 30,
+    backgroundColor: '#bfbfbf',
+    alignItems: 'center',
+    alignSelf:'center', 
+    marginTop:20
+  },
   confirmText:{
     fontSize: 14,
     fontFamily: 'AnekLatin-Medium',
@@ -195,6 +212,7 @@ inputContainer:{
     color: '#fff',
     letterSpacing: 0.1,
     marginRight: 10,
+    textTransform:'uppercase'
   },
   confirmCoverChange:{
     width: '95%',
@@ -203,11 +221,40 @@ inputContainer:{
     justifyContent: 'center',
     paddingVertical: 12,
     borderRadius: 30,
-    backgroundColor: '#ff9900',
+    backgroundColor: 'pink',
     alignItems: 'center',
     alignSelf:'center', 
     marginTop:20
   },
+
+//   this is for the date Placeholder
+CalendarPlaceholderContainer:{
+width:'95%',
+// backgroundColor:'#f5f5f5',
+justifyContent:"center",
+alignItems:'flex-start',
+flexDirection:'row',
+alignSelf:'center',
+borderRadius:6,
+padding:10,
+paddingVertical:30,
+flexWrap:'wrap'
+},
+dateDot:{
+width:30,
+height:30,
+borderRadius:60,
+backgroundColor:'#bfbfbf',
+margin:10,
+alignSelf:'center',
+},
+placeholderBtn:{
+    width:'90%',
+    height:45,
+    borderRadius:50,
+    marginTop:30,
+    backgroundColor:'#e6e6e6'
+}
 });
 
 export default styles

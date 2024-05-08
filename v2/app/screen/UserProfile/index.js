@@ -136,7 +136,8 @@ const UserProfile = props => {
           title={`@${items.poster}`}
           // onPress={openNotification}
           onPressBack={goBack}
-          // onPressCart={openCart}
+          
+          onPressCart={openDot}
           // orderCount={items.carts?.total}
            />
            <View style={styles.topContainer}>

@@ -20,14 +20,17 @@ import Acon from "react-native-vector-icons/MaterialCommunityIcons";
 import Fcon from "react-native-vector-icons/Feather";
 import { useDispatch, useSelector } from "react-redux";
 import { MaterialIndicator } from "react-native-indicators";
-
+import moment from 'moment';
 import { group } from "../../util/group";
 import Config from "react-native-config";
 import { data } from "../../util/data";
-import {unFollowUser, followUser,} from "@Request2/Auth";
+import {unFollowUser, followUser,getAvailableDateByUserId,getUser, createAppointment,addAppointmentMessage} from "@Request2/Auth";
 import { getAllFeeds,unLikeFeed,likeFeed, getFeedComments} from "@Request2/Feed";
 import {cleanFeedLike, cleanFeedUnLike} from "@Store2/Feed";
-import {cleanUnFollowUser,cleanFollowUser} from "@Store2/Auth";
+import {
+
+} from "@Request2/Auth";
+import {cleanUnFollowUser,cleanFollowUser,cleanUserAvailableDate} from "@Store2/Auth";
 const { width } = Dimensions.get("screen");
 import styles from "./style";
 import Video from "react-native-video";
@@ -51,7 +54,19 @@ const [isLoading, setIsLoading] = useState(false);
 const [mute, unMute] = React.useState(true);
 const [onRepeat, setOnRepeat] = useState(false);
 const { likeStatus, unlikeStatus, likeErrors, likeData,feedCommentStatus,feedCommentData, unlikeData} = useSelector((state) => state.feed);
-const { unFollowStatus,followErrors, unFollowData, followStatus, followData} = useSelector((state) => state.auth);
+const { } = useSelector((state) => state.auth);
+const {
+  user,
+  createApStatus,
+  createApData,
+  createApErrors,
+  userDateStatus,
+  userDateData,
+  addMessageStatus,
+  addMessageErrors,
+  addMessageData,
+  unFollowStatus,followErrors, unFollowData, followStatus, followData
+} = useSelector((state) => state.auth);
 const [selected, setSelected] = useState(0);
 const [detailsValue, setDetailsValue] = useState(0);
 const [showPreview, setShowPreview] = useState(false);
@@ -67,12 +82,32 @@ const { height: windowHeight } = Dimensions.get("window");
 const boxHeight = windowHeight / 1.3;
 const [showCategory, setShowCategory] = useState(false);
 const [catItem, setCatItem] = useState();
+const [noteDate, setNoteDate] = useState([])
+const [fromDate, setFromDate] = useState("")
+const [showNote, setShowNote] = useState(false)
+const [toDate, setToDate] = useState("")
+const [displayFrom, setDisplayFrom] = useState(true)
+const [displayTo, setDisplayTo] = useState(false)
+const [note, setNote] = useState("")
+const [successMsg, setSuccessMsg] = useState(null);
+const [loader, setLoader] = useState(false);
+const [startDate, setStartDate] = useState([]);
+const [endDate, setEndDate] = useState([]);
+const [showCalendar, setShowCalendar] = useState(false);
+const [errMsg, setErrMsg] = useState(null);
+const [listData, setListData] = useState([]);
+
+
+
+
+
 const bottomSheetRefApDate = useRef();
 const bottomSheetRefMessage = useRef();
 
 const [heartCount, setHeartCount] = useState(249);
 
 const showDetails = (item) => {
+  console.log("the name", item)
   setShowCategory(true);
   setCatItem(item);
 };
@@ -120,9 +155,9 @@ if (unlikeStatus === "failed") {
 
 }, [unlikeStatus]);
 
+// console.log("the dates data", userDateData)
 
 const changeUnFollow = (id) =>{
-  console.log("this has been clicked -- unfollow", id)
   setUserFollowId(id)
   dispatch(unFollowUser(id))
 
@@ -134,10 +169,18 @@ const changeFollow = (id) =>{
   dispatch(followUser(id))
 }
 
+
 const checkDates = (item) => {
+dispatch(cleanUserAvailableDate())
+  console.log("the poster info", item?.user)
+  dispatch(getAvailableDateByUserId(item?.user))
   setApDetails(item);
   bottomSheetRefApDate.current.show();
 };
+
+
+
+
 const addMessage = (item) => {
   dispatch(getFeedComments(item?.id))
   setApDetails(item);
@@ -171,6 +214,46 @@ const posterProfile = (item) =>{
 const goDetails = (item) =>{
 navigation.navigate("HomeDetails", {item:item})
 }
+
+
+useEffect(() => {
+  if (createApStatus === "failed") {
+    setLoader(false);
+    console.log("the appointment errors",createApErrors )
+  } else if (createApStatus === "success") {
+   
+    const data = {id: createApData?.counsellor_id,content:note}
+    console.log("the appointment data obi tochiiiiii...", note, data)
+  //  dispatch(addAppointmentMessage(data))
+    setLoader(false);
+  }
+}, [createApStatus]);
+
+
+
+
+useEffect(() => {
+  if (addMessageStatus === "failed") {
+    setLoader(false);
+    console.log("the appointment errors",addMessageErrors )
+  } else if (addMessageStatus === "success") {
+    setNote("")
+    console.log("the appointment data ...",addMessageData )
+
+   dispatch(cleanCreateAppointment());
+
+    dispatch(cleanAddMessage());
+    setLoader(false);
+    props.close();
+
+    // setTimeout(function () {
+    //   setLoader(false);
+    //   dispatch(cleanSync());
+    // }, 4000);
+  }
+}, [addMessageStatus]);
+
+
 
 
 const LoveToggle = useCallback(
@@ -271,6 +354,39 @@ const CategoryToggle = useCallback(
 
 
 
+// this is where i start
+const pickedDated = (day) => {
+  console.log("remember it has been clicked obiiiiiiii", day)
+  let checker = Object?.values(userDateData?.available_dates)?.includes(
+    day?.dateString
+  );
+ 
+
+    if (checker) {
+      setShowNote(true)
+      setShowCalendar(false);
+      setNoteDate(day?.dateString)
+
+    } else {
+      setNoteDate([])
+      setErrMsg("Please select a date you checked in");
+      setTimeout(() => {
+        setErrMsg(null);
+      }, 3000);
+    }
+    setShowCalendar(false);
+  };
+
+
+const makeAppointment = () => {
+  const data = {counsellor_id:item?.user?.id, set_time: moment(noteDate).format("YYYY-MM-DD HH:mm:ss")}
+  dispatch(createAppointment(data))
+
+console.log("the data sent", note, noteDate, item?.user?.id , data)
+}
+
+
+
 const VideoEnds = useCallback(
   ({ onPress, onEnd }) => (
     <View style={styles.replayCover}>
@@ -345,7 +461,8 @@ return (
               />
             </View>
             <Text style={styles.descWord}>Family | Relationship | Career</Text>
-            <Text style={styles.dateWord}>{item?.post_date}</Text>
+            <Text style={styles.dateWord}>{moment(item?.updated_at).fromNow()}</Text>
+            {/* <Text style={styles.dateWord}>{item?.post_date}</Text> */}
           </View>
         </TouchableOpacity>
         <View style={styles.leftWrapper}>
@@ -389,14 +506,14 @@ return (
                     style={styles.loadImg}
                   />
                   </View>} 
-                onEnd={() => setOnEnd(true)}
-                volume={playSoundId == item?.id && !mute ? 1.0 : 0.0}
-                resizeMode="cover"
-                repeat={onRepeat}
-                paused={pause}
+                    onEnd={() => setOnEnd(true)}
+                    volume={playSoundId == item?.id && !mute ? 1.0 : 0.0}
+                    resizeMode="cover"
+                    repeat={onRepeat}
+                    paused={pause}
 
-              />
-              </View>
+                  />
+                  </View>
       
 
 
@@ -518,12 +635,25 @@ return (
     )}
   </View>
 
+          { userDateStatus && userDateStatus ?
+          <AppointmentDateBottomSheet
+          bottomSheetRefStart={bottomSheetRefApDate}
+          poster={apDetails}
+          close={closeApointmentSheet}
+          userData = {userDateData}
+          pick = {(day) => pickedDated(day)}
+          sendNote ={(text)=>{
+            console.log("the mesage",text)
+            setNote(text)
+          }}
+          makeAppoint = {() => makeAppointment()}
+          displayNote={showNote}
+          changeAppoint={() => setShowNote(false)}
+          />
+          :
+          null
 
-<AppointmentDateBottomSheet
-bottomSheetRefStart={bottomSheetRefApDate}
-poster={apDetails}
-close={closeApointmentSheet}
-/>
+          }
 
 <MessageBottomSheet
 bottomSheetRefMessage={bottomSheetRefMessage}

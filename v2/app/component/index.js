@@ -7,7 +7,7 @@ import InputField from "./form/InputField";
 import InputField2 from "./InputField";
 import InputFieldSearch  from "./InputFieldSearch";
 import FormikValidator from "./form/Formik";
-
+import LoginHeaderTC from "./headers/LoginHeaderTC";
 import PinInputField from "./form/PinInputField";
 import HomeHeader from "./headers/HomeHeader"
 import SuccessMsgBottom from "./successMsgBottom"
@@ -26,7 +26,7 @@ import OrderHeader from "./headers/OrderHeader"
 import HomeDetailsBtn from "./btns/HomeDetailsBtn";
 import TeamHeader from "./headers/TeamHeader"
 
-export { OnboardinBtn,SuccessMsgBottom,InputFieldSearch, ActiveCustomers,MiddleOption, InputField2,ContinueBtn,EditBottomSheet, TeamHeader ,SortBottomSheet, NotificationHeader, TransactionHeader,TransactionHeaderNew,OrderHeader,
+export { OnboardinBtn,SuccessMsgBottom,InputFieldSearch,LoginHeaderTC, ActiveCustomers,MiddleOption, InputField2,ContinueBtn,EditBottomSheet, TeamHeader ,SortBottomSheet, NotificationHeader, TransactionHeader,TransactionHeaderNew,OrderHeader,
      LoginHeader, CrossHeader,StoreHeader, InputField, FormikValidator, PinInputField, 
      LoanPinInputField,OrderBottomSheet, HomeHeader,ProceedBtn,PreviousBtn, HomeDetailsBtn
     }

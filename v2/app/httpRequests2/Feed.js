@@ -33,9 +33,9 @@ import { apiRequest } from "@Request2/Request";
 
 
    export const getAllFeeds = createAsyncThunk("user/all/feeds",
-      async (_, thunkAPI) => {
+      async (no, thunkAPI) => {
          const Axios = await AxiosBase();
-         return apiRequest(Axios.get('api/v1/feeds?per_page=30'), thunkAPI)
+         return apiRequest(Axios.get(`api/v1/feeds?per_page=9&page=${no}`), thunkAPI)
       });
 
 export const likeFeed = createAsyncThunk("user/feeds/like",
@@ -66,12 +66,17 @@ export const likeFeed = createAsyncThunk("user/feeds/like",
       thunkAPI)
 });
 
+export const getFeedById = createAsyncThunk("auth/feed/id",
+async (id, thunkAPI) => {
+    const Axios = await AxiosBase();
+    return apiRequest(Axios.get(`api/v1/feeds/user/${id}`), thunkAPI)
+});
 
-//     // this get agent manager
-//     export const getAgentManager = createAsyncThunk("agent/manager",
-//     async (_, thunkAPI) => {
-//         const Axios = await AxiosBase();
-//         return apiRequest(Axios.get('api/v1/agent/manager'), thunkAPI)
-//     });
+export const deleteFeedMedia = createAsyncThunk("auth/delete/media",
+async (id, thunkAPI) => {
+const Axios = await AxiosBase();
+return apiRequest(Axios.delete(`api/v1/feed/delete/${id}`),
+    thunkAPI)
+});
 
  

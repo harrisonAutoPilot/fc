@@ -53,7 +53,33 @@ export const login = createAsyncThunk("auth/login",
         });
 
 
-  
+        export const avartarUpdate = createAsyncThunk("update/avartar/ok",
+        async (data, thunkAPI) => {
+        const Axios = await AxiosBase();
+        return apiRequest(Axios.post('api/v1/user/avatar', data),
+            thunkAPI)
+        });
+
+
+
+        // export const avartarUpdate = createAsyncThunk("update/avartar",
+        // async (data, thunkAPI) => {
+     
+        //    const formData = new FormData();
+         
+        //    for ( var key in data ) {
+        //          formData.append(key, data[key]);
+              
+        //    }
+        //    const Axios = await AxiosBase();
+        //    return apiRequest(Axios.post('api/v1/user/avatar', formData),thunkAPI)
+         
+         
+        // });
+
+
+
+
 
         // this is the endpoint i use to register new users
         export const registerUser = createAsyncThunk("auth/create",
@@ -61,7 +87,7 @@ export const login = createAsyncThunk("auth/login",
         const Axios = await AxiosBase();
         return apiRequest(Axios.post('api/v1/user/create', values),
             thunkAPI, "auth")
-    });
+        });
 
 
     export const followUser = createAsyncThunk("user/follow",
@@ -78,15 +104,32 @@ export const login = createAsyncThunk("auth/login",
     });
 
 
+// api/v1/user/add_description
+export const addDescription = createAsyncThunk("auth/add/desc",
+    async (description, thunkAPI) => {
+        const Axios = await AxiosBase();
+        return apiRequest(Axios.post('api/v1/user/add_description', description), thunkAPI);
+    });
 
 
-
-export const getUser = createAsyncThunk("auth/user",
+    export const getUser = createAsyncThunk("auth/user",
     async (_, thunkAPI) => {
         const Axios = await AxiosBase();
         return apiRequest(Axios.get('api/v1/user'), thunkAPI);
     });
 
+  
+    export const getUserById = createAsyncThunk("auth/user/id",
+    async (id, thunkAPI) => {
+        const Axios = await AxiosBase();
+        return apiRequest(Axios.get(`api/v1/user/${id}`), thunkAPI)
+    });
+    
+    export const getUserInterest = createAsyncThunk("auth/user/interest/query",
+    async (_, thunkAPI) => {
+        const Axios = await AxiosBase();
+        return apiRequest(Axios.get('api/v1/user/interests'), thunkAPI);
+    });
 
 export const getPhoneVerificationPin = createAsyncThunk("auth/phone_verification",
     async (_, thunkAPI) => {
@@ -203,4 +246,53 @@ export const callHistoryLog = createAsyncThunk("auth/call/history",
         return apiRequest(Axios.post(`api/v1/call_logs/${data.id}`, data),
             thunkAPI)
     });
-    
+
+
+
+    export const syncAppointmentDate = createAsyncThunk("auth/checkin/look",
+   async (data, thunkAPI) => {
+      const Axios = await AxiosBase();
+      return apiRequest(Axios.post(`api/v1/user/available_date/sync?available_dates[]=${data.date}`, data,{
+        
+      }
+         
+     ),
+      thunkAPI)
+   });
+
+
+   export const getAvailableDate = createAsyncThunk("auth/myavailable/date",
+   async (_, thunkAPI) => {
+   const Axios = await AxiosBase();
+   return apiRequest(Axios.get('api/v1/user/available_dates'),
+       thunkAPI)
+});
+
+
+
+export const getAvailableDateByUserId = createAsyncThunk("auth/userAvailable/date",
+async (user, thunkAPI) => {
+const Axios = await AxiosBase();
+return apiRequest(Axios.get(`api/v1/available_dates/${user.id}`, user),
+    thunkAPI)
+});
+
+
+export const createAppointment = createAsyncThunk("auth/create/appointment",
+async (data, thunkAPI) => {
+   const Axios = await AxiosBase();
+   return apiRequest(Axios.post('api/v1/appointment/create', data,{
+     
+   }
+      
+  ),
+   thunkAPI)
+});
+
+
+
+export const addAppointmentMessage = createAsyncThunk("auth/appointment/message",
+    async (data, thunkAPI) => {
+        const Axios = await AxiosBase();
+        return apiRequest(Axios.post(`api/v1/appointment/${data.id}/message/create`, data), thunkAPI)
+    });

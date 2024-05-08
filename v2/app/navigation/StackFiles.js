@@ -21,6 +21,8 @@ import CustomerRegistration from "@Screen2/Customers/Registration";
 import SoftUpdate from "@Screen2/SoftUpdate";
 import Catalogue from "@Screen2/Catalogue";
 import HomeDetails from "@Screen2/HomeDetails";
+import EditProfileView from "@Screen2/EditProfileView"
+
 
 
 
@@ -120,6 +122,7 @@ export const RootStackNavigator = () => {
                 <RootStack.Screen name="Catalogue" component={Catalogue} />
                 <RootStack.Screen name="FcCall" component={FcCall} />
                 <RootStack.Screen name="UserProfile" component={UserProfile} />
+                <RootStack.Screen name="EditProfileView" component={EditProfileView} /> 
              
             </RootStack.Group>
            

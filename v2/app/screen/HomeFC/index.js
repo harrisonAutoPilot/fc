@@ -12,6 +12,7 @@ import {
   Image,
   FlatList,
   StatusBar,
+  RefreshControl,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
@@ -20,6 +21,7 @@ import { ViewPropTypes } from "deprecated-react-native-prop-types";
 import Icon from "react-native-vector-icons/AntDesign";
 import Acon from "react-native-vector-icons/MaterialCommunityIcons";
 import { MaterialIndicator } from "react-native-indicators";
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 import { getAllFeeds,unLikeFeed, getFeedComments, addFeedComment} from "@Request2/Feed";
 import data from "./data"
 import { group } from "../../util/group";
@@ -55,15 +57,19 @@ const ITEM_HEIGHTV = ITEM_WIDTH * 1.35;
 const Home = ({ navigation, props }) => {
   const dispatch = useDispatch();
 
-  const { allFeedData, allFeedStatus, allFeedErrors } = useSelector((state) => state.feed);
+  const { allFeedData, allFeedStatus, allFeedErrors,allFeedDataMore } = useSelector((state) => state.feed);
   const {user} = useSelector((state) => state.auth);
   const [active, setActive] = useState('1');
+  const [activeDot, setActiveDot] = useState(0);
   const [category, setCategory] = useState('Categories');
+  const [errMsg, setErrMsg] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [mute, unMute] = React.useState(true);
   const [onRepeat, setOnRepeat] = useState(false);
   const [selected, setSelected] = useState(0);
   const [detailsValue, setDetailsValue] = useState(0);
+  const [trackCartStatus, setTrackCartStatus] = useState(false);
   const [showTopBar, setShowTopBar] = useState(true);
   const [playSoundId, setPlaySoundId] = useState(0);
   const [apDetails, setApDetails] = useState({});
@@ -81,6 +87,7 @@ const Home = ({ navigation, props }) => {
 
   const [heartCount, setHeartCount] = useState(249);
 
+  
   const showDetails = (item) => {
     setShowCategory(true);
     setCatItem(item);
@@ -110,6 +117,18 @@ const Home = ({ navigation, props }) => {
   const selectCategory = name => {
     setCategory(name);
   };
+
+
+  const viewabilityConfig = {
+    itemVisiblePercentThreshold: 50,
+  };
+  const handleVieweableItemsChanged = useCallback(({ viewableItems }) => {
+    setActiveDot(viewableItems[0]?.index);
+    console.log("the view able item", viewableItems[0]?.index)
+  }, []);
+
+
+
 
   const ScrollList = (props, index) => {
     const item = props.item;
@@ -220,6 +239,51 @@ const Home = ({ navigation, props }) => {
     [onEnd]
   );
 
+
+
+// console.log("the page data ...", allFeedData)
+// console.log("the currect page outside .....",allFeedData?.current_page)
+
+
+  const loadMoreFeeds = () => {
+    console.log("the currect page inside.....",allFeedData?.current_page)
+    setTrackCartStatus(true);
+
+    dispatch(getAllFeeds(allFeedData?.current_page + 1));
+
+};
+
+
+
+  const refreshViewList = useCallback(() => {
+
+    setRefreshing(true);
+
+    setErrMsg(null);
+
+      // setFilterCheck(false);
+
+      // setTrackCartStatus(false);
+
+      // dispatch(cleanOrderFilter());
+
+
+    dispatch(getAllFeeds())
+      .unwrap()
+      .then(() => {
+
+        setRefreshing(false)
+
+      })
+      .catch(err => {
+
+        setRefreshing(false);
+
+      })
+
+  }, []);
+
+
   const SoundToggle = useCallback(
     ({ onPress, onPressNew, playSoundId }) => (
       <View style={styles.soundCover}>
@@ -255,21 +319,7 @@ const Home = ({ navigation, props }) => {
         hidden={true}
       />
     
-        {/* {!showTopBar ?
-      // <HeaderWithGradient title="FEEDS" profileName={styles.headerText} />
-          <View style={styles.miniHeader}>
-          <FlatList
-            horizontal
-            data={group}
-            renderItem={ScrollList}
-            keyExtractor={item => item.id}
-            showsHorizontalScrollIndicator={false}
-            scrollEnabled
-          />
-        </View>
-        :
-        null
-        }  */}
+     
          
       {/* Scrollable Content */}
       <View style={styles.headerCover}>
@@ -285,24 +335,43 @@ const Home = ({ navigation, props }) => {
               scrollEnabled
             />
      </View>
-     <View style={{ height:"84%"}}>
-        <OffsetYProvider
+
+
+     <View style={{flex:1}}>
+        {/* <OffsetYProvider
           columnsPerRow={1}
           listItemHeight={boxHeight}
-          centerYStart={(windowHeight * 1) / 3.5}
-          centerYEnd={(windowHeight * 2) / 2.5}
+          centerYStart={(windowHeight * 1) /12.8}
+          centerYEnd={(windowHeight * 2) / 2.8}
         >
           {({ setOffsetY }) => (
-            <FlatList
+        <FlatList
               data={allFeedData?.data}
               removeClippedSubviews={true}
+              onEndReachedThreshold={0.5}
+              onEndReached={() => {
+                console.log("we are inside ooooo")
+                if (allFeedData?.current_page < allFeedData?.last_page) {
+                    loadMoreFeeds()
+                }
+                }}
+                getItemLayout={(data, index) => (
+                  { length: 100, offset: 100 * index, index }
+              )}
+              refreshControl={
+                  <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={refreshViewList} />
+                   }
+              
+              ListFooterComponent={allFeedStatus === "pending" && <ActivityIndicator animating={true} color="blue" />}
               onScroll={(ev) => {
                 setOffsetY(ev.nativeEvent.contentOffset.y);
                 setScrollUp(ev?.nativeEvent?.velocity?.y.toString().slice(0,1))
                 // console.log('the onsroll event',(scrollUp))
                
               }}
-              initialNumToRender={20}
+          
               keyExtractor={(item) => item.id}
               renderItem={({ item, index }) => (
                 <IndexProvider index={index}>
@@ -313,16 +382,58 @@ const Home = ({ navigation, props }) => {
                    navigation={navigation}
                    userData={user}
 
-                  //  items={item}
                    item={item}
                    index={index}
                  />
                   )}
                 </IndexProvider>
               )}
+              // initialNumToRender={5}
+             
             />
           )}
-        </OffsetYProvider>
+        </OffsetYProvider> */}
+
+          <FlatList
+              contentContainerStyle={styles.alignItemsCenter}
+              data={allFeedDataMore}
+              vertical
+              keyExtractor={(item) => item.id}
+              // pagingEnabled
+              onViewableItemsChanged={handleVieweableItemsChanged}
+              viewabilityConfig={viewabilityConfig}
+              initialNumToRender={8}
+              showsVerticalScrollIndicator={false}
+              onEndReachedThreshold={0.5}
+              onEndReached={() => {
+               
+                if (allFeedData?.current_page < allFeedData?.last_page) {
+                    loadMoreFeeds()
+                }
+                }}
+                getItemLayout={(data, index) => (
+                  { length: 100, offset: 100 * index, index }
+              )}
+              refreshControl={
+                  <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={refreshViewList} />
+                   }
+              
+              ListFooterComponent={allFeedStatus === "pending" && <ActivityIndicator size="large" animating={true} color="#fff" />}
+              renderItem={({ item, index }) => (
+                
+                <RenderCategoriesMenu
+                   currentIndex={index}
+                   currentVisibleIndex={index}
+                   navigation={navigation}
+                   item={item}
+                   index={index}
+                 
+                  
+                 />
+              )}
+            /> 
       </View>
 
     
@@ -331,10 +442,7 @@ const Home = ({ navigation, props }) => {
         poster={apDetails}
         close={closeApointmentSheet}
       />
- {/* <AppointmentDateBottomSheet
-        bottomSheetRefMessage={bottomSheetRefMessage}
 
-      /> */}
 
       <CategoryDetails
         visibleCategory={showCategory}

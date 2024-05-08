@@ -4,6 +4,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import Zcon from 'react-native-vector-icons/Feather';
+import Acon from 'react-native-vector-icons/FontAwesome5';
 import {Host} from 'react-native-portalize';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -12,7 +13,7 @@ import Home from '@Screen2/HomeFC';
 import DrawerScreen from '@Screen2/drawerScreen';
 import UserProfile from '@Screen2/UserProfile'
 import Search from '@Screen2/Search';
-// import Wallet from '@Screen2/Wallet';
+import UserProfileAccount from "@Screen2/UserProfileAccount"
  import CustomerRegistration from "@Screen2/Customers/Registration";
 import AppointmentDashboard from '@Screen2/Appointment/Dashboard';
 import {MiddleOption, ActiveCustomers} from "@Component2"
@@ -133,12 +134,12 @@ export default TabHomeNavigator = () => {
 
         <Tab.Screen
           name="DrawerScreen"
-          component={DrawerScreen}
+          component={UserProfileAccount}
           options={({navigation: {isFocused}}) => ({
             tabBarLabel: 'More',
             tabBarIcon: ({color}) => (
-              <Icon
-                name="menu"
+              <Acon
+                name="user-circle"
                 color={color}
                 size={18}
                 style={styles.iconStyle}
