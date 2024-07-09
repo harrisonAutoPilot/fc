@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, TouchableOpacity, Keyboard, TouchableWithoutFeedback, SafeAreaView } from "react-native";
+import { View, Text, StatusBar, TouchableOpacity, Keyboard, TouchableWithoutFeedback, SafeAreaView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
 
@@ -7,6 +7,7 @@ import styles from "../style";
 import { LoginHeader, InputField, FormikValidator, OnboardinBtn } from "@Component2";
 import CountryCodeDropdown from "./CountryCodeDropdown";
 import { loginSchema } from "@Helper2/Schema";
+import LinearGradient from 'react-native-linear-gradient';
 import CountryCodeBottomSheet from "@Screen2/countryCodeBottomSheet";
 import { countryCodeList, } from "@Request2/Auth";
 import { cleanCountryCodeStatus } from "@Store2/Auth";
@@ -99,8 +100,14 @@ const Login = (props) => {
 
     return (
 
-        <View style={styles.mainContainer}>
-
+       
+  <LinearGradient
+      colors={['#c1dfc4','#ffffff']}
+      start={{ x: 0, y: 0}}
+      end={{ x: 0, y: 1}}
+      style={styles.mainContainer}>
+        <StatusBar barStyle="dark-content" backgroundColor='#c1dfc4' hidden={true} />
+ <View >
             <LoginHeader
                 onPress={goBack}
                 name="arrow-back"
@@ -113,7 +120,7 @@ const Login = (props) => {
 
                 <Text style={styles.loginTitle}>Log In to your account</Text>
 
-                <Text style={styles.loginDesc}>Enter your registered mobile number to Log In</Text>
+                <Text style={styles.loginDesc}>Enter your email address to Log In</Text>
 
                 <View style={styles.formContainer}>
 
@@ -137,11 +144,12 @@ const Login = (props) => {
 
                                             <View style={styles.inputFieldView}>
 
-                                            <InputField
+                                              <InputField
                                                     title="Email"
-                                                    placeholder="ebube@gmail.com"
+                                                    placeholder="johndoe@gmail.com"
                                                     placeholderTextColor="#757575"
                                                     name="email"
+                                                    labelType="team"
                                                     {...props}
                                                     width="100%"
                                                 />
@@ -195,8 +203,9 @@ const Login = (props) => {
                 propsname={propsname}
 
             />
-
+  
         </View>
+        </LinearGradient>
 
     )
 };

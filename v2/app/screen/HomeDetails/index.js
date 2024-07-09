@@ -12,6 +12,7 @@ import {
   Image,
   FlatList,
   ScrollView,
+  ActivityIndicator,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
@@ -22,13 +23,28 @@ import Icon from "react-native-vector-icons/AntDesign";
 import Acon from "react-native-vector-icons/MaterialCommunityIcons";
 import { MaterialIndicator } from "react-native-indicators";
 import VideoPlayer from "react-native-video-controls";
-import {getUser, getUserById} from "@Request2/Auth";
 import Config from "react-native-config";
 import { data } from "../../util/data";
 import CategoryDetails from "../HomeFC/CategoryDetails";
 import AppointmentDateBottomSheet from "../HomeFC/appointDateBottomSheet";
 import styles from "./style";
 import Loader from "@Screen2/loader";
+import {
+  cleanUnFollowUser,
+  cleanFollowUser,
+  cleanUserAvailableDate,
+} from "@Store2/Auth";
+import { getFeedById} from "@Request2/Feed";
+import {cleanFeedIdStatus} from '@Store2/Feed';
+import {
+  unFollowUser,
+  followUser,
+  getAvailableDateByUserId,
+  getUser,
+  getUserById,
+  createAppointment,
+  addAppointmentMessage,
+} from "@Request2/Auth";
 import moment from 'moment';
 import NewItems from "../PosterProfile/TabModules/Types/NewItems";
 const { width } = Dimensions.get("screen");
@@ -36,23 +52,38 @@ const { width } = Dimensions.get("screen");
 const HomeDetails = (props) => {
   const dispatch = useDispatch();
   const [showDocument, setShowDocument] = useState(false);
+  const {feedIdData,feedIdStatus,feedIdDataMore} = useSelector((state) => state.feed);
   const [newPostItem, setNewPostItem] = useState()
+  const [waiter, setWaiter] = useState(false);
+  const [trackCartStatus, setTrackCartStatus] = useState(false);
   // const items = props.route.params.item;
   const [items, setItems] = useState(props.route.params.item)
-  const {userIdData} = useSelector((state) => state.auth);
+  const {
+    user,
+    createApStatus,
+    createApData,
+    createApErrors,
+    userDateStatus,
+    userIdData,
+    userDateData,
+   
+    followData,
+  } = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(false);
   const [mute, unMute] = React.useState(false);
   const [onRepeat, setOnRepeat] = useState(false);
   const [selected, setSelected] = useState(0);
+  const [result, setResult] = useState([]);
   const [detailsValue, setDetailsValue] = useState(0);
   const [showPreview, setShowPreview] = useState(false);
   const [playSoundId, setPlaySoundId] = useState(items.id);
   const [apDetails, setApDetails] = useState({});
   const [checkNewPost, setCheckNewPost] = useState(false);
-
+  const [showNote, setShowNote] = useState(false);
   const [love, setLove] = useState(false);
   const [onEnd, setOnEnd] = useState(false);
   const [pause, setPause] = useState(false);
+  const [pauseMe, setPauseMe] = useState(false);
   const[smPause, setSmPause] = useState(false)
   const { height: windowHeight } = Dimensions.get("window");
   const boxHeight = windowHeight / 1.4;
@@ -65,11 +96,17 @@ const HomeDetails = (props) => {
 
 
   const playNew = (item) =>{
+
     setCheckNewPost(true)
     setNewPostItem(item)
     setItems(item)
 
   }
+
+  const closeApointmentSheet = () => {
+    bottomSheetRefApDate.current.close();
+  };
+
 
   useEffect(() => {
     dispatch(getUserById(items.user_id))
@@ -85,11 +122,6 @@ const HomeDetails = (props) => {
   }, [newPostItem, checkNewPost]);
 
 
-  const showDetails = (items) => {
-    console.log("the category", items)
-    setShowCategory(true);
-    setCatItem(items);
-  };
 
   const changeHeart = () => {
     setHeartCount(heartCount + 1);
@@ -99,13 +131,14 @@ const HomeDetails = (props) => {
     setHeartCount(heartCount - 1);
   };
 
-  const checkDates = (items) => {
+  const checkDates = (item) => {
+    dispatch(cleanUserAvailableDate());
+    dispatch(getAvailableDateByUserId(items.user_id));
     setApDetails(items);
-    bottomSheetRefApDate.current.show();
-  };
-
-  const closeApointmentSheet = () => {
-    bottomSheetRefApDate.current.close();
+    setTimeout(() => {
+      bottomSheetRefApDate.current.show();
+     }, 1000);
+   
   };
 
  
@@ -115,65 +148,133 @@ const HomeDetails = (props) => {
 
 
 
-  const closeDetails = (items) => {
-    console.log("the item", items.id);
-    setShowPreview(true);
-    setDetailsValue(items.id);
-  };
-
-  const playSound = (items) => {
-    unMute(false);
-    setPlaySoundId(items.id);
-  };
-  const muteSound = (items) => {
-    unMute(true);
-    setPlaySoundId(items.id);
-  };
+const loadMoreFeeds = useCallback(() => {
+ 
+  setTrackCartStatus(true);
+  const data = {id:items.user_id, no:feedIdData?.current_page + 1};
+  dispatch(getFeedById(data));
+  setWaiter(true);
+  setTimeout(() => {
+   setResult(feedIdDataMore);
+  }, 1000);
+}, [waiter]);
 
 
+useEffect(() => {
+  dispatch(cleanFeedIdStatus())
+  const data = {id:items.user_id, no:1};
+  dispatch(getFeedById(data)) 
+
+}, [])
 
 
 
 
-  const  CardList = props => {
+  // const  CardList = props => {
 
-    const item = props.item;
+  //   const item = props.item;
 
-    return (
+  //   return (
+  //     <View>
+  //       {item.category == items.category ? (
+  //         <TouchableOpacity onPress={() => playNew(item)}>
+  //            <View style={styles.listCard}>
+  //         <View style={styles.videoSmCard}>
+  //           {
+  //             item.type == 'video' ?
+  //             <View>
+  //             <Video
+  //                // source={item?.video}
+  //                source={{ uri: `${Config?.SPACE_URL}${item?.url}` && `${Config?.SPACE_URL}${item?.url}`}}
+  //                style={styles.smVideoCard}
+  //                muted={mute}
+  //                onLoad={() => {
+  //                  setSmPause(true)
+  //                }}
+  //                rate={1.0}
+  //                onEnd={() => setOnEnd(true)}
+  //                volume={playSoundId == item.id && !mute ? 1.0 : 0.0}
+  //                resizeMode="cover"
+  //                repeat={onRepeat}
+  //                paused={smPause}
+  //              />
+  //              <View style={styles.miniPlay}>
+  //              <Acon name="play" size={20} color="#fff" style={styles.loveImg} />
+  //              </View>
+  //           </View>
+             
+  //           :
+  //           <Image
+  //           style={styles.smImageCard}
+  //           source={{ uri: item?.url !== "" ? `${Config?.SPACE_URL}${item?.url}` : null}}
+  //           resizeMode="cover"
+  //         />
+  //           }
+
+  //         </View>
+  //         <View style={styles.cardContent}>
+  //           <Text style={styles.smDesc}>{item.post_desc?.slice(0, 50)}...</Text>
+  //           <View style={styles.bottomMenu}>
+  //             <View style={styles.smFlex}><Icon name="heart" size={16} color="red" style={styles.loveImg} /><Text style={styles.countText}>{item.post_like}</Text></View>
+  //             <View style={styles.smFlex}><Acon name="message-reply-text-outline" size={16} color="#000" style={styles.loveImg} /><Text style={styles.countText}>{item?.likesCount}</Text></View>
+  //             <View style={styles.smFlex}><Acon name="timer-outline" size={16} color="#000" style={styles.loveImg} /><Text style={styles.countText}>{item.post_date}</Text></View>
+  //           </View>
+  //         </View>
+  //       </View>
+  //         </TouchableOpacity>
+          
+  //       ) : null}
+  //     </View>
+  //   );
+  // };
+
+
+
+
+     
+  const CardList  = useCallback(
+    ({ item, index, key}) => (
+   <>
       <View>
         {item.category == items.category ? (
           <TouchableOpacity onPress={() => playNew(item)}>
              <View style={styles.listCard}>
           <View style={styles.videoSmCard}>
             {
-              item.type == 'img' ?
-              <Image
-              style={styles.smImageCard}
-              // source={item.image_url}
-              source={{ uri: item?.url !== "" ? `${Config?.SPACE_URL}${item?.url}` : null}}
-              resizeMode="cover"
-            />
+              item.type == 'video' ?
+              <View>
+              <Video
+                 // source={item?.video}
+                 source={{ uri: `${Config?.SPACE_URL}${item?.url}` && `${Config?.SPACE_URL}${item?.url}`}}
+                 style={styles.smVideoCard}
+                 muted={true}
+              //    onLoad={() => {
+              //     setTimeout(() => {
+                   
+              //       // setPauseMe(true)
+              //       // setSmPause(true)
+              //  }, 500);
+                
+              //    }}
+                 rate={1.0}
+               
+                 onEnd={() => setOnEnd(true)}
+                 volume={playSoundId == item.id && !mute ? 1.0 : 0.0}
+                 resizeMode="cover"
+                 repeat={onRepeat}
+                 paused={pauseMe ? true : false}
+               />
+               <View style={styles.miniPlay}>
+               <Acon name="play" size={20} color="#fff" style={styles.loveImg} />
+               </View>
+            </View>
+             
             :
-           <View>
-             <Video
-                // source={item?.video}
-                source={{ uri: `${Config?.SPACE_URL}${item?.url}` && `${Config?.SPACE_URL}${item?.url}`}}
-                style={styles.smVideoCard}
-                muted={mute}
-                onLoad={() => {
-                  setSmPause(true)
-                }}
-                rate={1.0}
-                onEnd={() => setOnEnd(true)}
-                volume={playSoundId == item.id && !mute ? 1.0 : 0.0}
-                resizeMode="cover"
-                repeat={onRepeat}
-                paused={smPause}
-              />
-              <View style={styles.miniPlay}>
-              <Acon name="play" size={20} color="#fff" style={styles.loveImg} />
-              </View>
-           </View>
+            <Image
+            style={styles.smImageCard}
+            source={{ uri: item?.url !== "" ? `${Config?.SPACE_URL}${item?.url}` : null}}
+            resizeMode="cover"
+          />
             }
 
           </View>
@@ -181,7 +282,7 @@ const HomeDetails = (props) => {
             <Text style={styles.smDesc}>{item.post_desc?.slice(0, 50)}...</Text>
             <View style={styles.bottomMenu}>
               <View style={styles.smFlex}><Icon name="heart" size={16} color="red" style={styles.loveImg} /><Text style={styles.countText}>{item.post_like}</Text></View>
-              <View style={styles.smFlex}><Acon name="message-reply-text-outline" size={16} color="#000" style={styles.loveImg} /><Text style={styles.countText}>20K</Text></View>
+              <View style={styles.smFlex}><Acon name="message-reply-text-outline" size={16} color="#000" style={styles.loveImg} /><Text style={styles.countText}>{item?.likesCount}</Text></View>
               <View style={styles.smFlex}><Acon name="timer-outline" size={16} color="#000" style={styles.loveImg} /><Text style={styles.countText}>{item.post_date}</Text></View>
             </View>
           </View>
@@ -190,11 +291,12 @@ const HomeDetails = (props) => {
           
         ) : null}
       </View>
-    );
-  };
+   </>
+),
+[ items,pauseMe]
+);
 
 
-console.log("the itemmmmm", items)
 
   const LoveToggle = useCallback(
     ({ style, onPress, myHeartCount }) => (
@@ -310,7 +412,7 @@ console.log("the itemmmmm", items)
                 }}
                 toggleResizeModeOnFullscreen={true}
                 resizeMode="cover"
-                source={items?.video}
+                source={{ uri: `${Config?.SPACE_URL}${items?.url}` && `${Config?.SPACE_URL}${items?.url}`}}
                 showOnStart={true}
                 controls={false}
                 disableSeekbar={false}
@@ -351,21 +453,10 @@ console.log("the itemmmmm", items)
                   </View>
                 </TouchableOpacity>
               </View>
-              <CategoryToggle
-                 category={items?.interest?.display_name?.charAt(0)}
-                 onPress={() => showDetails(items?.interest?.display_name?.charAt(0))}
-              />
-
-              <LoveToggle myHeartCount={heartCount} />
-
-              <MessageToggle messageCount={341} />
-
-              <ShareToggle />
-
-              <ApointmentToggle onPress={() => checkDates(items)} />
+              
 
 
-            
+        
             </>
           ) : (
             <>
@@ -373,7 +464,7 @@ console.log("the itemmmmm", items)
                 style={styles.imageCard}
                 // source={items.image_url}
                 source={{ uri: items?.url !== "" ? `${Config?.SPACE_URL}${items?.url}` : null}}
-                resizeMode="cover"
+                resizeMode="contain"
               />
                <GoBack onPress={() => props.navigation.goBack()} />
               <View style={styles.infoCover}>
@@ -400,18 +491,19 @@ console.log("the itemmmmm", items)
                   </View>
                 </TouchableOpacity>
               </View>
-              <CategoryToggle
+              {/* <CategoryToggle
                 category={items?.interest?.display_name?.charAt(0)}
                 onPress={() => showDetails(items?.interest?.display_name?.charAt(0))}
-              />
+              /> */}
+              
 
-              <LoveToggle myHeartCount={heartCount} />
+              {/* <LoveToggle myHeartCount={heartCount} />
 
               <MessageToggle messageCount={341} />
 
               <ShareToggle />
 
-              <ApointmentToggle onPress={() => checkDates(items)} />
+              <ApointmentToggle onPress={() => checkDates(items)} /> */}
             </>
           )}
     </View>
@@ -431,6 +523,7 @@ console.log("the itemmmmm", items)
                 toggleResizeModeOnFullscreen={true}
                 resizeMode="cover"
                 source={{ uri: `${Config?.SPACE_URL}${items?.url}` && `${Config?.SPACE_URL}${items?.url}`}}
+              
                 // source={items?.video}
                 showOnStart={true}
                 controls={false}
@@ -472,18 +565,7 @@ console.log("the itemmmmm", items)
                   </View>
                 </TouchableOpacity>
               </View>
-              <CategoryToggle
-               category={items?.interest?.display_name?.charAt(0)}
-               onPress={() => showDetails(items?.interest?.display_name?.charAt(0))}
-              />
-
-              <LoveToggle myHeartCount={heartCount} />
-
-              <MessageToggle messageCount={341} />
-
-              <ShareToggle />
-
-              <ApointmentToggle onPress={() => checkDates(items)} />
+            
 
 
             
@@ -494,7 +576,7 @@ console.log("the itemmmmm", items)
                 style={styles.imageCard}
                 // source={items.image_url}
                 source={{ uri: items?.url !== "" ? `${Config?.SPACE_URL}${items?.url}` : null}}
-                resizeMode="cover"
+                resizeMode="contain"
               />
                 <GoBack onPress={() => props.navigation.goBack()} />
               <View style={styles.infoCover}>
@@ -502,8 +584,8 @@ console.log("the itemmmmm", items)
                   <View style={styles.userImgCover}>
                     <Image
                       style={styles.posterImg}
-                      // source={items.poster_img}
-                      source={{ uri: userIdData?.avatar?.url !== "" ? `${Config?.IMG_URL}${userIdData?.avatar?.url}` : null}}
+                       source={{ uri: userIdData?.avatar?.url !== "" ? `${Config?.IMG_URL}${userIdData?.avatar?.url}` : null}}
+                    
                       resizeMode="cover"
                     />
                   </View>
@@ -522,39 +604,74 @@ console.log("the itemmmmm", items)
                   </View>
                 </TouchableOpacity>
               </View>
-              <CategoryToggle
+              {/* <CategoryToggle
                 category={items?.interest?.display_name?.charAt(0)}
                 onPress={() => showDetails(items?.interest?.display_name?.charAt(0))}
-              />
+              /> */}
 
-              <LoveToggle myHeartCount={heartCount} />
+              {/* <LoveToggle myHeartCount={heartCount} />
 
               <MessageToggle messageCount={341} />
 
               <ShareToggle />
 
-              <ApointmentToggle onPress={() => checkDates(items)} />
+              <ApointmentToggle onPress={() => checkDates(items)} /> */}
             </>
           )}
     </View>
+    {items.description ?
       <View style={styles.descCover}>
-        <Text style={styles.postText}>{items.post_desc}</Text>
+        <Text style={styles.postText}>{items.description}</Text>
       </View>
+      :
+      null
+    }
         </>
 }
       <View style={styles.bottomContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.headerText}>Similar Post</Text>
+          <Text style={styles.headerText}>Other Post by {userIdData.username}</Text>
         </View>
         <FlatList
            scrollEnabled={false}
             showsVerticalScrollIndicator={false}
-            data={data}
+            // data={feedIdData.data}
+            data={waiter ? result : feedIdData.data}
             keyExtractor={item => item.id}
-            ListEmptyComponent={ListEmptyComponent}
-            renderItem={CardList}
-            ListFooterComponent={<View style={{ height: 20 }} />}
+            // ListEmptyComponent={ListEmptyComponent}
+            // renderItem={CardList}
+            initialNumToRender={3}
+            // ListFooterComponent={<View style={{ height: 20 }} />}
             onEndReachedThreshold={0.5}
+
+            bounces={false}
+            removeClippedSubviews={true}
+            maxToRenderPerBatch={6}
+            windowSize={5}
+            onEndReached={() => {
+              if (feedIdData?.current_page < feedIdData?.last_page) {
+                loadMoreFeeds();
+              }
+            }}
+              getItemLayout={(data, index) => (
+                { length: 100, offset: 100 * index, index }
+            )}
+            
+            // refreshControl={
+            //   <RefreshControl
+            //     refreshing={refreshing}
+            //     onRefresh={refreshViewList}
+            //   />
+            // }
+            ListFooterComponent={
+              feedIdStatus === "pending" && (
+                <ActivityIndicator size="large" animating={true} color="#fff" />
+              )
+            }
+            renderItem={({ item, index }) => (
+              <CardList item={item} index={index} key={item?.id} />
+             
+            )}
            
 
         />
@@ -566,12 +683,24 @@ console.log("the itemmmmm", items)
         returnBack={() => setShowCategory(false)}
         title={catItem}
       />
-
+{/* 
       <AppointmentDateBottomSheet
         bottomSheetRefStart={bottomSheetRefApDate}
         poster={items}
         close={closeApointmentSheet}
-      />
+      /> */}
+
+    {userDateStatus && userDateStatus ? (
+        <AppointmentDateBottomSheet
+          bottomSheetRefStart={bottomSheetRefApDate}
+          poster={apDetails}
+          close={closeApointmentSheet}
+          userData={userDateData}
+          displayNote={showNote}
+          changeAppoint={() => setShowNote(false)}
+        />
+      ) : null}
+
     </View>
   );
 };

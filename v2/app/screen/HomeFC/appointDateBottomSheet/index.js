@@ -11,8 +11,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-// import Icon from "react-native-vector-icons/MaterialIcons";
-import { Calendar } from 'react-native-calendars';
+import {Calendar,CalendarProvider} from 'react-native-calendars';
 import Config from "react-native-config";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import BottomSheet from "react-native-gesture-bottom-sheet";
@@ -43,6 +42,7 @@ const AppointmentDateBottomSheet = (props) => {
       userDateStatus,
       addMessageStatus,
       addMessageErrors,
+      userDateData,
       addMessageData
     } = useSelector((state) => state.auth);
     const item = props.poster;
@@ -50,7 +50,7 @@ const AppointmentDateBottomSheet = (props) => {
     const [noteDate, setNoteDate] = useState([])
     // const [startDate, setStartDate] = useState("")
     // const [endDate, setEndDate] = useState("")
-    const [fromDate, setFromDate] = useState("")
+    const [appointmentSuccess, setAppointmentSuccess] = useState(false)
     const [showNote, setShowNote] = useState(false)
     const [toDate, setToDate] = useState("")
     const [displayFrom, setDisplayFrom] = useState(true)
@@ -116,8 +116,17 @@ const AppointmentDateBottomSheet = (props) => {
     };
   });
 
+  const close = () =>{
+    setTimeout(function () {
+      setLoader(false);
+      setErrMsg(null);
+      dispatch(cleanSync());
+    }, 4000);
+
+  }
+
+ 
   const pickedDated = (day) => {
-    console.log("remember it has been clicked")
     let checker = Object?.values(userData?.available_dates)?.includes(
       day?.dateString
     );
@@ -137,34 +146,55 @@ const AppointmentDateBottomSheet = (props) => {
     setShowCalendar(false);
   };
 
-  const makeAppointment = () => {
-    props.sendNote (note)
-    //const data = {counsellor_id:item?.user?.id, set_time: moment(noteDate).format("YYYY-MM-DD HH:mm:ss")}
-    props.makeAppoint()
-   
-   // dispatch(createAppointment(data))
 
- // console.log("the data sent", note, noteDate, item?.user?.id)
-  }
+  useEffect(() => {
+    if (createApStatus === "failed") {
+      setLoader(false);
+      setErrMsg(createApErrors?.msg?.message)
+      console.log("the response",createApErrors?.msg?.message )
+      dispatch(cleanCreateAppointment());
+       close()
+    } else if (createApStatus === "success") {
+      setAppointmentSuccess(true)
+        dispatch(cleanCreateAppointment());
+          setLoader(false);
+          close()
+
+          setTimeout(function () {
+            setAppointmentSuccess(false)
+            props.close();
+          }, 5000);
+          
+    }
+  }, [createApStatus]);
+  
+
+const makeAppointment = () => {
+  const data = {counsellor_id:item?.user?.id, content:note, set_time: moment(noteDate).format("YYYY-MM-DD HH:mm:ss")}
+  console.log("the data", data)
+  dispatch(createAppointment(data))
+}
 
 
 
-
-  console.log("hello i am running")
 
 
   const MyCalendar = (props) => {
     return (
+      <CalendarProvider
+      date={'2024-06-24'} >
       <Calendar
+
         initialDate={startDate}
-        minDate={startDate}
-        maxDate={endDate}
+        // minDate={startDate}
+        // maxDate={endDate}
         disableAllTouchEventsForDisabledDays={true}
         markedDates={objectOutput}
     
         {...props}
        
       />
+      </CalendarProvider>
     );
   };
 
@@ -177,14 +207,11 @@ const AppointmentDateBottomSheet = (props) => {
   }, [userDateStatus]);
 
 
-
   
-
-
 
     return (
   
-                 <BottomSheet sheetBackgroundColor="#fff"  hasDraggableIcon ref={props.bottomSheetRefStart} height={560} >
+                 <BottomSheet sheetBackgroundColor="#fff"  hasDraggableIcon ref={props.bottomSheetRefStart} height={580} >
 
                   <ScrollView style={{flex:1}}>
                   <View style={styles.bottomSheet}>
@@ -199,30 +226,39 @@ const AppointmentDateBottomSheet = (props) => {
                             style={styles.verImg}
                             source={require('@Assets2/image/verified.png')}
                             />
-                        <Text style={styles.userName}>{item?.poster}</Text>
+                        <Text style={styles.userName}>{item?.user?.username}</Text>
                         </View>
                         <View style={styles.midContainer}>
                             <Text style={styles.intro}>Hello. I offer counselling for the following: </Text>
                             <Text style={styles.issues}>Marriage Dispute (Family)</Text>
                             <Text style={styles.issues}>Relationship </Text>
                             <Text style={styles.issues}>Depression & Addiction</Text>
-                            { !props.displayNote  ?
+
+                            {!appointmentSuccess ?
+                            <>
+                            { !showNote  ?
                            <View>
                              <Text style={styles.issueDate}>Pick a Date for Faceless Counseling</Text>
                           </View>
                             :
                             null
                             }
+                            </>
+                            :
+                            null}
                         </View>
-                    { !props.displayNote  ?
-                    <View style={{flex:1}}>
+
+
+                        {!appointmentSuccess ?
+                        <View>
+                    { !showNote  ?
+                    <View style={{flex:1, marginTop:-10}}>
                     {userDateStatus == "idle" ||userDateStatus == "pending" ?
                      <CalendarPlaceholder />
                      :
-                   <MyCalendar onDayPress={(day) => props.pick(day) } />
-                   
-                  
-                 
+                   <MyCalendar onDayPress={(day) => pickedDated(day) } />
+                
+              
 
                     }
                     </View>
@@ -243,7 +279,7 @@ const AppointmentDateBottomSheet = (props) => {
                             </View>
                         
                       <TouchableOpacity
-                       onPress={props.changeAppoint}
+                       onPress={() => setShowNote(false)}
                         style={styles.confirmCoverChange}>
                             
                             <Text style={styles.confirmText}>CHANGE APPOINTMENT DATE</Text>
@@ -263,10 +299,42 @@ const AppointmentDateBottomSheet = (props) => {
                             <Icon name="calendar-check" size={16} color="#fff" />
                        </TouchableOpacity> 
                             }
-                      
-                    </View>
+
+
+                         <View>
+
+                        
+                           
+                        </View>
+                     </View>
                         }
+                    </View>  
+
+                        :
+                        <View style={styles.calendarCover}>
+                        <LottieView
+                          source={require("@Assets2/image/appointment.json")}
+                          autoPlay
+                          loop
+                          // source={require('../../../asset/image/96957-lock.json')}
+
+                          style={styles.successImg}
+                        />
+                        <Text style={styles.calendarText}>
+                         Appointment sent successfully to @{item?.user?.username} you will receive a feed back within the hours
+                          </Text>
+                          </View>
+
+
+                      }
+                            { errMsg &&
+                           <View style={styles.errView} >
+                           <Icon name="alert-circle-outline" size={22} color="#BA1A1A" />
+                           <Text style={styles.errText}>{errMsg}</Text>
+                       </View>}
+
                     </View>
+                   
                   </ScrollView>
     
                 </BottomSheet>

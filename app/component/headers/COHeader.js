@@ -10,7 +10,7 @@ const NavHeader = (props) => {
 			<SafeAreaView >
 			<View style={props.mainView === undefined ? styles.mainHeader: props.mainView}>
 				<TouchableOpacity onPress={props.onPress}  >
-					<Image source={require("@Assets/image/leading-icon.png")} style={globalStyle.backImg} />
+					{/* <Image source={require("@Assets/image/leading-icon.png")} style={globalStyle.backImg} /> */}
 				</TouchableOpacity>
 				<View style={[styles.titleCover, props.titleCover]}>
 					<Text style={props.styles === undefined ? styles.btnText : props.styles} numberOfLines={2}>{props.title}</Text>

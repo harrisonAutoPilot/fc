@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,memo, useEffect } from "react";
 import {
   View,
   Text,
@@ -36,7 +36,6 @@ const MenuOptionBottomSheet = (props) => {
   };
 
   const downoadMedia = () => {
-    // console.log("download item has been called", item);
     props.returnBack();
   };
 
@@ -83,7 +82,7 @@ const MenuOptionBottomSheet = (props) => {
         style={styles.outsideModal}
         onPress={(event) => {
           if (event.target == event.currentTarget) {
-            setShowPaymentOption(false);
+            // setShowPaymentOption(false);
           }
         }}
       >
@@ -125,4 +124,4 @@ const MenuOptionBottomSheet = (props) => {
   );
 };
 
-export default MenuOptionBottomSheet;
+export default memo(MenuOptionBottomSheet);

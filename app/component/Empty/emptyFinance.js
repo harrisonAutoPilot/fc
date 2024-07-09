@@ -9,7 +9,7 @@ export default EmptyFinance = (props) => (
   
     <View style={styles.emptyCoverOrder1}>
         <View style={styles.imgCoverBigOrder}>
-            <Image source={require("@Assets/image/finance.png")} style={styles.emptyCartImg} />
+            {/* <Image source={require("@Assets/image/finance.png")} style={styles.emptyCartImg} /> */}
         </View>
         <Text style={styles.emptyTextBig}>Nothing Here Yet</Text>
       

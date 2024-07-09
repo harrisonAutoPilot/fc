@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {interestList,avartarList,registerUser,unFollowUser, followUser, countryCodeList,login,register, getUser, updateUserPassword,forgotPin,getPhoneVerificationPin,verifyPin, checkEmailDetails, updateUserDetails,checkPhoneDetails, deleteUserAccount, updateUserImage,checkAddressDetails,agentAnalytics,agentCheckin,getAgentCheckinStatus,callHistoryLog,getUserInterest,addDescription,syncAppointmentDate,getUserById,getAvailableDate,getAvailableDateByUserId,createAppointment,addAppointmentMessage,avartarUpdate} from "@Request2/Auth";
-
+import {interestList,avartarList,registerUser,unFollowUser, followUser, countryCodeList,login,register, getUser, updateUserPassword,forgotPin,getPhoneVerificationPin,verifyPin, checkEmailDetails, updateUserDetails,checkPhoneDetails, deleteUserAccount, updateUserImage,checkAddressDetails,agentAnalytics,agentCheckin,getAgentCheckinStatus,callHistoryLog,getUserInterest,addDescription,syncAppointmentDate,getUserById,getAvailableDate,getAvailableDateByUserId,createAppointment,addAppointmentMessage,avartarUpdate, getAppointments,getFollowers,getFollowing,getAppointment,getConsel,getMessages,updateAppointment,approveAppointment} from "@Request2/Auth";
+import dict from "@Helper2/dict"
 
 export const authSlice = createSlice({
     name: "auth",
@@ -16,12 +16,47 @@ export const authSlice = createSlice({
         createApStatus:"idle",
         createApErrors:{},
         createApData:{},
+
         avartarUpdateStatus:"idle",
         avartarUpdateErrors:{},
         avartarUpdateData:{},
+
+        getAppointmentStatus:"idle",
+        getAppointmentErrors:{},
+        getAppointmentData:{},
+
         addMessageStatus:"'idle",
         addMessageErrors:{},
         addMessageData:{},
+
+        getFollowersStatus:"idle",
+        getFollowersErrors:{},
+        getFollowersData:{},
+
+        appointmentStatus:"idle",
+        appointmentData:{},
+        appointmentErrors:{},
+        appointmentDataMore:[],
+
+        conselStatus:"idle",
+        conselData:{},
+        conselErrors:{},
+        conselDataMore:[],
+
+
+        messageStatus:"idle",
+        messageData:{},
+        messageErrors:{},
+
+        updateAppointmentStatus :"idle",
+        updateAppointmentErrors:{},
+        updateAppointmentData:{},
+
+        approveAppointmentStatus:"idle",
+        approveAppointmentErrors:{},
+        approveAppointmentData:{},
+
+
         userDateStatus:"idle",
         userDateData:{},
         userDateErrors:{},
@@ -123,6 +158,46 @@ export const authSlice = createSlice({
             state.addMessageErrors = {}
             state.addMessageData = {}
         },
+
+        cleanGetFollowers :(state) => {
+            state.getFollowersStatus="idle",
+            state.getFollowersErrors={},
+            state.getFollowersData={}
+        },
+
+        cleanGetAppointment :(state) => {
+            state.appointmentStatus="idle",
+            state.appointmentData={},
+            state.appointmentError={},
+            state.appointmentDataMore=[]
+        },
+        
+        cleanGetConsel :(state) => {
+            state.conselStatus="idle",
+            state.conselData={},
+            state.conselError={},
+            state.conselDataMore=[]
+        },
+
+        cleanGetMessage :(state) => {
+            state.messageStatus="idle",
+            state.messageData={},
+            state.messageError={}
+
+        },
+        
+        cleanAppointmentList:(state) => {
+            state.getAppointmentStatus = "idle"
+            state.getAppointmentErrors = {}
+            state.getAppointmentData = {}
+        },
+        cleanUpdateAppointment:(state) => {
+            state.updateAppointmentStatus = "idle"
+            state.updateAppointmentErrorw = {}
+            state.updateAppointmentData = {}
+        },
+
+        
         cleanInterest: (state) => {
             state.errors = {}
             state.interestListStatus = "idle"
@@ -158,6 +233,12 @@ export const authSlice = createSlice({
             state.descErrors = {}
             state.descStatus = "idle"
             state.descData  = {}
+           
+        },
+        cleanGetFollowing: (state) => {
+            state.getFollowingErrors = {}
+            state.getFollowingStatus = "idle"
+            state.getFollowingData  = {}
            
         },
         cleanUserInterest:(state) =>{
@@ -423,7 +504,6 @@ export const authSlice = createSlice({
             })
             .addCase(getUserInterest.fulfilled, (state, {payload}) => {
                 state.interestStatus = "success"; 
-                console.log("the flexing uuuuuu", payload)
                 state.interest = payload;
                 state.interestErrors = {};
             })
@@ -750,9 +830,161 @@ export const authSlice = createSlice({
             
             })
 
+            
+
+            builder
+            .addCase(getAppointments.pending, state => {
+                state.getAppointmentStatus = "pending";
+                state.getAppointmentErrors = {};
+            })
+          
+                .addCase(getAppointments.fulfilled, (state, action) => {
+                state.getAppointmentStatus = "success";
+                state.getAppointmentData = action?.payload;
+                
+            })
+            .addCase(getAppointments.rejected, (state, action)=> {
+                state.getAppointmentStatus = "failed";
+                state.getAppointmentErrors = action.payload;
+            
+            })
+
+            
+
+            builder
+            .addCase(getFollowers.pending, state => {
+                state.getFollowersStatus = "pending";
+                state.getFollowersErrors = {};
+            })
+          
+                .addCase(getFollowers.fulfilled, (state, action) => {
+                state.getFollowersStatus = "success";
+                state.getFollowersData = action?.payload;
+                
+            })
+            .addCase(getFollowers.rejected, (state, action)=> {
+                state.getFollowersStatus = "failed";
+                state.getFollowersErrors = action.payload;
+            
+            })
+
+            builder
+            .addCase(getFollowing.pending, state => {
+                state.getFollowingStatus = "pending";
+                state.getFollowingErrors = {};
+            })
+          
+                .addCase(getFollowing.fulfilled, (state, action) => {
+                state.getFollowingStatus = "success";
+                state.getFollowingData = action?.payload;
+                
+            })
+            .addCase(getFollowing.rejected, (state, action)=> {
+                state.getFollowersStatus = "failed";
+                state.getFollowingErrors = action.payload;
+            
+            })
+
+            
+
+            builder
+            .addCase(getAppointment.pending, state => {
+                state.appointmentStatus = "pending";
+                state.appointmentErrors = {};
+            })
+          
+                .addCase(getAppointment.fulfilled, (state, action) => {
+                state.appointmentStatus = "success";
+                state.appointmentData = action?.payload;
+                state.appointmentDataMore = dict(state?.appointmentDataMore, action.payload.data);
+                state.appointmentErrors = {};
+                
+            })
+            .addCase(getAppointment.rejected, (state, action)=> {
+                state.appointmentStatus = "failed";
+                state.appointmentErrors = action.payload;
+            
+            })
+
+
+            builder
+            .addCase(getConsel.pending, state => {
+                state.conselStatus = "pending";
+                state.conselErrors = {};
+            })
+          
+                .addCase(getConsel.fulfilled, (state, action) => {
+                state.conselStatus = "success";
+                state.conselData = action?.payload;
+                state.conselDataMore = dict(state?.conselDataMore, action.payload.data);
+                state.conselErrors = {};
+                
+            })
+            .addCase(getConsel.rejected, (state, action)=> {
+                state.conselStatus = "failed";
+                state.conselErrors = action.payload;
+            
+            })
+
+
+            builder
+            .addCase(getMessages.pending, state => {
+                state.messageStatus = "pending";
+                state.messageErrors = {};
+            })
+          
+                .addCase(getMessages.fulfilled, (state, action) => {
+                state.messageStatus = "success";
+                state.messageData = action?.payload;
+                state.messageErrors = {};
+                
+            })
+            .addCase(getMessages.rejected, (state, action)=> {
+                state.messageStatus = "failed";
+                state.messageErrors = action.payload;
+            
+            })
+
+
+            builder
+            .addCase(updateAppointment.pending, state => {
+                state.updateAppointmentStatus = "pending";
+                state.updateAppointmentErrors = {};
+            })
+          
+                .addCase(updateAppointment.fulfilled, (state, action) => {
+                state.updateAppointmentStatus = "success";
+                state.updateAppointmentData = action?.payload;
+                state.updateAppointmentErrors = {};
+                
+            })
+            .addCase(updateAppointment.rejected, (state, action)=> {
+                state.updateAppointmentStatus = "failed";
+                state.updateAppointmentErrors = action.payload;
+            })
+            
+
+            builder
+            .addCase(approveAppointment.pending, state => {
+                state.approveAppointmentStatus = "pending";
+                state.approveAppointmentErrors = {};
+            })
+          
+                .addCase(approveAppointment.fulfilled, (state, action) => {
+                state.approveAppointmentStatus = "success";
+                state.approveAppointmentData = action?.payload;
+                state.approveAppointmentErrors = {};
+                
+            })
+            .addCase(approveAppointment.rejected, (state, action)=> {
+                state.approveAppointmentStatus = "failed";
+                state.approveAppointmentErrors = action.payload;
+            
+            })
+      
     }
 });
 
-export const { logout,cleanCountryCodeStatus,cleanUnFollowUser,cleanFollowUser,cleanInterest,cleanUserInterest,cleanAvartar, getUserDetails,cleanCheckAddress,cleanRegisterStatus, cleanCheckEmail,cleanPhoneVerificationStatus, cleanUserDetails,cleanCheckPhone, cleanLoginStatus, cleanup,cleanDisableAc,cleanAnalytics,cleanAddDescription,cleanSync,cleanUserIdStatus,cleanAvailableDate,cleanUserAvailableDate,cleanCreateAppointment,cleanAddMessage,cleanAvartarUpdate } = authSlice.actions
+export const { logout,cleanCountryCodeStatus,cleanUnFollowUser,cleanFollowUser,cleanInterest,cleanUserInterest,cleanAvartar, getUserDetails,cleanCheckAddress,cleanRegisterStatus, cleanCheckEmail,cleanPhoneVerificationStatus, cleanUserDetails,cleanCheckPhone, cleanLoginStatus, cleanup,cleanDisableAc,cleanAnalytics,cleanAddDescription,cleanSync,cleanUserIdStatus,cleanAvailableDate,cleanUserAvailableDate,cleanCreateAppointment,cleanAddMessage,cleanAvartarUpdate,cleanAppointmentList,cleanGetFollowers,cleanGetFollowing,cleanGetAppointment,cleanGetConsel,cleanGetMessage,cleanUpdateAppointment} = authSlice.actions
 
 export default authSlice.reducer;

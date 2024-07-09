@@ -69,29 +69,29 @@ const styles = StyleSheet.create({
     padding: 0,
     zIndex: 90,
     flexGrow:1,
-    borderRadius: 15,
+    borderRadius: 6,
     marginBottom: 10,
   },
   imageCard: {
-    borderRadius: 10,
     width: ITEM_WIDTH - 20,
     height: "77%",
     alignSelf: "center",
-    borderRadius: 10,  
+    backgroundColor:'gray',
+    borderRadius: 6,
   },
   imageCardU: {
     borderRadius: 10,
     width: ITEM_WIDTH - 20,
     height: "77%",
     alignSelf: "center",
-    borderRadius: 10,  
+    borderRadius: 6,  
   },
   imageCardImg: {
     borderRadius: 10,
     width: ITEM_WIDTH - 20,
     height: "100%",
     alignSelf: "center",
-    borderRadius: 10,
+    borderRadius: 6,
   },
   videoCard: {
     borderRadius: 6,
@@ -104,10 +104,9 @@ const styles = StyleSheet.create({
     zIndex: 9000,
   },
   videoCardt: {
-    borderRadius: 0,
     width: ITEM_WIDTH,
     flex:1,
-    borderRadius: 15,
+    borderRadius: 6,
     alignItems: "center",
     alignSelf: "center",
     justifyContent: "center",
@@ -436,8 +435,8 @@ const styles = StyleSheet.create({
     // marginTop:25
   },
   speakerImg: {
-    width: 15,
-    height: 15,
+    width: 18,
+    height: 18,
     // position:'absolute',
     alignSelf: "center",
     zIndex: 900,
@@ -449,8 +448,8 @@ const styles = StyleSheet.create({
     zIndex: 900,
   },
   soundCover: {
-    width: 35,
-    height: 35,
+    width: 40,
+    height: 40,
     flexDirection: "row",
     borderRadius: 100,
     // backgroundColor: 'rgba(52, 52, 52, 0.8)',
@@ -695,7 +694,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 4,
     backgroundColor: "#99cb01",
-    paddingVertical: 5,
+    paddingVertical: 7,
     // borderWidth:1,
     // borderColor:'#fff',
     marginRight: 10,
@@ -705,6 +704,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontFamily: "AnekLatin-Regular",
     textTransform: "capitalize",
+    marginTop:-3
   },
 
   categoryCover: {
@@ -767,7 +767,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: -10,
     width: "100%",
-    paddingVertical: 20,
+    paddingVertical: 10,
+    paddingBottom:5,
     backgroundColor:'#fff',
    
 
@@ -828,9 +829,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     zIndex: 900,
     marginHorizontal: 10,
-    borderWidth:3,
-    borderColor:'#00b3000',
-    borderStyle:'solid',
     alignItems: "center",
     justifyContent: "center",
   },
@@ -839,9 +837,6 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 100,
     marginHorizontal: 10,
-    borderWidth:3,
-    borderColor:'#00b3000',
-    borderStyle:'solid',
     alignItems: "center",
     justifyContent: "center",
     zIndex: 9000,
@@ -857,12 +852,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   groupImg:{
-    width: 55,
-    height: 55,
+    width: 50,
+    height: 50,
     borderRadius: 100,
-    borderWidth:3,
-    borderColor:'#00b3000',
-    borderStyle:'solid',
     resizeMode:'contain'
   },
   headerCover:{
@@ -875,7 +867,204 @@ const styles = StyleSheet.create({
     color: "#000",
     fontFamily: "AnekLatin-SemiBold",
     fontSize: 22,
-  }
+  },
+
+  // this is for the message
+  messageCard:{
+    flexDirection:'row',
+    justifyContent:'space-between',
+    padding:10,
+    width:'100%',
+    alignSelf:'center'
+},
+userAvatarCover:{
+    width:40,
+    height:40,
+    borderRadius:100,
+},
+smLine:{
+    width:80,
+    height:15,
+    borderRadius:20,
+    backgroundColor: 'lightgray',
+    marginVertical:5
+},
+mdLine:{
+    width:190,
+    height:15,
+    borderRadius:20,
+    backgroundColor: '#e6e6e6',
+},
+userAvatarCoverP:{
+    width:30,
+    height:30,
+    borderRadius:100,
+    backgroundColor:'#bfbfbf'
+},
+userCommentCover:{
+    width:"85%",
+    // backgroundColor:'#f5f5f5',
+    padding:10,
+    borderRadius:10,
+    borderTopLeftRadius:0,
+
+},
+bottomContainer:{
+    position:'absolute',
+    padding:5,
+    bottom:8,
+    width:'100%',
+    alignSelf:'center',
+    alignItems:'flex-start',
+    borderRadius:40,
+    paddingHorizontal:10,
+    minHeight:45, 
+    borderTopWidth:1,
+    borderTopColor:'#f5f5f5',
+    paddingTop:10,
+},
+inputContainer:{
+    flexDirection:'row',
+    justifyContent:'space-between',
+    width:'100%',
+    alignSelf:'center',
+    alignItems:'center',
+    paddingHorizontal:3,
+    minHeight:45,
+    paddingTop:10,
+},
+inputField: {
+    width: wp('72%'),
+    color: 'rgba(118, 118, 128, 1)',
+    paddingLeft:10,
+    fontSize: 14,
+    color:"#000",
+    fontFamily: "AnekLatin-Regular",
+    // height:Platform.OS === "android" ? 45 : 20,
+    letterSpacing: 0.25,
+    // paddingBottom:Platform.OS === "android" ? 0 : 5,
+    alignSelf:'center'
+
+},
+colorText:{
+color: "#99cb01",
+fontSize: 14,
+fontFamily: "AnekLatin-Medium",
+
+},
+grayText:{
+    color: "#454545",
+    fontSize: 14,
+    fontFamily: "AnekLatin-Medium",
+  
+},
+innerFlex:{
+    flexDirection:'row',
+    justifyContent:'flex-start',
+    alignItems:'center',
+    width: wp('68%'),
+},
+myAvartar:{
+    width:30,
+    height:30,
+    borderRadius:100,
+    marginRight:8,
+    resizeMode:'cover'
+    // backgroundColor:'red'
+},
+optionStyles:{
+    paddingHorizontal:10,
+    paddingVertical:6,
+    borderRadius:30,
+    borderWidth:1,
+    borderColor:'#bfbfbf',
+    alignItems:'center',
+    justifyContent:'center',
+    flexDirection:'row',
+    marginHorizontal:5,
+},
+optionText:{
+    color: "#757575",
+    fontSize: 12,
+    fontFamily: "AnekLatin-Medium", 
+    marginBottom:3
+},
+scrollContainer:{
+    width:'100%' 
+},
+userCommentHeader:{
+    flexDirection:'row',
+    justifyContent:'space-between'
+},
+userCommentHeaderP:{
+    width:"83%",
+    backgroundColor:'#f5f5f5',
+    padding:10,
+    borderRadius:10,
+    borderTopLeftRadius:0,
+},
+commenterName:{
+    color: "#000",
+    textTransform:'capitalize',
+    fontSize: 14,
+    fontFamily: "AnekLatin-Medium", 
+},
+userCommentDate:{
+    flexDirection:'row',
+    justifyContent:'flex-start',
+    alignItems:'center'
+},
+commenterDate:{
+    color: "#757575",
+    fontSize: 10,
+    fontFamily: "AnekLatin-Medium", 
+    marginLeft:2,
+},
+contentText:{
+    color: "#757575",
+    fontSize: 12,
+    fontFamily: "AnekLatin-Regular", 
+    lineHeight:18,
+},
+  
+//    this is for the empty screen
+emptyContainer:{
+width:"100%",
+ height:300,
+justifyContent:'center',
+ flex:1,
+alignItems:'center',
+alignSelf:'center',
+
+},
+storeImg:{
+width:90,
+height:90,
+resizeMode:'contain',
+
+},
+emptyTextCover:{
+width:"100%",
+alignSelf:'center',
+alignItems:'center',
+marginTop:20,
+},
+emptyBgText:{
+color: "#1B1B1F",
+fontSize: 22,
+fontFamily: "AnekLatin-SemiBold",
+lineHeight: 28,
+},
+emptySmText:{
+color: "#45464F",
+fontSize: 14,
+fontFamily: "AnekLatin-Regular",
+lineHeight: 20,
+paddingHorizontal:20,
+marginTop:10
+},
+
+
 });
 
 export default styles;

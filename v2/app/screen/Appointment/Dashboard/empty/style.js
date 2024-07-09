@@ -34,5 +34,6 @@ marginTop:hp('20%')
     lineHeight: 20,
     color: 'rgba(69, 70, 79, 1)',
     letterSpacing: 0.2,
+    marginTop:10
   },
 })

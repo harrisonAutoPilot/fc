@@ -10,15 +10,22 @@ export default styles = StyleSheet.create({
         backgroundColor:"#fff",
     },
     header: {
-        backgroundColor: "#DDE1FF",
+        backgroundColor: "#fff",
         paddingLeft: 16,
         justifyContent: "center",
         paddingBottom: 20,
+        marginTop:20,
      
     },
+    descWord: {
+        color: "#000",
+        fontSize: 10,
+        fontFamily: "Playfair-Regular",
+        textAlign: "left",
+      },
     safeAreaStyle:{
         flex:1,
-        backgroundColor:'rgba(221, 225, 255, 3)'
+        backgroundColor:'#FFF'
       },
     linearView: {
         paddingVertical: 10,
@@ -35,7 +42,7 @@ export default styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: "AnekLatin-Medium",
        lineHeight: 24,
-       color: "#DDE1FF",
+       color: "#ff",
        letterSpacing: 0.1,  
     },
     icon:{
@@ -85,7 +92,7 @@ export default styles = StyleSheet.create({
         marginLeft: 10
     },
     route:{
-        paddingVertical: 5,
+        paddingVertical: 15,
         backgroundColor: "#fff",
         borderBottomWidth:1,
         borderBottomColor:"#F2F0F4"
@@ -248,7 +255,7 @@ export default styles = StyleSheet.create({
     profileImgCover: {
         width: 50,
         height: 50,
-        borderWidth: 1,
+        borderWidth: 0,
         borderStyle: 'dashed',
         borderRadius: 100,
         marginRight: 10,
@@ -257,8 +264,8 @@ export default styles = StyleSheet.create({
         textAlign: 'center',
       },
       userImg: {
-        width: 45,
-        height: 45,
+        width: 55,
+        height: 55,
         resizeMode: 'contain',
         borderRadius: 100,
       },
@@ -307,5 +314,11 @@ export default styles = StyleSheet.create({
         width: 18,
         height: 20,
 
+    },
+    backImg: {
+        width: 20,
+        height: 20,
+        resizeMode: 'contain',
+        marginRight:16,
     },
 })

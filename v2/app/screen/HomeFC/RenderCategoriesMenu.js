@@ -12,6 +12,7 @@ import {
   StyleSheet,
   Image,
   FlatList,
+  ActivityIndicator,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
@@ -20,17 +21,32 @@ import Acon from "react-native-vector-icons/MaterialCommunityIcons";
 import Fcon from "react-native-vector-icons/Feather";
 import { useDispatch, useSelector } from "react-redux";
 import { MaterialIndicator } from "react-native-indicators";
-import moment from 'moment';
-import { group } from "../../util/group";
-import Config from "react-native-config";
-import { data } from "../../util/data";
-import {unFollowUser, followUser,getAvailableDateByUserId,getUser, createAppointment,addAppointmentMessage} from "@Request2/Auth";
-import { getAllFeeds,unLikeFeed,likeFeed, getFeedComments} from "@Request2/Feed";
-import {cleanFeedLike, cleanFeedUnLike} from "@Store2/Feed";
-import {
+import moment from "moment";
 
+import Config from "react-native-config";
+
+import {
+  unFollowUser,
+  followUser,
+  getAvailableDateByUserId,
+  getUser,
+  getFollowing,
+  createAppointment,
+  addAppointmentMessage,
 } from "@Request2/Auth";
-import {cleanUnFollowUser,cleanFollowUser,cleanUserAvailableDate} from "@Store2/Auth";
+import {
+  getAllFeeds,
+  unLikeFeed,
+  likeFeed,
+  getFeedComments,
+} from "@Request2/Feed";
+import { cleanFeedLike, cleanFeedUnLike} from "@Store2/Feed";
+import {
+  cleanUnFollowUser,
+  cleanFollowUser,
+  cleanUserAvailableDate,
+  cleanGetFollowing 
+} from "@Store2/Auth";
 const { width } = Dimensions.get("screen");
 import styles from "./style";
 import Video from "react-native-video";
@@ -45,532 +61,569 @@ import AppointmentDateBottomSheet from "./appointDateBottomSheet";
 import MessageBottomSheet from "./messageBottomSheet";
 import CategoryDetails from "./CategoryDetails";
 import ImageView from "./ImageView";
+import UserOption from "./UserOptions";
+
+const RenderCategoriesMenu = ({ key, item,index, navigation,props, userData,activeDotData,showCheck }) => {
 
 
-
-const RenderCategoriesMenu = ({props,item,currentIndex,currentVisibleIndex,navigation,userData}) => {
   const dispatch = useDispatch();
-const [isLoading, setIsLoading] = useState(false);
-const [mute, unMute] = React.useState(true);
-const [onRepeat, setOnRepeat] = useState(false);
-const { likeStatus, unlikeStatus, likeErrors, likeData,feedCommentStatus,feedCommentData, unlikeData} = useSelector((state) => state.feed);
-const { } = useSelector((state) => state.auth);
-const {
-  user,
-  createApStatus,
-  createApData,
-  createApErrors,
-  userDateStatus,
-  userDateData,
-  addMessageStatus,
-  addMessageErrors,
-  addMessageData,
-  unFollowStatus,followErrors, unFollowData, followStatus, followData
-} = useSelector((state) => state.auth);
-const [selected, setSelected] = useState(0);
-const [detailsValue, setDetailsValue] = useState(0);
-const [showPreview, setShowPreview] = useState(false);
-const [active, setActive] = useState('1');
-const [category, setCategory] = useState('Categories');
-const [playSoundId, setPlaySoundId] = useState(0);
-const [apDetails, setApDetails] = useState({});
-const [userFollowId, setUserFollowId] = useState(false)
-const [love, setLove] = useState(false);
-const [onEnd, setOnEnd] = useState(false);
-const [pause, setPause] = useState(false);
-const { height: windowHeight } = Dimensions.get("window");
-const boxHeight = windowHeight / 1.3;
-const [showCategory, setShowCategory] = useState(false);
-const [catItem, setCatItem] = useState();
-const [noteDate, setNoteDate] = useState([])
-const [fromDate, setFromDate] = useState("")
-const [showNote, setShowNote] = useState(false)
-const [toDate, setToDate] = useState("")
-const [displayFrom, setDisplayFrom] = useState(true)
-const [displayTo, setDisplayTo] = useState(false)
-const [note, setNote] = useState("")
-const [successMsg, setSuccessMsg] = useState(null);
-const [loader, setLoader] = useState(false);
-const [startDate, setStartDate] = useState([]);
-const [endDate, setEndDate] = useState([]);
-const [showCalendar, setShowCalendar] = useState(false);
-const [errMsg, setErrMsg] = useState(null);
-const [listData, setListData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [mute, unMute] = React.useState(true);
+  const [onRepeat, setOnRepeat] = useState(false);
+  const {
+    likeStatus,
+    unlikeStatus,
+    likeErrors,
+    likeData,
+    feedCommentStatus,
+    feedCommentErrors,
+    feedCommentData,
+    unlikeData,
+    getFollowingData,
+  } = useSelector((state) => state.feed);
+  const {} = useSelector((state) => state.auth);
+  const {
+    user,
+    createApStatus,
+    createApData,
+    createApErrors,
+    userDateStatus,
+    userDateData,
+    addMessageStatus,
+    addMessageErrors,
+    addMessageData,
+    unFollowStatus,
+    followErrors,
+    unFollowData,
+    followStatus,
+    followData,
+  } = useSelector((state) => state.auth);
+  const [selected, setSelected] = useState(0);
+  const [detailsValue, setDetailsValue] = useState(0);
+  const [showPreview, setShowPreview] = useState(false);
+  const [active, setActive] = useState("1");
+  const [category, setCategory] = useState("Categories");
+  const [playSoundId, setPlaySoundId] = useState(0);
+  const [apDetails, setApDetails] = useState({});
+  const [userFollowId, setUserFollowId] = useState();
+  const [love, setLove] = useState(false);
+  const [clickLove, setClickLove] = useState(false);
+  const [clickUnLove, setClickUnLove] = useState(false);
+  const [onEnd, setOnEnd] = useState(false);
+  const [pause, setPause] = useState(false);
+  const [loveRoller, setLoveRoller] = useState(false);
+  const { height: windowHeight } = Dimensions.get("window");
+  const boxHeight = windowHeight / 1.3;
+  const [showCategory, setShowCategory] = useState(false);
+  const [catItem, setCatItem] = useState();
+  const [noteDate, setNoteDate] = useState([]);
+  const [fromDate, setFromDate] = useState("");
+  const [showNote, setShowNote] = useState(false);
+  const [toDate, setToDate] = useState("");
+  const [displayFrom, setDisplayFrom] = useState(true);
+  const [displayTo, setDisplayTo] = useState(false);
+  const [note, setNote] = useState("");
+  const [successMsg, setSuccessMsg] = useState(null);
+  const [loader, setLoader] = useState(false);
+  const [startDate, setStartDate] = useState([]);
+  const [endDate, setEndDate] = useState([]);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [errMsg, setErrMsg] = useState(null);
+  const [listData, setListData] = useState([]);
+  const [showSpinner, setShowSpinner] = useState(false);
+  const [myUnFollow, setMyUnFollow] = useState(false);
+  const [myFollow, setMyFollow] = useState(false);
+
+  const bottomSheetRefApDate = useRef();
+  const bottomSheetRefMessage = useRef();
+  bottomSheetRefUserOption= useRef()
+
+  const [heartCount, setHeartCount] = useState();
+
+  const showDetails = (item) => {
+    setShowCategory(true);
+    setCatItem(item);
+  };
+
+  setTimeout(function(){
+    setShowSpinner(false)
+}, 500);
 
 
+  const changeHeart = (item) => {
+    setLoveRoller(true)
+    setLove(true);
+    setClickLove(true);
 
+    setTimeout(() => {
+      dispatch(likeFeed(item?.id));
+      setHeartCount(item?.likesCount + 1);
 
+ }, 2000);
+  };
 
-const bottomSheetRefApDate = useRef();
-const bottomSheetRefMessage = useRef();
-
-const [heartCount, setHeartCount] = useState(249);
-
-const showDetails = (item) => {
-  console.log("the name", item)
-  setShowCategory(true);
-  setCatItem(item);
-};
-
-const changeHeart = (item) => {
-  dispatch(likeFeed(item?.id))
-
-  setHeartCount(item?.likesCount + 1);
-};
-
-const changeHeartNegate = (item) => {
-  dispatch(unLikeFeed(item?.id))
-  setHeartCount(item?.likesCount - 1);
-};
-
-
-
-useEffect(() => {
-
-  if (likeStatus === "failed") {
-
-    console.log(likeErrors.msg)
-
-  } else if (likeStatus === "success") {
-    dispatch(cleanFeedLike())
-      console.log(likeData)
-
+  const closeUserOption = () =>{
+    bottomSheetRefUserOption.current.close()
   }
 
-}, [likeStatus]);
-
-
-useEffect(() => {
-
-if (unlikeStatus === "failed") {
-
-  console.log(likeErrors.msg)
-
-} else if (unlikeStatus === "success") {
-  
-    dispatch(cleanFeedUnLike())
-    console.log(unlikeData)
-
-}
-
-}, [unlikeStatus]);
-
-// console.log("the dates data", userDateData)
-
-const changeUnFollow = (id) =>{
-  setUserFollowId(id)
-  dispatch(unFollowUser(id))
-
-}
-
-const changeFollow = (id) =>{
-  console.log("this has been clicked -- follow")
-  setUserFollowId(id)
-  dispatch(followUser(id))
-}
-
-
-const checkDates = (item) => {
-dispatch(cleanUserAvailableDate())
-  console.log("the poster info", item?.user)
-  dispatch(getAvailableDateByUserId(item?.user))
-  setApDetails(item);
-  bottomSheetRefApDate.current.show();
-};
-
-
-
-
-const addMessage = (item) => {
-  dispatch(getFeedComments(item?.id))
-  setApDetails(item);
-  bottomSheetRefMessage.current.show();
-};
-
-
-const closeApointmentSheet = () => {
-  bottomSheetRefApDate.current.close();
-};
-
-const closeDetails = (item) => {
-  setShowPreview(true);
-  setDetailsValue(item?.id);
-};
-
-const playSound = (item) => {
-  unMute(false);
-  setPlaySoundId(item?.id);
-};
-const muteSound = (item) => {
-  unMute(true);
-  setPlaySoundId(item?.id);
-};
-
-const posterProfile = (item) =>{
-    navigation.navigate("PosterProfile", {item:item})
-}
-
-
-const goDetails = (item) =>{
-navigation.navigate("HomeDetails", {item:item})
-}
-
-
-useEffect(() => {
-  if (createApStatus === "failed") {
-    setLoader(false);
-    console.log("the appointment errors",createApErrors )
-  } else if (createApStatus === "success") {
+  const callUserOpton = (item) =>{
    
-    const data = {id: createApData?.counsellor_id,content:note}
-    console.log("the appointment data obi tochiiiiii...", note, data)
-  //  dispatch(addAppointmentMessage(data))
-    setLoader(false);
+    setTimeout(() => {
+      setApDetails(item);
+      bottomSheetRefUserOption.current.show()
+
+ }, 2000);
   }
-}, [createApStatus]);
 
 
+  const changeHeartNegate = (item) => {
+    setLoveRoller(true)
+    setLove(false);
+    setClickUnLove(true);
+    const data = item?.likesCount - 1;
+
+    setTimeout(() => {
+      dispatch(unLikeFeed(item?.id));
+      setHeartCount(data < 1 ? 0 : item?.likesCount - 1);
+
+ }, 2000);
+
+  };
+
+  useEffect(() => {
+    if (likeStatus === "failed") {
+      console.log(likeErrors.msg);
+    } else if (likeStatus === "success") {
+      dispatch(cleanFeedLike());
+      setLoveRoller(false)
+   
+    }
+  }, [likeStatus]);
+
+  useEffect(() => {
+    if (unlikeStatus === "failed") {
+    
+    } else if (unlikeStatus === "success") {
+      dispatch(cleanFeedUnLike());
+      console.log(unlikeData);
+      setLoveRoller(false)
+    }
+  }, [unlikeStatus]);
 
 
-useEffect(() => {
-  if (addMessageStatus === "failed") {
-    setLoader(false);
-    console.log("the appointment errors",addMessageErrors )
-  } else if (addMessageStatus === "success") {
-    setNote("")
-    console.log("the appointment data ...",addMessageData )
-
-   dispatch(cleanCreateAppointment());
-
-    dispatch(cleanAddMessage());
-    setLoader(false);
-    props.close();
-
-    // setTimeout(function () {
-    //   setLoader(false);
-    //   dispatch(cleanSync());
-    // }, 4000);
-  }
-}, [addMessageStatus]);
+  useEffect(() => {
+    dispatch(getFollowing())
+  }, [getFollowingData?.data?.length]);
 
 
+  const changeUnFollow = (id) => {
+    setShowSpinner(true)
+    setMyFollow(false)
+    dispatch(cleanUnFollowUser())
+    setUserFollowId(id);
+    dispatch(unFollowUser(id));
+    dispatch(getFollowing())
+
+  };
+
+  const changeFollow = (id) => {
+    setShowSpinner(true)
+    setMyFollow(true)
+    setUserFollowId(id);
+    dispatch(cleanFollowUser())
+    dispatch(followUser(id));
+    dispatch(getFollowing())
+   
+  };
+
+  const checkDates = (item) => {
+    dispatch(cleanUserAvailableDate());
+  
+    dispatch(getAvailableDateByUserId(item?.user?.id));
+    setApDetails(item);
+    setTimeout(() => {
+      console.log(item)
+    bottomSheetRefApDate?.current?.show();
+
+ }, 2000);
+
+  };
+
+  const closeApointmentSheet = () => {
+    bottomSheetRefApDate?.current?.close();
+  };
+
+  const closeDetails = (item) => {
+    setShowPreview(true);
+    setDetailsValue(item?.id);
+  };
+
+  const playSound = (item) => {
+    unMute(false);
+    setPlaySoundId(item?.id);
+  };
+  const muteSound = (item) => {
+    unMute(true);
+    setPlaySoundId(item?.id);
+  };
+
+  const posterProfile = (item) => {
+    navigation.navigate("PosterProfile", { item: item });
+  };
+
+  const goDetails = (item) => {
+    navigation.navigate("HomeDetails", { item: item });
+  };
+
+  const addMessage = (item) => {
+    setApDetails(item);
+    dispatch(getFeedComments(item?.id));
+    bottomSheetRefMessage.current.show();
+  };
+
+  const LoveToggle = useCallback(
+    ({ style, onPress, onPressNew, myHeartCount, itemData, likeState }) => (
+      <View style={styles.loveCoverNew}>
+        {likeState == true && itemData?.likesCount > 0 && love ? (
+             <TouchableOpacity
+            style={{ flexDirection: "row" }}
+            onPress={onPressNew}
+          >
+            <View>
+              <Icon name="heart" size={20} color="red" style={styles.loveImg} />
+            </View>
+            <Text style={styles.loveCount}>{myHeartCount}</Text>
+          </TouchableOpacity>
+        ) : (
+      
+
+          <TouchableOpacity style={{ flexDirection: "row" }} onPress={onPress}>
+            <View>
+              <Icon
+                name="hearto"
+                size={20}
+                color="#000"
+                style={styles.loveImg}
+              />
+            </View>
+            <Text style={styles.loveCount}>{myHeartCount}</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+    ),
+    [love]
+  );
+
+  const FollowToggle = useCallback(
+    ({onPress, onPressOdi, itemData}) => (
+      <View>
+                {myFollow ? (
+                  <TouchableOpacity
+                    style={styles.followCovering}
+                    onPress={onPress}
+                  >   
+                <Text style={styles.followTexting}>following</Text>
+ 
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    style={styles.followCover}
+                    onPress={onPressOdi}
+                  >
+                   
+                    {/* <ActivityIndicator size="small" color="#454545" /> */}
+                    
+                      <Text style={styles.followText}>follow</Text>
+                   
+                  
+                  </TouchableOpacity>
+                ) }
+              </View>
+    ),
+    [userFollowId, myFollow]
+  );
 
 
-const LoveToggle = useCallback(
-  ({ style, onPress, myHeartCount, itemData, likeState }) => (
-    <View style={styles.loveCoverNew}>
-      {likeState == false ? (
-        <TouchableOpacity
-        style={{flexDirection:'row'}}
-          onPress={(item) => {
-            changeHeart(itemData), setLove(true);
-          }}
-        >
-          <View>
-            <Icon
-              name="hearto"
-              size={20}
-              color="#000"
-              style={styles.loveImg}
-            />
-            
-          </View>
-          <Text style={styles.loveCount}>{myHeartCount}</Text>
+  const MessageToggle = useCallback(
+    ({ onPress, messageCount }) => (
+      <View style={styles.commentCoverNew}>
+        <TouchableOpacity onPress={onPress}>
+          <Acon name="message-text-outline" size={20} color="#454545" />
         </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-        style={{flexDirection:'row'}}
-          onPress={(item) => {
-            changeHeartNegate(itemData);
-            setLove(false);
-          }}
-        >
-          <View>
-            <Icon name="heart" size={20} color="red" style={styles.loveImg} />
-           
-          </View>
-          <Text style={styles.loveCount}>{myHeartCount}</Text>
-        </TouchableOpacity>
-      )}
-    </View>
-  ),
-  [love]
-);
+        <Text style={styles.loveCount}>{messageCount}</Text>
+      </View>
+    ),
+    []
+  );
 
-const MessageToggle = useCallback(
-  ({ onPress, messageCount }) => (
-    <View style={styles.commentCoverNew}>
-      <TouchableOpacity onPress={onPress}>
-        <Acon name="message-text-outline" size={20} color="#454545" />
-       
-      </TouchableOpacity>
-      <Text style={styles.loveCount}>{messageCount}</Text>
-    </View>
-  ),
-  []
-);
-
-const ShareToggle = useCallback(
-  ({ onPress }) => (
-    <View style={styles.shareCoverNew}>
-      <TouchableOpacity onPress={onPress}>
-        {/* <Image
+  const ShareToggle = useCallback(
+    ({ onPress }) => (
+      <View style={styles.shareCoverNew}>
+        <TouchableOpacity onPress={onPress}>
+          {/* <Image
           source={require("@Assets2/image/arrow.png")}
           style={styles.shareImg}
         /> */}
-         <Fcon name="send" size={20} color="#454545" />
-      </TouchableOpacity>
-    </View>
-  ),
-  []
-);
-
-const ApointmentToggle = useCallback(
-  ({ onPress }) => (
-    <View style={styles.apointCoverNew}>
-      <TouchableOpacity onPress={onPress}>
-        <Acon
-          name="calendar-month-outline"
-          size={20}
-          color="#454545"
-          style={styles.loveImg}
-        />
-      </TouchableOpacity>
-    </View>
-  ),
-  []
-);
-
-const CategoryToggle = useCallback(
-  ({ onPress, category }) => (
-    <View style={styles.categoryCoverNew}>
-      <TouchableOpacity onPress={onPress}>
-        <Text style={styles.categoryText}>{category}</Text>
-      </TouchableOpacity>
-    </View>
-  ),
-  []
-);
-
-
-
-// this is where i start
-const pickedDated = (day) => {
-  console.log("remember it has been clicked obiiiiiiii", day)
-  let checker = Object?.values(userDateData?.available_dates)?.includes(
-    day?.dateString
+          <Fcon name="send" size={20} color="#454545" />
+        </TouchableOpacity>
+      </View>
+    ),
+    []
   );
- 
 
-    if (checker) {
-      setShowNote(true)
-      setShowCalendar(false);
-      setNoteDate(day?.dateString)
-
-    } else {
-      setNoteDate([])
-      setErrMsg("Please select a date you checked in");
-      setTimeout(() => {
-        setErrMsg(null);
-      }, 3000);
-    }
-    setShowCalendar(false);
-  };
-
-
-const makeAppointment = () => {
-  const data = {counsellor_id:item?.user?.id, set_time: moment(noteDate).format("YYYY-MM-DD HH:mm:ss")}
-  dispatch(createAppointment(data))
-
-console.log("the data sent", note, noteDate, item?.user?.id , data)
-}
-
-
-
-const VideoEnds = useCallback(
-  ({ onPress, onEnd }) => (
-    <View style={styles.replayCover}>
-      <Image
-        source={require("../../assets/mee.jpg")}
-        style={styles.appLogoSm}
-      />
-      <TouchableOpacity style={styles.replayBtn} onPress={onPress}>
-        <Text style={styles.replayText}>REPLAY</Text>
-      </TouchableOpacity>
-    </View>
-  ),
-  [onEnd]
-);
-
-const SoundToggle = useCallback(
-  ({ onPress, onPressNew, playSoundId }) => (
-    <View style={styles.soundCover}>
-      {mute && playSoundId ? (
+  const ApointmentToggle = useCallback(
+    ({ onPress }) => (
+      <View style={styles.apointCoverNew}>
         <TouchableOpacity onPress={onPress}>
-          <Image
-            source={require("../../assets/mute-2.png")}
-            style={styles.speakerImg}
+          <Acon
+            name="calendar-month-outline"
+            size={24}
+            color="#454545"
+            style={styles.loveImg}
           />
         </TouchableOpacity>
-      ) : (
-        <TouchableOpacity onPress={onPressNew}>
-          <Image
-            source={require("../../assets/volume.png")}
-            style={styles.speakerImg}
-          />
+      </View>
+    ),
+    []
+  );
+
+  const CategoryToggle = useCallback(
+    ({ onPress, category }) => (
+      <View style={styles.categoryCoverNew}>
+        <TouchableOpacity onPress={onPress}>
+          <Text style={styles.categoryText}>{category}</Text>
         </TouchableOpacity>
-      )}
-    </View>
-  ),
-  []
-);
+      </View>
+    ),
+    []
+  );
 
 
- 
-return (
-  <>
-  <View style={styles.imageContainer}>
 
-         
- 
-  {item?.type == "image" ? (
-      <ImageView item={item} navigation={navigation} userData={userData} />
-    ) : (
-      <InCenterConsumer>
-        {({ isInCenter }) =>
-          isInCenter ? (
-  <View key={item?.id} style={styles.videoCardt}>
-      <View style={styles.infoCover}>
-        <TouchableOpacity
-          style={styles.titleWrapper}
-          onPress={() => posterProfile(item)}
-        >
-          <View style={styles.userImgCover}>
+
+  const VideoEnds = useCallback(
+    ({ onPress, onEnd }) => (
+      <View style={styles.replayCover}>
+        <Image
+          source={require("../../assets/mee.jpg")}
+          style={styles.appLogoSm}
+        />
+        <TouchableOpacity style={styles.replayBtn} onPress={onPress}>
+          <Text style={styles.replayText}>REPLAY</Text>
+        </TouchableOpacity>
+      </View>
+    ),
+    [onEnd]
+  );
+
+  const SoundToggle = useCallback(
+    ({ onPress, onPressNew, playSoundId, item, mute }) => (
+      <View style={styles.soundCover}>
+        {playSoundId == item && !mute ? (
+          <TouchableOpacity onPress={onPress}>
             <Image
-              style={styles.posterImg}
-              source={{ uri: item?.user?.avatar?.url !== "" ? `${Config?.IMG_URL}${item?.user?.avatar?.url}` : null}}
+              source={require("../../assets/volume.png")}
+              style={styles.speakerImg}
+            />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={onPressNew}>
+            <Image
+              source={require("../../assets/mute-2.png")}
+              style={styles.speakerImg}
+            />
+          </TouchableOpacity>
+        )}
+      </View>
+    ),
+    [mute]
+  );
+
+
+
+
+  return (
+    <>
+      <View style={styles.imageContainer} key={key}>
+      {item?.type == "image" ? (
+      <ImageView item={item} navigation={navigation} userData={userData} />
+    ) : activeDotData?.item?.id == item?.id ?(
+        <View key={key} style={styles.videoCardt}>
+          <View style={styles.infoCover}>
+            <TouchableOpacity
+              style={styles.titleWrapper}
+              onPress={() => posterProfile(item)}
+            >
+              <View style={styles.userImgCover}>
+                <Image
+                  style={styles.posterImg}
+                  source={{
+                    // uri:
+                    //   item?.user?.avatar?.url !== ""
+                    //     ? `${Config?.IMG_URL}${item?.user?.avatar?.url}`
+                    //     : null,
+                     uri: item?.user?.user_image_url == null ? `${Config?.IMG_URL}${item?.user?.avatar?.url}` : `${Config?.SPACE_URL}${item?.user?.user_image_url}`
+                  }}
+                  resizeMode="cover"
+                />
+              </View>
+              <View style={styles.posterCover}>
+                <View style={styles.veirifyCover}>
+                  <Text style={styles.titleWord}>@{item?.user?.username}</Text>
+                  <Image
+                    source={require("@Assets2/image/verified.png")}
+                    style={styles.verifyImg}
+                  />
+                </View>
+                <Text style={styles.descWord}>
+                  Family | Relationship | Career
+                </Text>
+                <Text style={styles.dateWord}>
+                  {moment(item?.updated_at).fromNow()}
+                </Text>
+                {/* <Text style={styles.dateWord}>{item?.post_date}</Text> */}
+              </View>
+            </TouchableOpacity>
+            <View style={styles.leftWrapper}>
+              {/* <View>
+                {item?.user?.id == userFollowId || item?.followingOwner ? (
+                  <TouchableOpacity
+                    style={styles.followCovering}
+                    onPress={() => changeUnFollow(item?.user?.id)}
+                  >
+                    <Text style={styles.followTexting}>following</Text>
+                  </TouchableOpacity>
+                ) : item?.user?.id !== userFollowId || !item?.followingOwner ? (
+                  <TouchableOpacity
+                    style={styles.followCover}
+                    onPress={() => changeFollow(item?.user?.id)}
+                  >
+                    <Text style={styles.followText}>follow</Text>
+                  </TouchableOpacity>
+                ) : null}
+              </View> */}
+             {user?.id != item?.user?.id ?
+             <>
+              { !item?.followingOwner?
+               <FollowToggle
+                itemData={item}
+                onPress={() => changeUnFollow(item?.user?.id)}
+                onPressOdi={() => changeFollow(item?.user?.id)}
+              />
+              :null }
+             </> : null}
+             
+                
+              
+                {activeDotData?.item?.id == item?.id &&
+              <TouchableOpacity onPress={() => callUserOpton(item)}>
+                <Acon name="dots-vertical" size={20} color="#000" />
+              </TouchableOpacity> }
+
+            </View>
+          </View>
+          <View style={styles.imageCard}>
+            <Video
+              source={{
+                uri:
+                  `${Config?.SPACE_URL}${item?.url}` &&
+                  `${Config?.SPACE_URL}${item?.url}`,
+              }}
+              style={styles.imageCardImg}
+              muted={mute}
+              onLoad={() => {
+                setSelected(item?.id), setOnEnd(false);
+              }}
+              rate={1.0}
+              onEnd={() => setOnEnd(true)}
+              volume={playSoundId == item?.id && !mute ? 1.0 : 0.0}
               resizeMode="cover"
+              repeat={onRepeat}
+              paused={pause}
             />
           </View>
-          <View style={styles.posterCover}>
-            <View style={styles.veirifyCover}>
-              <Text style={styles.titleWord}>@{item?.user?.username}</Text>
-              <Image
-                source={require("@Assets2/image/verified.png")}
-                style={styles.verifyImg}
-              />
-            </View>
-            <Text style={styles.descWord}>Family | Relationship | Career</Text>
-            <Text style={styles.dateWord}>{moment(item?.updated_at).fromNow()}</Text>
-            {/* <Text style={styles.dateWord}>{item?.post_date}</Text> */}
-          </View>
-        </TouchableOpacity>
-        <View style={styles.leftWrapper}>
-          <View>
-            {item?.user?.id == userFollowId ? 
-          <TouchableOpacity style={styles.followCovering} onPress={() => changeUnFollow(item?.user?.id)}>
-            <Text style={styles.followTexting}>following</Text>
-          </TouchableOpacity>
-              : item?.user?.id !== userFollowId ?
-          <TouchableOpacity style={styles.followCover} onPress={() => changeFollow(item?.user?.id)}>
-            <Text style={styles.followText}>follow</Text>
-          </TouchableOpacity>
-          :
-          null
-                }
-          </View>
-          <TouchableOpacity>
-            <Acon name="dots-vertical" size={20} color="#000" />
-          </TouchableOpacity>
-        </View>
-        </View>
-              <View style={styles.imageCard}>
-                 <Video
-                source={{ uri: `${Config?.SPACE_URL}${item?.url}` && `${Config?.SPACE_URL}${item?.url}`}}
-               style={styles.imageCardImg}
-              //  style={{ width: "100%",flex:1, height: "100%", borderRadius: 10 , resizeMode:'contain'}}
-                muted={mute}
-                onLoad={() => {
-                  setSelected(item?.id), setOnEnd(false);
-                }}
-                rate={1.0}
-              
-                onBuffer={ <View style={styles.bufferIndicatorCover}>
-                <MaterialIndicator
-                  animating={true}
-                  color="#00b300"
-                  size={60}
-                />
-                  <Image
-                    source={require("../../assets/play-button-arrowhead.png")}
-                    style={styles.loadImg}
-                  />
-                  </View>} 
-                    onEnd={() => setOnEnd(true)}
-                    volume={playSoundId == item?.id && !mute ? 1.0 : 0.0}
-                    resizeMode="cover"
-                    repeat={onRepeat}
-                    paused={pause}
-
-                  />
-                  </View>
-      
-
-
 
           <View style={styles.bottomContainer1}>
             <View style={styles.bottomContainerBg}>
-            <LoveToggle myHeartCount={item?.likesCount} likeState={item?.liked}  itemData={item} />
+            
 
-              <MessageToggle onPress={() => addMessage(item)} messageCount={item?.commentsCount} />
+              <LoveToggle
+                myHeartCount={
+                  clickLove
+                    ? heartCount
+                    : clickUnLove
+                    ? heartCount
+                    : item?.likesCount
+                }
+                likeState={item?.liked}
+                itemData={item}
+                onPress={() => changeHeart(item)}
+                onPressNew={() => changeHeartNegate(item)}
+              />
+              
+
+              <MessageToggle
+                onPress={() => addMessage(item)}
+                messageCount={item?.commentsCount}
+              />
 
               <ShareToggle />
             </View>
             <View style={styles.bottomContainerSm}>
               <CategoryToggle
-                  category={item?.interest?.display_name?.charAt(0)}
-                  onPress={() => showDetails(item?.interest?.display_name?.charAt(0))}
-                />
+                category={item?.interest?.display_name?.charAt(0)}
+                onPress={() =>
+                  showDetails(item?.interest?.display_name?.charAt(0))
+                }
+              />
+               {user?.id != item?.user?.id ?
+               <>
+                {activeDotData?.item?.id == item?.id ?
               <ApointmentToggle onPress={() => checkDates(item)} />
-            </View>
-            </View>
-
-              {/* <SoundToggle
-            // share={mute}
-            onPress={() => { unMute(!mute) }}
-            onPressNew={() => unMute(!mute)}
-          /> */}
-
-              <View style={styles.soundCover}>
-                {playSoundId == item?.id && !mute ? (
-                  <TouchableOpacity onPress={() => muteSound(item)}>
-                    <Image
-                      source={require("../../assets/volume.png")}
-                      style={styles.speakerImg}
-                    />
-                  </TouchableOpacity>
-                ) : (
-                  <TouchableOpacity onPress={() => playSound(item)}>
-                    <Image
-                      source={require("../../assets/mute-2.png")}
-                      style={styles.speakerImg}
-                    />
-                  </TouchableOpacity>
-                )}
-              </View>
-              {item?.id === selected && onEnd ? (
-                <VideoEnds
-                  onPress={() => {
-                    setOnRepeat(true)
-                    setPause(false)
-                  }}
-                />
-              ) : null}
-
-          {item.description == null || "" ?
+                :
                 null
-                  :
-                <>
+              }
+               </>
+               : null }
+             
+            </View>
+          </View>
+
+          <SoundToggle
+            mute={mute}
+            onPress={() => muteSound(item?.id)}
+            onPressNew={() => playSound(item)}
+          />
+
+          {/* <View style={styles.soundCover}>
+                    {playSoundId == item?.id && !mute ? (
+                      <TouchableOpacity onPress={() => muteSound(item)}>
+                        <Image
+                          source={require("../../assets/volume.png")}
+                          style={styles.speakerImg}
+                        />
+                      </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity onPress={() => playSound(item)}>
+                        <Image
+                          source={require("../../assets/mute-2.png")}
+                          style={styles.speakerImg}
+                        />
+                      </TouchableOpacity>
+                    )}
+                  </View> */}
+
+          {item?.id === selected && onEnd ? (
+            <VideoEnds
+              onPress={() => {
+                setOnRepeat(true);
+                setPause(false);
+              }}
+            />
+          ) : null}
+
+          {item.description == null || "" ? null : (
+            <>
               {detailsValue == item?.id && showPreview ? null : (
                 <View style={styles.previewContainer}>
                   <View style={styles.previewInner}>
@@ -579,99 +632,58 @@ return (
                         {item?.description?.slice(0, 100)}...
                       </Text>
                     ) : (
-                      <Text style={styles.descText}>
-                        {item?.description}
-                      </Text>
+                      <Text style={styles.descText}>{item?.description}</Text>
                     )}
                     {item?.description?.length > 100 ? (
                       <View style={styles.moreCover}>
                         <TouchableOpacity onPress={() => goDetails(item)}>
-                          <Text style={styles.readmore}>
-                            Read more {">>"}
-                          </Text>
+                          <Text style={styles.readmore}>Read more {">>"}</Text>
                         </TouchableOpacity>
                       </View>
                     ) : null}
                   </View>
                   <TouchableOpacity onPress={() => closeDetails(item)}>
-                    <Acon
-                      name="close-circle-outline"
-                      size={20}
-                      color="#fff"
-                    />
+                    <Acon name="close-circle-outline" size={20} color="#fff" />
                   </TouchableOpacity>
                 </View>
               )}
-              </>
-                }
-            </View>
-          ) : (
-            <View key={item?.id} style={styles.videoCardt}>
-          <View style={styles.imageCard}>
-          <Video
-                source={item?.video}
-                rate={1.0}
-                volume={1.0}
-                muted={true}
-                resizeMode="cover"
-                paused={currentIndex !== currentVisibleIndex}
-              />
-              <View style={styles.indicatorCover}>
-                <MaterialIndicator
-                  animating={true}
-                  color="#454545"
-                  size={38}
-                />
-                <Image
-                  source={require("../../assets/play-button-arrowhead.png")}
-                  style={styles.loadImg}
-                />
-              </View>
-          </View>
-            </View>
-          )
-        }
-      </InCenterConsumer>
-    )}
-  </View>
+            </>
+          )}
+        </View>
+    ) : null }
+      </View>
+      {userDateStatus == "success" ? (
+     <AppointmentDateBottomSheet
+        bottomSheetRefStart={bottomSheetRefApDate}
+        poster={apDetails && apDetails}
+        close={closeApointmentSheet}
+        userData={userDateData && userDateData}
+        displayNote={showNote}
+        changeAppoint={() => setShowNote(false)}
+      />
+     ) : null }
 
-          { userDateStatus && userDateStatus ?
-          <AppointmentDateBottomSheet
-          bottomSheetRefStart={bottomSheetRefApDate}
-          poster={apDetails}
-          close={closeApointmentSheet}
-          userData = {userDateData}
-          pick = {(day) => pickedDated(day)}
-          sendNote ={(text)=>{
-            console.log("the mesage",text)
-            setNote(text)
-          }}
-          makeAppoint = {() => makeAppointment()}
-          displayNote={showNote}
-          changeAppoint={() => setShowNote(false)}
+      <MessageBottomSheet
+        bottomSheetRefMessage={bottomSheetRefMessage}
+        message1={apDetails}
+        feedData={feedCommentData}
+        feedStatus={feedCommentStatus}
+        userData={userData}
+        roll={true}
+      />
+  
+          <UserOption
+          bottomSheetUserOption={bottomSheetRefUserOption}
+          returnBackUserOption ={closeUserOption}
+          item={apDetails && apDetails}
           />
-          :
-          null
-
-          }
-
-<MessageBottomSheet
-bottomSheetRefMessage={bottomSheetRefMessage}
-message1 = {apDetails}
-feedData = {feedCommentData}
-feedStatus={feedCommentStatus}
-userData={userData}
-roll = {true}
-/>
-
-<CategoryDetails
-visibleCategory={showCategory}
-returnBack={() => setShowCategory(false)}
-title={catItem}
-
-/>
-</>
-);
+      <CategoryDetails
+        visibleCategory={showCategory}
+        returnBack={() => setShowCategory(false)}
+        title={catItem}
+      />
+    </>
+  );
 };
 
 export default memo(RenderCategoriesMenu);

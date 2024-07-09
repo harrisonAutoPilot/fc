@@ -2,39 +2,11 @@ import React from "react";
 import { createStackNavigator, CardStyleInterpolators, TransitionPresets } from "@react-navigation/stack";
 
 
-import DealDetail from "@Screen2/ProductDetails/DealDetail";
-// import Search from "@Screen2/Search";
-import SearchProducts from "@Screen2/SearchProducts";
-import BrowseProduct from "@Screen2/browseItemsProducts";
-import Cart from "@Screen2/Cart";
-import CheckOut from "@Screen2/Checkout";
-// import ConfirmCheckOut from "@Screen2/ConfirmCheckOut";
-// import Filter from "@Screen2/Filter";
-// import TransactionDetail from "@Screen2/TransactionDetail";
-import CustomerDetails from "@Screen2/Customers/AccountDetails";
-import CustomerRegistration from "@Screen2/Customers/Registration";
-// import CheckoutSuccess from "@Screen2/CheckoutSuccess";
-// import CustomerSuccess from "@Screen2/CustomerSuccess";
-// import RegConfirm from "@Screen2/Customers/Registration/RegConfirm";
-// import LicencePreview from "@Screen2/Customers/Registration/LicencePreview"
-// import StorePreview from "@Screen2/Customers/Registration/StorePreview"
 import SoftUpdate from "@Screen2/SoftUpdate";
 import Catalogue from "@Screen2/Catalogue";
 import HomeDetails from "@Screen2/HomeDetails";
 import EditProfileView from "@Screen2/EditProfileView"
 
-
-
-
-// The new screens
-import ActivityReport from "@Screen2/Home/ActivityReport";
-// import Notification from '@Screen2/Notification';
-// import NotificationDetail from '@Screen2/Notification/notificationDetails';
-
-// import LogReport from '@Screen2/logReport'
-// import Contact from '@Screen2/logReport/contact'
-// import CallHistory from '@Screen2/logReport/callHistory'
-// import CallDetails from '@Screen2/logReport/callDetails'
 
 import TabHomeNavigator from './Tab';
 
@@ -57,6 +29,7 @@ import FormPinDetailsSignUp from '@Screen2/signup/FormPinDetails';
 import FormImageUploadSignUp from '@Screen2/signup/FormImageUpload';
 import FormConfirmPinDetailsSignUp from '@Screen2/signup/FormConfirmPinDetails';
 import PhoneVerification from '@Screen2/signup/PhoneVerification';
+import DrawerScreen from '@Screen2/drawerScreen';
 import ContactSupport from "@Screen2/contactSupport";
 import SupportGroup from "@Screen2/SupportGroup"
 import PosterProfile from "@Screen2/PosterProfile"
@@ -123,6 +96,7 @@ export const RootStackNavigator = () => {
                 <RootStack.Screen name="FcCall" component={FcCall} />
                 <RootStack.Screen name="UserProfile" component={UserProfile} />
                 <RootStack.Screen name="EditProfileView" component={EditProfileView} /> 
+                <RootStack.Screen name="DrawerScreen" component={DrawerScreen} /> 
              
             </RootStack.Group>
            

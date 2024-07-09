@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     width: wp('95%'),
     alignSelf: 'center',
      position:"absolute",
-    top:Platform.OS === "android" ? hp("10%") : hp("10%")
+    top:Platform.OS === "android" ? hp("13%") : hp("10%")
   },
   nameContainer:{
     flexDirection:'row',

@@ -10,7 +10,7 @@ import {
 } from "react-native";
 // import Icon from "react-native-vector-icons/MaterialIcons";
 import { useSelector, useDispatch } from "react-redux";
-import { Calendar, CalendarList } from "react-native-calendars";
+import {Calendar} from "react-native-calendars";
 import Zcon from "react-native-vector-icons/MaterialIcons";
 import BottomSheet from "react-native-gesture-bottom-sheet";
 import Config from "react-native-config";
@@ -23,7 +23,6 @@ import {
   syncAppointmentDate,
   getAvailableDate,
 } from "@Request2/Auth";
-import { ScrollView } from "react-native-gesture-handler";
 import { cleanSync, cleanAvailableDate } from "@Store2/Auth";
 import LottieView from "lottie-react-native";
 import moment from "moment"; // 2.20.1
@@ -59,7 +58,7 @@ const AppointmentDateBottomSheet = (props) => {
   const [selectedDates, setSelectdates] = useState([]);
   const onDaySelect = (day) => {
     let temp = [...selectedDates];
-    const _selectedDay = moment(day.dateString).format(_format);
+    const _selectedDay = moment(day.dateString && day.dateString).format(_format);
 
     let selected = true;
     if (_markedDates[_selectedDay]) {
@@ -81,7 +80,7 @@ const AppointmentDateBottomSheet = (props) => {
 
   // this is the code to add the selected true
   const objectOutput = {};
-  listData?.forEach((element) => {
+  listData && listData?.forEach((element) => {
     objectOutput[element] = {
       selected: true,
       selectedColor: "rgba(22, 160, 133, 1)",
@@ -89,7 +88,7 @@ const AppointmentDateBottomSheet = (props) => {
   });
 
   const pickedDated = (day) => {
-    let checker = Object?.values(availableDateData?.available_dates)?.includes(
+    let checker = (availableDateData?.available_dates) && Object?.values(availableDateData?.available_dates)?.includes(
       day?.dateString
     );
 
@@ -109,6 +108,7 @@ const AppointmentDateBottomSheet = (props) => {
   const MyCalendar = (props) => {
     return (
       <Calendar
+        current={'2024-06-23'}
         initialDate={startDate}
         minDate={startDate}
         maxDate={endDate}

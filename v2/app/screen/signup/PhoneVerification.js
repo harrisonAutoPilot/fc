@@ -53,8 +53,6 @@ const PhoneVerification = (props) => {
         .catch(err => {
 
             setLoader(false);
-
-            console.log("Hello harrison",err.msg)
             setErrMsg(err.msg);
         })
 

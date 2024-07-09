@@ -3,7 +3,7 @@ import { StyleSheet, Platform } from "react-native";
 
 export default styles = StyleSheet.create({
     mainContainer:{
-        backgroundColor: "#fff",
+        // backgroundColor: "#fff",
         flex: 1,
         paddingTop: Platform.OS == "android" ? 30 : 0,
 

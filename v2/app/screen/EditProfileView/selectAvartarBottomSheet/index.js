@@ -7,9 +7,9 @@ import Config from "react-native-config";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Acon from "react-native-vector-icons/MaterialIcons";
 import styles from './style'
-import { avartarList,getUser,registerUser,avartarUpdate } from "@Request2/Auth";
+import { avartarList,getUser,registerUser,avartarUpdate,updateUserImage } from "@Request2/Auth";
 import { vectorImg } from "../../util/vectors";
-import { getUserDetails, cleanAvartar,cleanAvartarUpdate } from "@Store2/Auth";
+import { getUserDetails, cleanAvartar,cleanAvartarUpdate,cleanUserDetails } from "@Store2/Auth";
 import ImagePicker from 'react-native-image-crop-picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import {useSelector, useDispatch} from 'react-redux';
@@ -17,7 +17,7 @@ import {useSelector, useDispatch} from 'react-redux';
 const SelectAvartarBottomSheet = (props) => {
     const dispatch = useDispatch();
     const bottomSheetCalendar = useRef(null);
-    const { countryCodeStatus, avartarListData, avartarListStatus, errors,avartarUpdateErrors,avartarUpdateStatus } = useSelector((state) => state.auth);
+    const { countryCodeStatus, avartarListData, avartarListStatus,avartarUpdateErrors,avartarUpdateStatus, update, errors } = useSelector((state) => state.auth);
 
     const [myUpload, setMyUpload] = useState({});
     const [uploadIsHere, setUploadIsHere] = useState(false)
@@ -37,46 +37,56 @@ const SelectAvartarBottomSheet = (props) => {
     
 
 
-    const uploadPhoto = () => {
-        ImagePicker.openPicker({ 
-            multiple: false,
-             width: 1024,
-              height: 1024,
-            includeBase64: false,
-            mediaType: 'photo',
-            cropping: true,
-          })
-            .then(image => {
-             
-              setUploadIsHere(true)
-                  const uri =
-                  Platform.OS === 'android'
-                    ? image.path
-                    : image.path.replace('file:///', '');
-                const filename = image.path.split('/').pop();
-    
-                const match = /\.(\w+)$/.exec(filename);
-                const ext = match?.[1];
-                setMyUpload(uri)
-              
 
-              const transform =  {
-                  name: (Math.random() + 1).toString(12).substring(7),
-                  type: Platform.OS === "ios" ? image[0].type : "image/jpeg",
-                  uri: Platform.OS === "ios" ? image[0].uri.replace("file://", "") : image[0].uri,
-                };
-    
-                formData.append('photo', transform);
-                setPhoto(formData.append('photo', transform))
-                  return (transform)
-                  // setMyUpload(transform)
-               
-              
-            })
-            .catch(err => {
-              console.log(err);
-            });
-      };
+
+
+    const uploadPhoto = () => {
+      ImagePicker.openPicker({ 
+        multiple: false,
+         width: 1024,
+          height: 1024,
+        includeBase64: false,
+        mediaType: 'photo',
+        cropping: true,
+      })
+        .then(image => {
+          // setPostType("image")
+          setUploadIsHere(true)
+       
+                    
+            const uri =
+            Platform.OS === 'android'
+              ? image.path
+              : image.path.replace('file:///', '');
+          const filename = image.path.split('/').pop();
+          const match = /\.(\w+)$/.exec(filename);
+          const ext = match?.[1];
+          const imageFile = {
+            uri,
+            name: `image.${ext}`,
+            type: image.mime,
+          };
+
+         
+           setMyUpload(imageFile.uri)
+         
+          //  setMediaData(imageFile)
+       
+           const values = {file: imageFile}
+          dispatch(updateUserImage(values))
+           return (imageFile)
+
+       
+            
+          
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
+
+   
+     
 
 
     useEffect(() => {
@@ -86,10 +96,11 @@ const SelectAvartarBottomSheet = (props) => {
     }, [])
 
     const selectCategory = (id) => {
-      console.log("i am here")
+      // console.log("i am here odimnobi")
         if(id == '1'){
             uploadPhoto() 
             setSelected(id);
+
         }else{
           console.log('this is the cicked btn')
           const data = {avatar_id:id}
@@ -113,13 +124,32 @@ const SelectAvartarBottomSheet = (props) => {
   
         // refreshView(errors?.msg)
 
-        console.log("this is the error",avartarUpdateErrors)
+        // console.log("this is the error",avartarUpdateErrors)
   
       }
     }, [avartarUpdateStatus]);
 
 
-    console.log("the list", avartarListData)
+    useEffect(() => {
+      if (update === "success") {
+          console.log("this is the success")
+        dispatch(cleanUserDetails());
+  
+        dispatch(getUser());
+
+        props.close()
+  
+      } else if (update === "failed") {
+  
+        // refreshView(errors?.msg)
+
+        // console.log("this is the error",errors)
+  
+      }
+    }, [update]);
+
+
+
   
 
 
@@ -214,7 +244,7 @@ const SelectAvartarBottomSheet = (props) => {
 
                       <View style={styles.listContainerVector1}>
 
-                          <FlatList
+                        <FlatList
                               data={avartarListData}
                               columnWrapperStyle= {{justifyContent:'space-between',flexDirection:'row'}}
                               showsVerticalScrollIndicator={false}
@@ -222,8 +252,8 @@ const SelectAvartarBottomSheet = (props) => {
                               vertical
                               renderItem={RenderItem}
                               keyExtractor={item => item.id}
-                              // extraData={selected}
-                          />
+                            
+                          /> 
 
 
         

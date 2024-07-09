@@ -42,9 +42,6 @@ const ProductDetail = (props) => {
     const result = props.route.params.products;
     const details = props.route.params.details;
 
-    console.log( "result check", details)
-
-
 
     const regex = new RegExp("^0+(?!$)", 'g');
 

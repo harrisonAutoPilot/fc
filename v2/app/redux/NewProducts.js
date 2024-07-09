@@ -24,7 +24,7 @@ export const newProductSlice = createSlice({
     extraReducers: builder => {
             builder
             .addCase(getNewProducts.pending, state => {
-                console.log("newProducts pending")
+                
                 state.newProductStatus = "pending";
                 state.errors = {};
                 state.newProducts = {};
@@ -40,7 +40,7 @@ export const newProductSlice = createSlice({
             })
 
             .addCase(getNewProducts.rejected, (state, { payload }) => {
-                console.log("popularProduct fail", payload)
+               
                 state.newProductStatus = "failed";
                 state.errors = payload;
             })

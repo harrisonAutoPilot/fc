@@ -12,7 +12,7 @@ const ForeGround = (props) => {
         <View style={styles.container}>
 
             <View style={styles.imgCover}>
-            <Image source={require("@Assets/image/rh_logo.png")} style={styles.logoImg} />
+            {/* <Image source={require("@Assets/image/rh_logo.png")} style={styles.logoImg} /> */}
             </View>
 
             <View style={styles.content}>

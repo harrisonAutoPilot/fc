@@ -4,7 +4,6 @@
 // import sebMessage from '../assets/sebMessage.jpeg'
 // import greater from '../assets/greater.jpeg'
 // import wounded from '../assets/cb1c6c230ce21bf2.jpg'
-// import abraham from '../assets/abraham.jpeg'
 // import kid from '../assets/kid.jpeg'
 // import book from '../assets/book.jpeg'
 // import baba from '../assets/baba.jpeg'
@@ -66,19 +65,6 @@
 //       video:yaan
 //     }, 
     
-//     {
-//       id: '4',
-//       type:"short",
-//       // image_url:koi,
-//       poster_img:abraham,
-//       poster:'Gnexdor',
-//       post_title:'All blessing comes from God, through men',
-//       post_desc:'this is where we all have to agree that...',
-//       post_date:'2 weeks ago',
-//       post_like:'13.2',
-//       post_relate:'8',
-//       video:vd3
-//     }, 
-    
+
 //   ];
   

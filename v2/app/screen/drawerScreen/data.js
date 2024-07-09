@@ -1,9 +1,9 @@
 const links = [{
     id: "1",
-    name: "Pending Registration",
+    name: "Become a Counsellor",
     icon: "sticker-text-outline",
     route: "PendingReg",
-    side:true
+    side:false
 },
 
 ];

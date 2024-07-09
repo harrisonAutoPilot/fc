@@ -4,9 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import VersionCheck from 'react-native-version-check';
 import { Platform } from "react-native";
 import { getUser } from "@Request2/Auth";
-
+import {getAllFeeds} from "@Request2/Feed";
 import credentials from "@Request2/Credentials";
 import { logout } from "@Store2/Auth";
+import {
+    getConsel,
+  } from "@Request2/Auth";
 import { SplashStackNavigator, SoftUpdateNavigator, RootStackNavigator, LoginStackNavigator, PhoneVerificationStackNavigator } from "./StackFiles"
 
 const Stack = createNativeStackNavigator();
@@ -80,15 +83,17 @@ const StackNavigator = () => {
         })()
     }, []);
 
-    // useEffect(() => {
-    //     if (!isAuthenticated) {
-    //         dispatch(logout());
-    //     }
+    useEffect(() => {
+        if (!isAuthenticated) {
+            dispatch(logout());
+        }
 
-    //     if(isAuthenticated && !loggedIn){
-    //         dispatch(getUser())
-    //     }
-    // }, [isAuthenticated, loggedIn]);
+        if(isAuthenticated && !loggedIn){
+            dispatch(getUser())
+            dispatch(getAllFeeds())
+            dispatch(getConsel())
+        }
+    }, [isAuthenticated, loggedIn]);
 
 
     return (

@@ -91,7 +91,6 @@ const SupportGroup = props => {
   const carouselRef = useRef(null);
 
   const sortPrice = (item) => {
-    console.log("the item", item)
     setPriceCat(item)
     bottomSheet.current.close()
   }

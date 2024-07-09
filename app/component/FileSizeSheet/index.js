@@ -34,7 +34,7 @@ const FileSizeBottomSheet = (props) => {
           <View style={styles.imageHolder}>
 
             <View style={styles.padCover}>
-            <Image source={require("@Assets/image/bin.png")} style={styles.padImg} />
+            {/* <Image source={require("@Assets/image/bin.png")} style={styles.padImg} /> */}
             </View>
           
             <Text style={styles.titleText}>{props.title}</Text>

@@ -10,7 +10,7 @@ const NavHeaderWhite = (props) => {
 			<SafeAreaView >
 			<View style={ styles.mainHeader}>
 				<TouchableOpacity onPress={props.onPress} >
-					<Image source={require("@Assets/image/leading-iconn.png")} style={globalStyle.backImg} />
+					{/* <Image source={require("@Assets/image/leading-iconn.png")} style={globalStyle.backImg} /> */}
 				</TouchableOpacity>
 				<View style={styles.titleCover}>
 					<Text style={styles.btnTextWhite}>{props.title}</Text>

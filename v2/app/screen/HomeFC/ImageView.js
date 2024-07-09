@@ -22,10 +22,10 @@ import Fcon from "react-native-vector-icons/Feather";
 import Acon from "react-native-vector-icons/MaterialCommunityIcons";
 import { MaterialIndicator } from "react-native-indicators";
 import moment from 'moment';
-import {unFollowUser, followUser,} from "@Request2/Auth";
+import {unFollowUser, followUser,getFollowing,getAvailableDateByUserId,} from "@Request2/Auth";
 import {cleanFeedLike, cleanFeedUnLike} from "@Store2/Feed";
 import { getAllFeeds,unLikeFeed,likeFeed, getFeedComments} from "@Request2/Feed";
-import {cleanUnFollowUser,cleanFollowUser} from "@Store2/Auth";
+import {cleanUnFollowUser,cleanFollowUser,  cleanUserAvailableDate,} from "@Store2/Auth";
 import Config from "react-native-config";
 const { width } = Dimensions.get("screen");
 import styles from "./style";
@@ -45,34 +45,43 @@ import {
 } from "react-native-responsive-screen";
 import { data } from "../../util/data";
 import CategoryDetails from "./CategoryDetails";
+import UserOption from "./UserOptions";
 
 const ITEM_WIDTH = width * 1;
 
-const ImageView = ({ props, item, navigation,userData }) => {
+const ImageView = ({ props, item, navigation,userData, index }) => {
   // const item = props.item
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const { likeStatus, unlikeStatus, likeErrors, likeData,feedCommentStatus,feedCommentData, unlikeData} = useSelector((state) => state.feed);
-  const { unFollowStatus,followErrors,unfollowErrors, unFollowData, followStatus, followData} = useSelector((state) => state.auth);
+  const { unFollowStatus,followErrors,unfollowErrors,userDateData,userDateStatus,userDateErrors, user, unFollowData, followStatus, followData} = useSelector((state) => state.auth);
   const [mute, unMute] = React.useState(true);
   const [onRepeat, setOnRepeat] = useState(false);
   const [userFollow, setUserFollow] = useState()
   const [userFollowId, setUserFollowId] = useState(false)
   const [selected, setSelected] = useState(0);
+  const [love, setLove] = useState(false);
+  const [clickLove, setClickLove] = useState(false);
+  const [clickUnLove, setClickUnLove] = useState(false);
   const [detailsValue, setDetailsValue] = useState(0);
   const [showPreview, setShowPreview] = useState(false);
   const [playSoundId, setPlaySoundId] = useState(0);
   const [apDetails, setApDetails] = useState({});
-  const [love, setLove] = useState(false);
   const [onEnd, setOnEnd] = useState(false);
   const [pause, setPause] = useState(false);
   const { height: windowHeight } = Dimensions.get("window");
   const boxHeight =  windowHeight / 1.3;
   const [showCategory, setShowCategory] = useState(false);
+  const [noteDate, setNoteDate] = useState([]);
+  const [fromDate, setFromDate] = useState("");
+  const [showNote, setShowNote] = useState(false);
   const [catItem, setCatItem] = useState();
   const bottomSheetRefApDate = useRef();
   const bottomSheetRefMessage = useRef();
   const [heartCount, setHeartCount] = useState(249);
+  const [showSpinner, setShowSpinner] = useState(false);
+  const [myUnFollow, setMyUnFollow] = useState(false);
+  const [myFollow, setMyFollow] = useState(false);
 
   const showDetails = (item) => {
     setShowCategory(true);
@@ -80,22 +89,47 @@ const ImageView = ({ props, item, navigation,userData }) => {
   };
 
   const changeHeart = (item) => {
-  
-    dispatch(likeFeed(item?.id))
 
-    // setHeartCount(heartCount + 1);
+    setLove(true);
+    setClickLove(true);
+
+    setTimeout(() => {
+      dispatch(likeFeed(item?.id));
+      setHeartCount(item?.likesCount + 1);
+ }, 2000);
+ 
   };
 
   const changeHeartNegate = (item) => {
-    dispatch(unLikeFeed(item?.id))
-    // setHeartCount(heartCount - 1);
-  };
+    setLove(false);
+    setClickUnLove(true);
 
+    setTimeout(() => {
+      dispatch(unLikeFeed(item?.id));
+      const data = item?.likesCount - 1;
+      setHeartCount(data < 1 ? 0 : item?.likesCount - 1);
+
+ }, 2000);
+  };
   const addMessage = (item) => {
     setApDetails(item);
     dispatch(getFeedComments(item?.id))
     bottomSheetRefMessage.current.show();
   };
+
+  const closeUserOption = () =>{
+    bottomSheetRefUserOption.current.close()
+  }
+
+  const callUserOpton = (item) =>{
+   
+    setTimeout(() => {
+      setApDetails(item);
+      console.log("the changer", item)
+      bottomSheetRefUserOption.current.show()
+
+ }, 2000);
+  }
 
   useEffect(() => {
 
@@ -106,7 +140,7 @@ const ImageView = ({ props, item, navigation,userData }) => {
     } else if (likeStatus === "success") {
       dispatch(cleanFeedLike())
 
-        console.log("this is the success", likeData)
+    
 
     }
 
@@ -130,18 +164,42 @@ useEffect(() => {
 
 
 
-const changeUnFollow = (id) =>{
-  console.log("this has been clicked -- unfollow")
-  setUserFollowId(id)
-  dispatch(unFollowUser(id))
+// const changeUnFollow = (id) =>{
+//   console.log("this has been clicked -- unfollow")
+//   setUserFollowId(id)
+//   dispatch(unFollowUser(id))
+//   dispatch(getFollowing())
 
-}
+// }
 
-const changeFollow = (id) =>{
-  console.log("this has been clicked -- follow")
-  setUserFollowId(id)
-  dispatch(followUser(id))
-}
+// const changeFollow = (id) =>{
+//   console.log("this has been clicked -- follow")
+//   setUserFollowId(id)
+//   dispatch(followUser(id))
+//   dispatch(getFollowing())
+// }
+
+
+const changeUnFollow = (id) => {
+  setShowSpinner(true)
+  setMyFollow(false)
+  dispatch(cleanUnFollowUser())
+  setUserFollowId(id);
+  dispatch(unFollowUser(id));
+  dispatch(getFollowing())
+
+};
+
+const changeFollow = (id) => {
+  setShowSpinner(true)
+  setMyFollow(true)
+  setUserFollowId(id);
+  dispatch(cleanFollowUser())
+  dispatch(followUser(id));
+  dispatch(getFollowing())
+ 
+};
+
 
 useEffect(() => {
 
@@ -164,13 +222,13 @@ useEffect(() => {
 
 if (unFollowStatus === "failed") {
   dispatch(cleanUnFollowUser())
-  console.log("this is the unfollow error",unfollowErrors)
+ 
 
 } else if (unFollowStatus === "success") {
   
     dispatch(cleanUnFollowUser())
     setUserFollow(false)
-    console.log("this is the upfollow status",unFollowData)
+
 
 }
 
@@ -178,18 +236,19 @@ if (unFollowStatus === "failed") {
 
 
 
-
-
-
-
-
   const checkDates = (item) => {
+    dispatch(cleanUserAvailableDate());  
+    dispatch(getAvailableDateByUserId(item?.user?.id));
     setApDetails(item);
-    bottomSheetRefApDate.current.show();
+    setTimeout(() => {
+    bottomSheetRefApDate?.current?.show();
+
+ }, 1000);
+
   };
 
   const closeApointmentSheet = () => {
-    bottomSheetRefApDate.current.close();
+    bottomSheetRefApDate?.current?.close();
   };
 
   const closeDetails = (item) => {
@@ -207,9 +266,6 @@ if (unFollowStatus === "failed") {
   };
 
 
-
-
-
   const posterProfile = (item) => {
     navigation.navigate("PosterProfile", { item: item });
   };
@@ -219,15 +275,22 @@ if (unFollowStatus === "failed") {
   };
 
   const LoveToggle = useCallback(
-    ({ style, onPress, myHeartCount, itemData, likeState }) => (
+    ({ style, onPress, onPressNew, myHeartCount, itemData, likeState }) => (
       <View style={styles.loveCoverNew}>
-        {likeState == false ? (
-          <TouchableOpacity
-          style={{flexDirection:'row'}}
-            onPress={(item) => {
-              changeHeart(itemData), setLove(true);
-            }}
+        {likeState == true && itemData?.likesCount > 0 && love ? (
+             <TouchableOpacity
+            style={{ flexDirection: "row" }}
+            onPress={onPressNew}
           >
+            <View>
+              <Icon name="heart" size={20} color="red" style={styles.loveImg} />
+            </View>
+            <Text style={styles.loveCount}>{myHeartCount}</Text>
+          </TouchableOpacity>
+        ) : (
+      
+
+          <TouchableOpacity style={{ flexDirection: "row" }} onPress={onPress}>
             <View>
               <Icon
                 name="hearto"
@@ -235,21 +298,6 @@ if (unFollowStatus === "failed") {
                 color="#000"
                 style={styles.loveImg}
               />
-              
-            </View>
-            <Text style={styles.loveCount}>{myHeartCount}</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-          style={{flexDirection:'row'}}
-            onPress={(item) => {
-              changeHeartNegate(itemData);
-              setLove(false);
-            }}
-          >
-            <View>
-              <Icon name="heart" size={20} color="red" style={styles.loveImg} />
-             
             </View>
             <Text style={styles.loveCount}>{myHeartCount}</Text>
           </TouchableOpacity>
@@ -258,6 +306,7 @@ if (unFollowStatus === "failed") {
     ),
     [love]
   );
+
 
   const MessageToggle = useCallback(
     ({ onPress, messageCount }) => (
@@ -293,7 +342,7 @@ if (unFollowStatus === "failed") {
         <TouchableOpacity onPress={onPress}>
           <Acon
             name="calendar-month-outline"
-            size={20}
+            size={24}
             color="#454545"
             style={styles.loveImg}
           />
@@ -352,6 +401,37 @@ if (unFollowStatus === "failed") {
     []
   );
 
+
+  const FollowToggle = useCallback(
+    ({onPress, onPressOdi, itemData}) => (
+      <View>
+                {myFollow ? (
+                  <TouchableOpacity
+                    style={styles.followCovering}
+                    onPress={onPress}
+                  >   
+                <Text style={styles.followTexting}>following</Text>
+ 
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    style={styles.followCover}
+                    onPress={onPressOdi}
+                  >
+                   
+                    {/* <ActivityIndicator size="small" color="#454545" /> */}
+                    
+                      <Text style={styles.followText}>follow</Text>
+                   
+                  
+                  </TouchableOpacity>
+                ) }
+              </View>
+    ),
+    [userFollowId, myFollow]
+  );
+
+
   return (
     <View style={styles.videoCardt} key={item?.id}>
         <View style={styles.infoCover}>
@@ -362,7 +442,7 @@ if (unFollowStatus === "failed") {
           <View style={styles.userImgCover}>
             <Image
               style={styles.posterImg}
-              source={{ uri: item?.user?.avatar?.url !== "" ? `${Config?.IMG_URL}${item?.user?.avatar?.url}` : null}}
+              source={{uri: item?.user?.user_image_url == null ? `${Config?.IMG_URL}${item?.user?.avatar?.url}` : `${Config?.SPACE_URL}${item?.user?.user_image_url}`}}
               resizeMode="cover"
             />
           </View>
@@ -380,22 +460,29 @@ if (unFollowStatus === "failed") {
           </View>
         </TouchableOpacity>
         <View style={styles.leftWrapper}>
-          <View>
-            {item?.user?.id == userFollowId ? 
-          <TouchableOpacity style={styles.followCovering} onPress={() => changeUnFollow(item?.user?.id)}>
-            <Text style={styles.followTexting}>following</Text>
-          </TouchableOpacity>
-              : 
-          <TouchableOpacity style={styles.followCover} onPress={() => changeFollow(item?.user?.id)}>
-            <Text style={styles.followText}>follow</Text>
-          </TouchableOpacity>
-                }
+      
+         
+      
+        {user?.id != item?.user?.id ?
+        <>
+         { !item?.followingOwner?
+               <FollowToggle
+                itemData={item}
+                onPress={() => changeUnFollow(item?.user?.id)}
+                onPressOdi={() => changeFollow(item?.user?.id)}
+              />
+              :null }
+  
+        </>
+         : null }
+
+            {item &&
+              <TouchableOpacity onPress={() => callUserOpton(item)}>
+                <Acon name="dots-vertical" size={20} color="#000" />
+              </TouchableOpacity> }
+
+            </View>
           </View>
-          <TouchableOpacity>
-            <Acon name="dots-vertical" size={20} color="#000" />
-          </TouchableOpacity>
-        </View>
-        </View>
           <View style={styles.imageCard}>
             <Image
               style={styles.imageCardImg}
@@ -407,7 +494,21 @@ if (unFollowStatus === "failed") {
 
             <View style={styles.bottomContainer1}>
             <View style={styles.bottomContainerBg}>
-            <LoveToggle myHeartCount={item?.likesCount} likeState={item?.liked}  itemData={item} />
+            {/* <LoveToggle myHeartCount={item?.likesCount} likeState={item?.liked}  itemData={item} /> */}
+            <LoveToggle
+                myHeartCount={
+                  clickLove
+                    ? heartCount
+                    : clickUnLove
+                    ? heartCount
+                    : item?.likesCount
+                }
+                likeState={item?.liked}
+                itemData={item}
+                onPress={() => changeHeart(item)}
+                onPressNew={() => changeHeartNegate(item)}
+              />
+
 
               <MessageToggle onPress={() => addMessage(item)} messageCount={item?.commentsCount} />
 
@@ -418,7 +519,9 @@ if (unFollowStatus === "failed") {
                   category={item?.interest?.display_name?.charAt(0)}
                   onPress={() => showDetails(item?.interest?.display_name?.charAt(0))}
                 />
+                 {user?.id != item?.user?.id ?
               <ApointmentToggle onPress={() => checkDates(item)} />
+                  : null }
             </View>
             </View>
      
@@ -456,13 +559,23 @@ if (unFollowStatus === "failed") {
         </>
 
       )}
-      
+      {userDateStatus == "success" ? (
      <AppointmentDateBottomSheet
         bottomSheetRefStart={bottomSheetRefApDate}
-        poster={apDetails}
+        poster={apDetails && apDetails}
         close={closeApointmentSheet}
+        userData={userDateData && userDateData}
+        displayNote={showNote}
+        changeAppoint={() => setShowNote(false)}
       />
+     ) : null }
 
+
+       <UserOption
+          bottomSheetUserOption={bottomSheetRefUserOption}
+          returnBackUserOption ={closeUserOption}
+          item={apDetails && apDetails}
+          />
     <MessageBottomSheet
          bottomSheetRefMessage={bottomSheetRefMessage}
          message1 ={apDetails && apDetails}

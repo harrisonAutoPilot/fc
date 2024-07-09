@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import {View, Text, Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
+import { useSelector, useDispatch } from "react-redux";
 import Zcon from 'react-native-vector-icons/Feather';
 import Acon from 'react-native-vector-icons/FontAwesome5';
 import {Host} from 'react-native-portalize';
@@ -10,11 +10,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './style';
 import Home from '@Screen2/HomeFC';
-import DrawerScreen from '@Screen2/drawerScreen';
-import UserProfile from '@Screen2/UserProfile'
+
 import Search from '@Screen2/Search';
 import UserProfileAccount from "@Screen2/UserProfileAccount"
- import CustomerRegistration from "@Screen2/Customers/Registration";
+import CustomerRegistration from "@Screen2/CustomerRegistration";
 import AppointmentDashboard from '@Screen2/Appointment/Dashboard';
 import {MiddleOption, ActiveCustomers} from "@Component2"
 
@@ -26,6 +25,15 @@ export default TabHomeNavigator = () => {
   const [showActiveCustomer, setShowActiveCustomer] = useState(false)
   const [passProps, setPassProps] = useState()
   const bottomSheetRef = useRef(null);
+  const {
+    user,
+    conselData,
+    conselDataMore,
+    conselErrors,
+    conselStatus,
+    messageData,
+    messageErrors,
+    } = useSelector((state) => state.auth);
   
   const addPost = () =>{
     setShowMiddle(false)
@@ -37,6 +45,7 @@ export default TabHomeNavigator = () => {
     setShowMiddle(false)
     // bottomSheetRef.current.show()
   }
+
 
   const closeActive = () =>{
     setShowMiddle(false)
@@ -65,7 +74,7 @@ export default TabHomeNavigator = () => {
               <Icon
                 name="home-variant"
                 color={color}
-                size={18}
+                   size={22}
                 style={styles.iconStyle}
               />
             ),
@@ -82,7 +91,7 @@ export default TabHomeNavigator = () => {
               <Zcon
                 name="search"
                 color={color}
-                size={18}
+                   size={22}
                 style={styles.iconStyle}
               />
             ),
@@ -120,12 +129,21 @@ export default TabHomeNavigator = () => {
           options={({navigation: {isFocused}}) => ({
             tabBarLabel: 'Home',
             tabBarIcon: ({color}) => (
-              <Icon
+             <View>
+               <Icon
                 name="calendar-month"
                 color={color}
-                size={18}
+                   size={24}
                 style={styles.iconStyle}
               />
+              {conselData?.total > 0 ?
+              <View style={styles.countCover}>
+                <Text style={styles.countText}>{conselData?.total}</Text>
+              </View>
+              :
+              null
+              }
+             </View>
             ),
             tabBarIconStyle: isFocused() && styles.item,
             tabBarLabelStyle: isFocused() && styles.tabLableActive,
@@ -133,7 +151,7 @@ export default TabHomeNavigator = () => {
         />
 
         <Tab.Screen
-          name="DrawerScreen"
+          name="MenuScreen"
           component={UserProfileAccount}
           options={({navigation: {isFocused}}) => ({
             tabBarLabel: 'More',
@@ -141,7 +159,7 @@ export default TabHomeNavigator = () => {
               <Acon
                 name="user-circle"
                 color={color}
-                size={18}
+                size={22}
                 style={styles.iconStyle}
               />
             ),

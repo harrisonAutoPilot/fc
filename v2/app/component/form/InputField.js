@@ -22,11 +22,14 @@ const InputField = (props) => {
                 borderWidth: touched[name] ? 2 : 1.2
             },
             hasError && styles.inputErrHolder]}>
-
+                { labelType != "team" ?
                 <View style={labelType === "team" ? styles.labelViewTeam : styles.labelView}>
                     <Text style={[styles.label, { color: touched[name] ? "#3353CB" : '#5A5D72' }, hasError && styles.inputErrText]}>{title}</Text>
                 </View>
+                    :
+                    null
 
+                    }
                 <TextInput
                     onChangeText={(val) => {
                         setFieldValue(name, val)

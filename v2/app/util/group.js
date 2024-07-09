@@ -1,14 +1,13 @@
 
 import wounded from '../assets/cb1c6c230ce21bf2.jpg'
-import abraham from '../assets/abraham.jpeg'
 import kid from '../assets/kid.jpeg'
 import seb from '../asset/image/SEB-PIC-400x400.jpg'
 
 import redeem from '../asset/image/Rccg_logo.png'
 import kenny from '../asset/image/1663153221711.jpeg'
-import vd1 from '../assets/3700e6d86669441f.mp4'
-import vd2 from '../assets/3480cf6ea72b7c47.mp4'
-import vd3 from '../assets/27e6c97320d6c59e.mp4'
+
+// import vd2 from '../assets/3480cf6ea72b7c47.mp4'
+
 
 
 import diabetes from '../asset/image/gggb.jpeg'
@@ -31,25 +30,7 @@ export const group = [
         post_desc: 'In this life, i have gone through alot of challenges, that i really didnt believe that i could skale through. the truth is that you dont know how strong you are until being strong is your only optionss',
       
     },
-    {
-        id: '2',
-        organization: 'Wounded Healers',
-        title: 'The challenges of early marriage',
-        requestId:'00674423',
-        members: 570,
-        time:'Fri',
-        role:'Member',
-        image_url: marriage,
-        iconName: 'location-pin',
-        host_img: wounded,
-        host: 'DeepLola',
-        post_title: 'if only we understood',
-        post_desc: 'this is where we all have to agree that in relationship, we have to exercise what i call the 3 MAIN RECIPIES. First is communication',
-        post_date: '3 days ago',
-        post_like: '12',
-        post_relate: '4',
-        video: vd1
-    },
+
     {
         id: '3',
         organization: 'Closure Closet',
@@ -69,25 +50,7 @@ export const group = [
         post_relate: '2.1',
 
     },
-    {
-        id: '4',
-        organization: 'I AM NOT A MISTAKE',
-        title: 'Redeem - New Convert Follow Up',
-        members: 902,
-        requestId:'00677743',
-        host_img: seb,
-        image_url: redeem,
-        time:'Thur',
-        role:'Host',
-        host: 'Sebastine Okonofua',
-        post_title: 'The way to greatness',
-        post_desc: 'Indeed the way to greatness is just one step out of our comfort zone',
-        post_date: 'a week ago',
-        post_like: '6',
-        post_relate: '1.4',
-        sub: 'Subscribe',
-        video: vd2
-    },
+   
     {
         id: '5',
         organization: 'sobrity',
@@ -106,24 +69,6 @@ export const group = [
         post_relate: '7',
 
     },
-    {
-        id: '6',
-        organization: 'Soft truth',
-        title: 'smoking in the 21st century',
-        members: 455,
-        iconName: 'location-pin',
-        requestId:'02227443',
-        time:'Wed',
-        image_url: diabetes,
-        host_img: kid,
-        host_img: abraham,
-        host: 'BlueDream',
-        post_title: 'All blessing comes from God, through men',
-        post_desc: 'this is where we all have to agree that...',
-        post_date: '2 weeks ago',
-        post_like: '13.2',
-        post_relate: '8',
-        video: vd3
-    },
+  
 
 ];

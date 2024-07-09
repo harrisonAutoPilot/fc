@@ -53,8 +53,6 @@ const LogReport = props => {
   }, []);
 
 
-console.log("to get today", moment().format('MMMM D YYYY'))
-
 
   useEffect(() => {
     async function fetchData() {

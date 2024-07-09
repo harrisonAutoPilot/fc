@@ -14,7 +14,7 @@ const ConfirmDeleteBottomSheet = (props) => {
     <SafeAreaView style={styles.container}>
       <BottomSheet  ref={props.bottomSheetDelete} height={220} radius={1} sheetBackgroundColor="#F2F4F7"  hasDraggableIcon={true} >
      <View style={styles.trashCover}>
-     <Image source={require("@Assets/image/bin.png")} style={styles.trashImg} />
+     {/* <Image source={require("@Assets/image/bin.png")} style={styles.trashImg} /> */}
      </View>
    <View style={styles.bgTitleCover}>
       <Text style={styles.bgTitleText}>Confirm order delete</Text>

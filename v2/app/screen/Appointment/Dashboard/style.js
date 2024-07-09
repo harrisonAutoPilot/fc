@@ -94,31 +94,32 @@ topNav: {
   },
 //   this is for the tab bar
 subHeader:{
-    width:wp('100%'),
+    width:'100%',
     flexDirection:'row',
     alignSelf:'center',
     alignItems:'center',
-    justifyContent:'center',
-    // paddingHorizontal:20,
+    justifyContent:'space-around',
+    paddingBottom:10,
     borderBottomWidth:1,
     borderBottomColor:'#f5f5f5',
     backgroundColor:'#fff',
 },
 activeSubHeader:{
-    width:wp("24%"),
-    borderBottomWidth: 4,
-    borderColor: '#99cb01',
-    padding: 5,
+    width:'23%',
+    borderRadius:40,
+    backgroundColor:'#000',
+    paddingVertical: 6,
+    paddingHorizontal:10,
     alignSelf:"center",
     alignItems:"center",
     justifyContent:'center',
    
 },
 activeSubHeader2:{
-  width:wp("24%"),
-  borderBottomWidth: 4,
-  borderColor: 'rgba(51, 83, 203, 1)',
-  padding: 5,
+  width:'23%',
+  borderColor: '#fff',
+  paddingVertical: 6,
+  paddingHorizontal:10,
   alignSelf:"center",
   alignItems:"center",
   justifyContent:'center',
@@ -126,20 +127,21 @@ activeSubHeader2:{
  
 },
 inActiveSubHeader:{
-    width:wp("24%"),
-    borderBottomWidth: 0,
-    borderColor: 'transparent',
-    padding: 5,
+    width:'23%',
+    paddingVertical: 6,
+    paddingHorizontal:10,
+    borderWidth:1,
+    borderColor:'#e6e6e6',
+    borderRadius:40,
     alignSelf:"center",
     alignItems:"center",
     justifyContent:'center',
     zIndex:9000
 },
 inActiveSubHeader2:{
-  width:wp("30%"),
+  width:wp("22%"),
   borderBottomWidth: 4,
   borderColor: 'transparent',
-  padding: 5,
   alignSelf:"center",
   alignItems:"center",
   justifyContent:'center',
@@ -149,17 +151,19 @@ activeSubHeaderText:{
     fontSize: 12,
     fontFamily: 'AnekLatin-SemiBold',
     lineHeight: 20,
-    color: '#99cb01',
+    color: '#fff',
     letterSpacing: 0.2,
-    textTransform: 'uppercase',
+    marginTop:-3,
+    textTransform: 'capitalize',
 },
 inActiveSubHeaderText:{
     fontSize: 12,
     fontFamily: 'AnekLatin-Medium',
     lineHeight: 20,
+    marginTop:-3,
     color: 'rgba(90, 93, 114, 1)',
     letterSpacing: 0.2,
-    textTransform: 'uppercase',
+    textTransform: 'capitalize',
 },
 // this is for the search and filter
 searchContainer:{
@@ -249,7 +253,7 @@ customerAddress:{
 },
 bottomCover:{
     alignItems: 'center',
-    paddingTop: 10,
+    paddingTop: 0,
     backgroundColor:'#f5f5f5',
     height:Platform.OS === 'ios' ? hp('75%') : hp('80%'),
 },
@@ -302,17 +306,23 @@ tnLine:{
 },
 // this is for the new card
 sentCard:{
-  width:wp('92%'),
+  width:"100%",
   backgroundColor:'#fff',
   borderRadius:4,
   flexDirection:'row',
   justifyContent:'space-between',
   padding:10,
   paddingVertical:20,
-  marginBottom:10,
+  marginBottom:2,
+},
+scheduledCardInnerLeft:{
+  width:'100%',
+  flexDirection:'row',
+  justifyContent:"flex-start",
+
 },
 sentCardInnerLeft:{
-  width:wp('60%'),
+  width:wp('70%'),
   flexDirection:'row',
   justifyContent:"flex-start",
 
@@ -331,29 +341,59 @@ sentCardContentLeft:{
   paddingLeft:10,
   marginTop:-5
 },
+loveImg:{
+  marginTop:5,
+},
+usernameCover:{
+flexDirection:'row',
+justifyContent:'flex-start',
+},
 counsellorName:{
   fontSize: 14,
-  fontFamily: 'AnekLatin-Medium',
+  fontFamily: 'AnekLatin-SemiBold',
   lineHeight: 20,
   color: '#1B1B1F',
   letterSpacing: 0.2,
 },
 counselDate:{
+  fontSize: 10,
+  fontFamily: 'AnekLatin-Regular',
+  lineHeight: 20,
+  color: '#454545',
+  letterSpacing: 0.2,
+  marginLeft:3
+},
+counselDateText:{
   fontSize: 12,
   fontFamily: 'AnekLatin-Regular',
   lineHeight: 20,
   color: '#1B1B1F',
   letterSpacing: 0.2,
+
 },
 bottomMenu:{
   flexDirection:'row',
   justifyContent:'flex-start',
   marginTop:5
 },
+durationCover:{
+paddingTop:3,
+alignItems:'flex-start',
+justifyContent:'flex-start',
+
+flexDirection:'row',
+
+},
 smFlex:{
   flexDirection:'row',
   justifyContent:'space-between',
   marginRight:10
+},
+smFlexTop:{
+  flexDirection:'row',
+  justifyContent:'flex-start',
+  alignSelf:'center'
+ 
 },
 countText:{
   color: '#454545',
@@ -426,5 +466,20 @@ callImg:{
   width:50,
   height:50,
   // borderRadius:100,
+},
+rightContainer:{
+  marginTop:20,
+  flexDirection:'row',
+  justifyContent:'space-between',
+  width:80,
+},
+iconCover:{
+  height:30,
+  width:30,
+  borderRadius:100,
+  backgroundColor:'#f5f5f5',
+  justifyContent:'center',
+  alignItems:'center',
+  flexDirection:'row'
 }
 })

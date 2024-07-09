@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         letterSpacing: 0.25
     },
     bottomSheet:{
-        paddingTop:20,
+        paddingTop:10,
      
     },
 

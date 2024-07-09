@@ -10,9 +10,6 @@ import Pdf from 'react-native-pdf';
 const BookDetails = (props) => {
   const [showDocument, setShowDocument] = useState(false);
 
-  console.log("the answer", props.book_url)
-
-
   return (
     <Modal
       isVisible={props.visibleDocument}

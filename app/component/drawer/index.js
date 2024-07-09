@@ -107,7 +107,7 @@ const Drawer = (props) => {
         <TouchableOpacity onPress={() => redirectToScreen(item.route)} style={styles.routeInnerView}>
             <View style={styles.routeTextView}>
                 <View style={styles.routeTextIconView}>
-                    <Image source={require("@Assets/image/folder-notch-open-fill.png")} style={globalStyles.quesImg} />
+                    {/* <Image source={require("@Assets/image/folder-notch-open-fill.png")} style={globalStyles.quesImg} /> */}
                 </View>
                 <Text style={styles.routeText}>{item.name}</Text>
                 <View style={styles.firstInnerHeader}>
@@ -203,7 +203,7 @@ const Drawer = (props) => {
 
                                 <View style={styles.routeTextView}>
                                     <View style={styles.routeTextIconView}>
-                                        <Image source={require("@Assets/image/archive-box-fill.png")} style={globalStyles.quesImg} />
+                                        {/* <Image source={require("@Assets/image/archive-box-fill.png")} style={globalStyles.quesImg} /> */}
                                     </View>
                                     <Text style={styles.routeText}>Customer Orders</Text>
                                 </View>
@@ -218,7 +218,7 @@ const Drawer = (props) => {
 
                                 <View style={styles.routeTextView}>
                                     <View style={styles.routeTextIconView}>
-                                        <Image source={require("@Assets/image/arrows-counter-clockwise-fill.png")} style={globalStyles.quesImg} />
+                                        {/* <Image source={require("@Assets/image/arrows-counter-clockwise-fill.png")} style={globalStyles.quesImg} /> */}
                                     </View>
                                     <Text style={styles.routeText}>Incomplete Orders</Text>
                                 </View>
@@ -235,7 +235,7 @@ const Drawer = (props) => {
 
                                 <View style={styles.routeTextView}>
                                     <View style={styles.routeTextIconView}>
-                                        <Image source={require("@Assets/image/DownloadSimplee.png")} style={globalStyles.quesImg} />
+                                        {/* <Image source={require("@Assets/image/DownloadSimplee.png")} style={globalStyles.quesImg} /> */}
                                     </View>
                                     <Text style={styles.routeText}>Download Pricelist</Text>
                                 </View>
@@ -258,7 +258,7 @@ const Drawer = (props) => {
 
                                     <View style={styles.routeTextView}>
                                         <View style={styles.routeTextIconView}>
-                                            <Image source={require("@Assets/image/DownloadSimplee.png")} style={globalStyles.quesImg} />
+                                            {/* <Image source={require("@Assets/image/DownloadSimplee.png")} style={globalStyles.quesImg} /> */}
                                         </View>
                                         <Text style={styles.routeText}>Download Pricelist</Text>
 
@@ -306,7 +306,7 @@ const Drawer = (props) => {
 
                                 <View style={styles.routeTextView}>
                                     <View style={styles.routeTextIconView}>
-                                        <Image source={require("@Assets/image/chats-fill.png")} style={globalStyles.quesImg} />
+                                        {/* <Image source={require("@Assets/image/chats-fill.png")} style={globalStyles.quesImg} /> */}
                                     </View>
                                     <Text style={styles.routeText}>Customer Support</Text>
                                 </View>
@@ -319,7 +319,7 @@ const Drawer = (props) => {
 
                                 <View style={styles.routeTextView}>
                                     <View style={styles.routeTextIconView}>
-                                        <Image source={require("@Assets/image/question-fill.png")} style={globalStyles.quesImg} />
+                                        {/* <Image source={require("@Assets/image/question-fill.png")} style={globalStyles.quesImg} /> */}
                                     </View>
                                     <Text style={styles.routeText}>Frequently Asked Questions</Text>
                                 </View>
@@ -350,7 +350,7 @@ const Drawer = (props) => {
 
                                 <View style={styles.routeTextView}>
                                     <View style={styles.routeTextIconView}>
-                                        <Image source={require("@Assets/image/file-text-fill.png")} style={globalStyles.quesImg} />
+                                        {/* <Image source={require("@Assets/image/file-text-fill.png")} style={globalStyles.quesImg} /> */}
                                     </View>
                                     <Text style={styles.routeText}>Terms of Use &amp; Privacy Policy</Text>
                                 </View>

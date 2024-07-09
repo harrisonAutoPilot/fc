@@ -1,13 +1,13 @@
 const teams = [{
     id: "11",
-    name: "Call Logs",
+    name: "Change Language",
     icon: "phone-log-outline",
     route: "LogReport",
    
 },
 {    id: "12",
-    name: "Contact Manager",
-    icon: "card-account-phone-outline",
+    name: "Invite a friend",
+    icon: "account-group",
     route: "ContactManager",
 
 },

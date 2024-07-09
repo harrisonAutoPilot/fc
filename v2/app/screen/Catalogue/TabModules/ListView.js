@@ -13,7 +13,7 @@ const List = (props) => {
         <Animated.View style={props.scale ? { transform: [{ scale: props.scale }] }: null}>
             <TouchableOpacity style={styles.listContainer} onPress={props.getItem}>
                 <View style={styles.listContainerImageView}>
-                    <Image source={{ uri: `${URL}${item?.product_images[0]?.url}` }} style={styles.image} resizeMode="contain" />
+                    {/* <Image source={{ uri: `${URL}${item?.product_images[0]?.url}` }} style={styles.image} resizeMode="contain" /> */}
                 </View>
 
                 <View style={styles.listTitleView} >
@@ -23,7 +23,7 @@ const List = (props) => {
                         </View>
                         {props.creditType ?
                             <View style={styles.crossCover}>
-                                <Image source={require("@Assets/image/cross2.png")} style={styles.smCrossImg} />
+                                {/* <Image source={require("@Assets/image/cross2.png")} style={styles.smCrossImg} /> */}
                                 <Text style={styles.listPercent}>{props?.creditType}</Text>
                             </View> : null
                         }

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/Feather';
 import styles from './style';
 
 
@@ -25,10 +25,23 @@ const PosterHeaderComponent = (props) => {
        </View>
       </View>
     </View>
-    <View style={styles.rightNav}>
+  
+  <View style={styles.rightNav}>
+  <TouchableOpacity style={styles.walletCover} onPress={props.onPressWithdrawal}>
+    <Image
+        source={require("@Assets2/image/wallet-2.png")}
+        style={styles.walletImg}
+        resizeMode="contain"
+      />
       
+      
+      <View style={styles.miniDown}><Text style={styles.walletAmount}>$0.00</Text>
+      <Icon name="chevron-down" size={14} color="#000" style={{marginBottom:4}} />
+      </View>
+ 
+  </TouchableOpacity>
       <TouchableOpacity onPress={props.onPressCart}>
-      <Icon name="dots-vertical" size={20} color="#000" />
+      <Icon name="settings" size={20} color="#000" />
         </TouchableOpacity>
     </View>
   </View>

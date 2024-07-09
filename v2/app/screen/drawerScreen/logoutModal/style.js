@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     width: wp('95%'),
     alignSelf: 'center',
      position:"absolute",
-    top:Platform.OS === "android" ? hp("12%") : hp("12%")
+    top:Platform.OS === "android" ? hp("18%") : hp("12%")
   },
 logoutCover:{
 width:50,
@@ -25,8 +25,9 @@ borderRadius:80,
 
 },
 logoutImg:{
-  width:20,
-  height:20,
+  width:50,
+  height:50,
+  borderRadius:100,
   resizeMode:"contain"
 
 },
@@ -47,14 +48,14 @@ logoutImg:{
     marginTop: 15,
   },
   captionText: {
-    fontSize: 22,
+    fontSize: 20,
     fontFamily: 'AnekLatin-SemiBold',
     lineHeight: 28,
     color: '#1B1B1F',
     letterSpacing: 0.1,
   },
   captionTextSm: {
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: 'AnekLatin-Regular',
     lineHeight: 24,
     color: '#5A5D72',
@@ -66,13 +67,13 @@ logoutImg:{
     flexDirection:"row",
     justifyContent:'space-between',
     alignSelf:"center",
-    marginTop:40,
+    marginTop:30,
   },
   confirmCover:{
     paddingHorizontal:50,
     paddingVertical:10,
     borderRadius:30,
-   backgroundColor:"#3353CB"
+   backgroundColor:"#99cb01"
   },
   cancelCover:{
 
@@ -81,7 +82,7 @@ logoutImg:{
     fontSize: 14,
     fontFamily: 'AnekLatin-Medium',
     lineHeight: 20,
-    color: '#3353CB',
+    color: '#99cb01',
     letterSpacing: 0.1,
   },
   confirmText:{
@@ -97,7 +98,7 @@ logoutImg:{
     paddingVertical:10,
     borderRadius:30,
     borderWidth:1,
-    borderColor:"#3353CB"
+    borderColor:"#99cb01"
   },
  
 });

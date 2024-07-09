@@ -50,6 +50,7 @@ const AppointmentDetailBottomSheet = (props) => {
 
     const confirmTime = () =>{
       setOnPick(true)
+      
     }
 
 
@@ -92,7 +93,7 @@ const AppointmentDetailBottomSheet = (props) => {
                           date={date}
                           mode="time"
                           onConfirm={(date) => {
-                            // console.log("the time", date)
+                            //console.log("the time odimnobi", date)
                             // setOnPick(true)
                             confirmTime()
                             setOpen(false)

@@ -42,7 +42,7 @@ const InActive = (props) => {
        const applyFilter =(item)=>{
         setDuration(item)
         bottomSheetS.current.close()
-        console.log("what i selected", item)
+      
        }
 
     useEffect(()=> {

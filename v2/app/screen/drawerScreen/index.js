@@ -21,6 +21,7 @@ import links from './data';
 import midLinks from './midData';
 import helpLinks from './helpData';
 import legalLinks from './legalData';
+import Config from "react-native-config";
 import teams from './team'
 import styles from './style';
 import {logout, getUserDetails} from '@Store2/Auth';
@@ -211,9 +212,9 @@ const DrawerScreen = props => {
     } else if (route === 'priceList') {
       priceStatus === 'success' ? download : getPriceList();
     } else if (route === 'PendingReg') {
-      props.navigation.navigate('CustomersDashboard', {id: 2});
+      // props.navigation.navigate('CustomersDashboard', {id: 2});
     } else {
-      props.navigation.navigate(route);
+      // props.navigation.navigate(route);
     }
   };
   const PriceList = ({item}) => (
@@ -253,7 +254,7 @@ const DrawerScreen = props => {
       <View>
         <View style={styles.route}>
           <View style={styles.headerCover}>
-            <Text style={styles.headerTitle}>Registration</Text>
+            <Text style={styles.headerTitle}>Account</Text>
           </View>
           <FlatList
             data={link}
@@ -265,7 +266,7 @@ const DrawerScreen = props => {
         </View>
         <View style={styles.route}>
           <View style={styles.headerCover}>
-            <Text style={styles.headerTitle}>Product</Text>
+            <Text style={styles.headerTitle}>Wallet</Text>
           </View>
           <FlatList
             data={midLinks}
@@ -275,35 +276,6 @@ const DrawerScreen = props => {
             horizontal={false}
           />
         </View>
-
-        {!showLoader ? (
-          <TouchableOpacity
-            style={styles.routeInnerView2}
-            onPress={getCreditOptions}>
-            <View style={styles.routeInnerView}>
-              <View style={styles.routeTextView}>
-                <View style={styles.routeTextIconView}>
-                  <FIcon name="download" size={20} color="#767680" />
-                </View>
-                <Text style={styles.routeText}>Download Pricelist</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-        ) : (
-          <View style={styles.agentVieww}>
-            <View style={styles.routeInnerView2}>
-              <View style={styles.routeTextView}>
-                <View style={styles.routeTextIconView}>
-                  <Image
-                    source={require('@Assets/image/DownloadSimplee.png')}
-                    style={styles.quesImg}
-                  />
-                </View>
-                <Text style={styles.routeText}>Download Pricelist</Text>
-              </View>
-            </View>
-          </View>
-        )}
 
         {showPriceList ? (
           options.length ? (
@@ -411,22 +383,23 @@ const DrawerScreen = props => {
         <SafeAreaView style={styles.headerInnerView}>
           <StatusBar
             barStyle="dark-content"
-            backgroundColor="#DDE1FF"
+            backgroundColor="#FFF"
             hidden={false}
           />
 
+          <TouchableOpacity  onPress={() => props.navigation.goBack()}>
+        <Image
+          source={require("@Assets2/image/backArrow.png")}
+          style={styles.backImg}
+         />
+          </TouchableOpacity>
           <View style={styles.profileImgCover}>
-            {user.picture_url === null ? (
+        
               <Image
                 style={styles.userImg}
-                source={require('@Assets2/image/personIcon.png')}
+                source={{  uri: user?.user_image_url == null ? `${Config?.IMG_URL}${user?.avatar?.url}` : `${Config?.SPACE_URL}${user?.user_image_url}`}}
               />
-            ) : (
-              <Image
-                style={styles.agentImg}
-                source={{uri: `${URL}${user?.picture_url}`}}
-              />
-            )}
+            
             <Image
               style={styles.verImg}
               source={require('@Assets2/image/verified.png')}
@@ -434,17 +407,17 @@ const DrawerScreen = props => {
           </View>
 
           <View style={styles.leftCover}>
-            <TouchableOpacity
-              style={styles.headerTitleInnerView}
-              onPress={() => props.navigation.navigate('Settings')}>
+            <View
+              style={styles.headerTitleInnerView}>
+             
               <View>
-                <Text style={styles.titleText}>{user.name}</Text>
-                <Text style={styles.headerTitleInnerTitle}>VIEW ACCOUNT</Text>
+                <Text style={styles.titleText}>@{user.username}</Text>
+                <Text style={styles.descWord}>
+                  Family | Relationship | Career
+                </Text>
               </View>
-              <View style={styles.chevronIcon}>
-                <Icon name="chevron-right" size={24} color="#767680" />
-              </View>
-            </TouchableOpacity>
+             
+            </View>
           </View>
         </SafeAreaView>
       </View>
@@ -477,7 +450,7 @@ const DrawerScreen = props => {
             <Text style={styles.successText}>{successMsg}</Text>
           </View>
         ) : null}
-      </View>
+      </View> 
     </View>
     </SafeAreaView>
   );

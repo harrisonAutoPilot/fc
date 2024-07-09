@@ -91,9 +91,6 @@ const SelectCategory = (props) => {
     // }
 
 
-    console.log("ytherwer", data)
-
-
 
     const bounce = () => {
 
@@ -106,11 +103,8 @@ const SelectCategory = (props) => {
     }
 
 
-    console.log("this is the list", interestListData)
-
 
     const nextScreen = () => {
-  console.log('the response',selected)
         dispatch(getUserDetails({ interest: selected}));
 
         props.navigation.navigate("SelectVector");

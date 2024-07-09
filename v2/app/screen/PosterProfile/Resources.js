@@ -42,7 +42,6 @@ const Resources = ({props, navigation,collections}) => {
           props.navigation.goBack();
         };
 const openDoc = (item) =>{
-    console.log("this has been clicked", item)
     navigation.navigate('BookReader', {item:item, collections:collections})
    
 }

@@ -49,8 +49,6 @@ const PosterProfile = props => {
 
   const showActive = id => setActiveId(id);
 
-  console.log("the poster", items)
-
   const bottomSheet = useRef();
 
   const goBack = () =>{

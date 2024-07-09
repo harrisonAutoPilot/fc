@@ -13,8 +13,8 @@ export default styles = StyleSheet.create({
         flex: 1
     },
     main:{
-        height: hp('100%'),
-        flexGrow: 1
+        height: '100%',
+        // flexGrow: 1
     },
     safeAreaStyle:{
         flex:1,
@@ -91,6 +91,7 @@ topNav: {
         borderWidth:0,
         borderColor:"#000",
         borderRadius:4,
+        marginTop:20
     },
     topStatus:{
         width:55,
@@ -424,7 +425,7 @@ tabItemCover:{
 },
 bottomContainer:{
     width:'100%',
-    flexGrow:1,
+    flex:1,
     // backgroundColor:'#fff',
     alignItems:'center',
     alignSelf:'center',
@@ -524,6 +525,65 @@ miniPlay:{
     width:20,
     height:20,
     resizeMode:'contain'
-  }
+  },
+
+  middleBottomsContainer:{
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignSelf:'center',
+    width:'100%',
+    paddingHorizontal:10
+
+  },
+  leftBtn:{
+    paddingHorizontal:47,
+    paddingVertical:5,
+    backgroundColor:'rgba(118, 118, 128, 0.35)',
+    borderRadius:30,
+    alignItems:'center',
+    justifyContent:'center',
+    flexDirection:'row',
+  },
+  rightBtn:{
+    paddingHorizontal:47,
+    paddingVertical:8,
+    backgroundColor:'rgba(118, 118, 128, 0.35)',
+    borderRadius:30,
+    alignItems:'center',
+    justifyContent:'center',
+    flexDirection:'row',
+  },
+  innerContainer:{
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignSelf:'center',
+    width:'83%',
+    paddingHorizontal:10
+  },
+  rightContainer:{
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center',
+    alignSelf:'center',
+    width:'17%',
+    paddingHorizontal:10
+  },
+  calendarCover:{
+
+    paddingVertical:5,
+    paddingHorizontal:10,
+    // backgroundColor:'#bfbfbf',
+    borderRadius:4
+  },
+  smText:{
+    fontSize: 12,
+    fontFamily: 'AnekLatin-Regular',
+    lineHeight: 16,
+    color: 'rgba(0, 0, 0, 1)',
+    letterSpacing: 0.2,
+    textTransform: 'capitalize',
+    marginTop:-3,
+},
+
 
 })

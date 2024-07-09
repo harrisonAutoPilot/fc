@@ -37,13 +37,13 @@ const LogoutModal = (props) => {
        <View style={styles.container}>
      <View style={styles.logoutCover}>
         <Image 
-          source={require("@Assets2/image/logout.png")}
+          source={require("@Assets2/image/mee.jpg")}
           style={styles.logoutImg}
           />
      </View>
           <View style={styles.captionCover}>
             <Text style={styles.captionText}>Log out your Account</Text>
-            <Text style={styles.captionTextSm}>Are you sure you want to sign out of your Remedial Helath Account?</Text>
+            <Text style={styles.captionTextSm}>Are you sure you want to log out of your Faceless Counselling Account?</Text>
           </View>  
           <View style={styles.optionCover}>
             <TouchableOpacity style={styles.cancelBtn} onPress={closeModal}>

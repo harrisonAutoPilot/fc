@@ -27,7 +27,6 @@ const AllNotification = ({props}) => {
     dispatch(getNotification());
 }, []);
 
-  console.log("the noteeee", notification)
 
   const ListView = props => {
 

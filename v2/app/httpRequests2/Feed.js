@@ -19,7 +19,7 @@ import { apiRequest } from "@Request2/Request";
             formData.append(key, data[key]);
          
       }
-  console.log("it got to the axios", formData)
+
       const Axios = await AxiosBase();
       return apiRequest(Axios.post('api/v1/feed/create', formData,{
           headers: {
@@ -35,7 +35,7 @@ import { apiRequest } from "@Request2/Request";
    export const getAllFeeds = createAsyncThunk("user/all/feeds",
       async (no, thunkAPI) => {
          const Axios = await AxiosBase();
-         return apiRequest(Axios.get(`api/v1/feeds?per_page=9&page=${no}`), thunkAPI)
+         return apiRequest(Axios.get(`api/v1/feeds?per_page=5&page=${no}`), thunkAPI)
       });
 
 export const likeFeed = createAsyncThunk("user/feeds/like",
@@ -48,7 +48,7 @@ export const likeFeed = createAsyncThunk("user/feeds/like",
     export const unLikeFeed = createAsyncThunk("user/feeds/unlike",
     async (id, thunkAPI) => {
         const Axios = await AxiosBase();
-        return apiRequest(Axios.get(`api/v1/feed/unlike/${id}`), thunkAPI)
+        return apiRequest(Axios.delete(`api/v1/feed/unlike/${id}`), thunkAPI)
     });
 
   //this is the endpoint i use to get feed comments
@@ -67,9 +67,10 @@ export const likeFeed = createAsyncThunk("user/feeds/like",
 });
 
 export const getFeedById = createAsyncThunk("auth/feed/id",
-async (id, thunkAPI) => {
+async (details, thunkAPI) => {
+    const {id, no} = details;
     const Axios = await AxiosBase();
-    return apiRequest(Axios.get(`api/v1/feeds/user/${id}`), thunkAPI)
+    return apiRequest(Axios.get(`api/v1/feeds/user/${id}?per_page=5&page=${no}`), thunkAPI)
 });
 
 export const deleteFeedMedia = createAsyncThunk("auth/delete/media",

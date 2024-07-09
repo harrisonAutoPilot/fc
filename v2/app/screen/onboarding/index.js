@@ -12,6 +12,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import LinearGradient from 'react-native-linear-gradient';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 import FadeCarousel, { Bearing } from 'react-native-fadecarousel';
 import LogoutModal from './logoutModal';
@@ -75,11 +76,16 @@ const Onboarding = (props) => {
 
     return (
       <SafeAreaView style={styles.safeAreaStyle}>
-      <View style={styles.vontainer}>
-    
+      <LinearGradient
+      colors={['#c1dfc4','#ffffff']}
+      start={{ x: 0, y: 0}}
+      end={{ x: 0, y: 1}}
+      style={styles.vontainer}>
+
+     
       <StatusBar barStyle="dark-content" backgroundColor='#fff' hidden={true} />
                 <View style={styles.bgImgCover}>
-                <FadeCarousel
+          <FadeCarousel
                 loop 
                 fadeAnimationDuration={1000} 
                 autoPlay={{enable: true , delay: 3000 }}>
@@ -108,9 +114,9 @@ const Onboarding = (props) => {
             </View>, 
              <View style={styles.bgImgCover} key={9}>
              <Image key={'slideseven'} source={img7} style={styles.imgSize} />
-             </View>,  
+            </View>,  
         ]}
-    </FadeCarousel>
+           </FadeCarousel>
                 </View>
 
                 <View style={styles.smImgCover}>
@@ -207,8 +213,10 @@ const Onboarding = (props) => {
         create={redirectToSignUp}
       />
       
+     
+  
 
-    </View >
+    </LinearGradient>
     </SafeAreaView>
     )
 }

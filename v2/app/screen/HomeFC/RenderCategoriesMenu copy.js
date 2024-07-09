@@ -98,8 +98,7 @@ useEffect(() => {
 
   } else if (likeStatus === "success") {
     dispatch(cleanFeedLike())
-      console.log(likeData)
-
+  
   }
 
 }, [likeStatus]);
@@ -122,7 +121,6 @@ if (unlikeStatus === "failed") {
 
 
 const changeUnFollow = (id) =>{
-  console.log("this has been clicked -- unfollow", id)
   setUserFollowId(id)
   dispatch(unFollowUser(id))
 

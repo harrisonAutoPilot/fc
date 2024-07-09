@@ -28,7 +28,6 @@ const DealsOverlay = (props) => {
 
     const result = props.result;
 
-console.log("the result oooo", result)
     const regex = new RegExp("^0+(?!$)", 'g');
 
     const [successMsg, setSuccessMsg] = useState("");
@@ -196,7 +195,7 @@ console.log("the result oooo", result)
                  >
 
                 <TouchableOpacity onPress={props.onPress} style={styles.modalPaddingLayout}>
-                    <Image source={require("@Assets/image/left.png")} style={globalStyles.backImg} />
+                    {/* <Image source={require("@Assets/image/left.png")} style={globalStyles.backImg} /> */}
                 </TouchableOpacity>
 
 

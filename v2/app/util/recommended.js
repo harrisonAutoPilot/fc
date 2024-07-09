@@ -4,7 +4,6 @@ import sam from '../assets/sam.jpeg'
 import sebMessage from '../assets/sebMessage.jpeg'
 import greater from '../assets/greater.jpeg'
 import wounded from '../assets/cb1c6c230ce21bf2.jpg'
-import abraham from '../assets/abraham.jpeg'
 import kid from '../assets/kid.jpeg'
 import toyin from '../assets/toyinn.jpeg'
 import book from '../assets/book.jpeg'
@@ -17,14 +16,7 @@ import vd2 from '../assets/3480cf6ea72b7c47.mp4'
 import vd3 from '../assets/27e6c97320d6c59e.mp4'
 
 export const recommended = [
-    {
-      id: '1',
-      image_url:abraham,
-      host:"Gnexdor",
-      title:"Dealing with Abuse in the work place",
-      time:"Mon to Sat - 6pm to 12am",
-      
-    },
+  
     {
       id: '2',
       image_url:kid,

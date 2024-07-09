@@ -19,7 +19,8 @@ export default styles = StyleSheet.create({
     safeAreaStyle:{
         flex:1,
         // backgroundColor:'rgba(221, 225, 255, 3)'
-        backgroundColor:'#fff'
+        backgroundColor:'#fff',
+        paddingTop:1
       },
 // started the new design
 topNav: {
@@ -31,13 +32,13 @@ topNav: {
     backgroundColor:'#fff'
   },
   leftNav: {
-    width: wp('75%'),
+    width: wp('55%'),
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
   },
   rightNav: {
-    width: wp('10%'),
+    width: wp('40%'),
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
@@ -153,8 +154,8 @@ topNav: {
         paddingHorizontal:25,
         paddingVertical:5,
         backgroundColor:'#fff',
-        borderRadius:4,
-        elevation:4,
+        borderRadius:30,
+        elevation:8,
         shadowColor:'#fff',
         borderWidth:1,
         borderColor:"#e6e6e6"
@@ -166,7 +167,7 @@ topNav: {
         alignItems:'center',
         paddingHorizontal:20,
         paddingVertical:5,
-        borderRadius:4,
+        borderRadius:30,
         backgroundColor:'#99cb01'
     },
     topBtnTextBlack:{
@@ -461,6 +462,16 @@ bottomCardCover:{
     paddingLeft:1,
     zIndex:90
 },
+bottomCardCoverMedia:{
+    width:'100%',
+    flex:1,
+    // flexGrow:1,
+   flexDirection:'row',
+   justifyContent:'flex-start',
+   alignItems:'center',
+   paddingLeft:1,
+   zIndex:90
+},
 bottomCard:{
     width:wp('33.1%'),
     height:200,
@@ -549,6 +560,33 @@ miniPlay:{
     width:20,
     height:20,
     resizeMode:'contain'
-  }
+  },
+  walletImg:{
+    width:26,
+    height:26,
+    resizeMode:'contain',
+  },
+  walletCover:{
+    flexDirection:'row',
+    justifyContent:'flex-start',
+    alignItems:'flex-start',
+    marginRight:10
+
+  },
+  walletAmount:{
+    fontSize: 18,
+    fontFamily: 'AnekLatin-Regular',
+    lineHeight: 26,
+    color: "#1B1B1F",
+    letterSpacing: 0.2,
+   
+    marginLeft:5,
+  },
+  miniDown:{
+    flexDirection:'row',
+    marginRight:5,
+    justifyContent:'flex-start',
+    alignItems:'flex-end',
+ }
 
 })

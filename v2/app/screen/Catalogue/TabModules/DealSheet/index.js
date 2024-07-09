@@ -196,7 +196,7 @@ console.log("the result oooo", result)
                  >
 
                 <TouchableOpacity onPress={props.onPress} style={styles.modalPaddingLayout}>
-                    <Image source={require("@Assets/image/left.png")} style={globalStyles.backImg} />
+                    {/* <Image source={require("@Assets/image/left.png")} style={globalStyles.backImg} /> */}
                 </TouchableOpacity>
 
 

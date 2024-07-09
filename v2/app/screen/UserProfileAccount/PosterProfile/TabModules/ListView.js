@@ -23,7 +23,7 @@ const List = (props) => {
                         </View>
                         {props.creditType ?
                             <View style={styles.crossCover}>
-                                <Image source={require("@Assets/image/cross2.png")} style={styles.smCrossImg} />
+                                {/* <Image source={require("@Assets/image/cross2.png")} style={styles.smCrossImg} /> */}
                                 <Text style={styles.listPercent}>{props?.creditType}</Text>
                             </View> : null
                         }

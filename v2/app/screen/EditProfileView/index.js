@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MIcon from "react-native-vector-icons/Ionicons";
 import FIcon from "react-native-vector-icons/Feather";
+import Acon from "react-native-vector-icons/AntDesign";
 import Config from "react-native-config";
 import {addDescription, getUser} from "@Request2/Auth";
 import LottieView from "lottie-react-native";
@@ -34,11 +35,12 @@ import disable from "@Helper2/disable";
 const EditProfileView = (props) => {
   const dispatch = useDispatch();
   const items = props.route.params.items;
+
   const bottomSheetCode = useRef(null);
   const bottomSheetRefAvartar = useRef();
   const [errMsg, setErrMsg] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
-  const intro = 'Hi my name is ' + `${items?.username}` + ' I am here to learn, heal and have fun';
+ 
   const [loading, setLoading] = useState(false);
   const [note, setNote] = useState(items?.description == null ? intro : items?.description)
   const goBack = () => props.navigation.goBack();
@@ -50,6 +52,8 @@ const EditProfileView = (props) => {
   const redirectToURL = () => {
     Linking.openURL('https://remedial.health/terms-of-service')
   }
+
+
 
 
   const { countryCodeStatus, countryCodeData, errors,status,user, descStatus, descErrors,  } = useSelector(
@@ -64,6 +68,8 @@ const EditProfileView = (props) => {
     }
   }, [countryCodeStatus]);
 
+
+  const intro = 'Hi my name is ' + `${items?.username == undefined ? user?.username : items?.username}` + ' I am here to learn, heal and have fun';
 
 
 
@@ -135,7 +141,7 @@ useEffect(() => {
 
 
   const submit = () => {
-    console.log("this is the new note", note)
+   
     dispatch(addDescription({description:note}))
   };
 
@@ -169,7 +175,7 @@ useEffect(() => {
                <Image
                 style={styles.profileImg}
                 // source={items.avatar.url}
-                source={{ uri: items?.avatar?.url !== "" ? `${Config?.IMG_URL}${user?.avatar?.url}` : null}}
+                source={{ uri: items?.user_image_url == null ? `${Config?.IMG_URL}${user?.avatar?.url}` : `${Config?.SPACE_URL}${user?.user_image_url}`}}
                 resizeMode="cover"
               />
                <TouchableOpacity style={styles.camCircle} onPress={getAvartar}>
@@ -228,21 +234,7 @@ useEffect(() => {
         // poster={apDetails}
         close={closeAvartarSheet}
       />
-        {successMsg ?
 
-<View style={styles.toastCover}>
-  <View style={styles.sucView}>
-    <MIcon name="checkmark-circle" size={22} color="#fff" />
-    <Text style={styles.errText}>{successMsg}</Text>
-  </View>
-
-</View>
-: null}
-
-{errMsg && <View style={styles.errView} >
-      <Acon name="error-outline" size={22} color="#fff" />
-      <Text style={styles.errText}>{errMsg}</Text>
-  </View>}
 <Loader isVisible={loading} />
 
     </View>

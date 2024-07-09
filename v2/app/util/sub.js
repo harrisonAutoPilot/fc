@@ -2,9 +2,7 @@ import joy from '../assets/13fd344331122ef5.png'
 import relationship_issue from '../assets/abbuu.jpg'
 import sam from '../assets/sam.jpeg'
 import sebMessage from '../assets/sebMessage.jpeg'
-import greater from '../assets/greater.jpeg'
 import wounded from '../assets/cb1c6c230ce21bf2.jpg'
-import abraham from '../assets/abraham.jpeg'
 import kid from '../assets/kid.jpeg'
 import toyin from '../assets/toyinn.jpeg'
 import book from '../assets/book.jpeg'
@@ -17,13 +15,6 @@ import vd2 from '../assets/3480cf6ea72b7c47.mp4'
 import vd3 from '../assets/27e6c97320d6c59e.mp4'
 
 export const sub = [
-    {
-      id: '1',
-      name:"Koinonia",
-      image_url:abraham,
-      check:"blue"
-      
-    },
     {
       id: '2',
       name:"FaithIt",

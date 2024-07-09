@@ -205,7 +205,7 @@ function JoinScreen(props) {
 // }
 
 function ControlsContainer({join, leave, toggleWebcam, toggleMic,participants}) {
-  console.log("just testing", participants)
+
   return (
     <View
       style={{
@@ -336,8 +336,6 @@ function MeetingView() {
   // Get `participants` from useMeeting Hook
   const { join, leave, toggleWebcam, toggleMic,participants} = useMeeting({});
   const participantsArrId = [...participants.keys()];
-
-  console.log("the participant", participants)
 
   return (
     <View style={{ flex: 1 }}>

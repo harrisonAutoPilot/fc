@@ -254,7 +254,56 @@ placeholderBtn:{
     borderRadius:50,
     marginTop:30,
     backgroundColor:'#e6e6e6'
-}
+},
+errView:{
+    paddingVertical: 20,
+    paddingHorizontal: 16,
+    // backgroundColor: "#BA1A1A",
+    backgroundColor:'#f5f5f5',
+    position:'absolute',
+    zIndex:900,
+    marginHorizontal: 16,
+    borderLeftWidth:8,
+    borderLeftColor:'#BA1A1A',
+    borderRadius: 4,
+    shadowColor: 'rgba(0, 0, 0, 0.1)',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.9,
+    shadowRadius: 2,
+    alignSelf:'center',
+    elevation: 2,
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 20
+},
+errText:{
+    fontSize: 14,
+    fontFamily: "AnekLatin-Regular",
+    letterSpacing: 0.25,
+    marginLeft: 13,
+    color: "#BA1A1A"
+},
+toastCover: {
+    position: "absolute",
+    bottom: 0,
+    width: wp('100%'),
+    zIndex:9000
+  },
+  calendarCover:{
+    alignItems:'center',
+    alignSelf:'center',
+    marginTop:-50,
+  },
+  calendarText:{
+    fontSize: 16,
+    fontFamily: "AnekLatin-Regular",
+    color: "#1B1B1F",
+    lineHeight:22,
+    letterSpacing: 0.25, 
+    marginTop:280,
+    paddingHorizontal:50,
+    textAlign:'center'
+},
 });
 
 export default styles

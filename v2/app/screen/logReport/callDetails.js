@@ -37,7 +37,7 @@ const CallDetails = props => {
     Linking.openURL(`tel:${item}`)
     }
 
-console.log("helooooo", items)
+
 
 if (callHistoryStatus === "success") {
 

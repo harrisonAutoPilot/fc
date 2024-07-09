@@ -17,6 +17,10 @@ import {useFocusEffect} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './style';
 import InActive from './Inactive';
+
+import {getAppointments} from "@Request2/Auth";
+import { vectorImg } from "../../util/vectors";
+import { cleanAppointmentList} from "@Store2/Auth";
 import Sent from './sent'
 import Incoming from "./incoming"
 import Scheduled from "./scheduled"
@@ -28,7 +32,8 @@ import {cleanup} from '@Store2/Customer';
 const AppointmentDashboard = props => {
   const dispatch = useDispatch();
 
-  const {items, listItems} = useSelector(state => state.cart);
+  const {getAppointmentStatus, getAppointmentErrors, getAppointmentData} = useSelector((state) => state.auth);
+
   const [activeId, setActiveId] = useState(1);
 
   const [search, setSearch] = useState('');
@@ -46,7 +51,7 @@ const AppointmentDashboard = props => {
   }, [search.length]);
 
   useEffect(() => {
-    dispatch(getCustomers());
+    dispatch(getAppointments());
     return () => dispatch(cleanup());
   }, []);
 
@@ -57,6 +62,9 @@ const AppointmentDashboard = props => {
       setActiveId(1);
     }
   }, [props.route.params]);
+
+
+
 
   const reg_details = items =>
     props.navigation.navigate('CustomerRegistration', {items, key: 1});
@@ -81,11 +89,7 @@ const AppointmentDashboard = props => {
           </View>
         </View>
         <View style={styles.rightNav}>
-          <TouchableOpacity onPress={openNotification}>
-            <Icon name="bell-outline" size={20} color={'rgba(28, 27, 31, 1)'} />
-            <View style={styles.noteDot} />
-          </TouchableOpacity>
-         
+          
         </View>
       </View>
 
@@ -184,13 +188,13 @@ const AppointmentDashboard = props => {
         </View>
 
         {activeId === 1 ? (
-          <Sent details={reg_details} props={props} result={result} />
+          <Sent details={reg_details} props={props} result={getAppointmentData} />
         ) : activeId === 2 ? (
-          <Incoming details={custom_details} props={props} result={result} />
+          <Incoming details={custom_details} props={props} result={getAppointmentData} />
         ) : activeId === 3 ? (
-          <Scheduled details={custom_details} props={props} result={result} />
+          <Scheduled details={custom_details} props={props} result={getAppointmentData} />
         ) : activeId === 4 ? (
-          <Pending details={custom_details} props={props} result={result} />
+          <Pending details={custom_details} props={props} result={getAppointmentData} />
         ) : null}
       </View>
     </View>

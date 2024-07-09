@@ -59,8 +59,6 @@ const ConfirmPin = ({ navigation }) => {
 
             setErrMsg(errors?.msg);
 
-            console.log("the final response",errors )
-
             waitTime();
 
         } else if (registerStatus === "success") {
@@ -68,8 +66,6 @@ const ConfirmPin = ({ navigation }) => {
             setLoader(false);
 
             dispatch(getPhoneVerificationPin());
-
-            console.log("it is successful")
 
             navigation.navigate("SignUpSuccess");
 

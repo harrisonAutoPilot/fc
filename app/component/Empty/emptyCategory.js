@@ -9,7 +9,7 @@ export default EmptyCategory = (props) => (
   
     <View style={styles.emptyCoverOrder}>
         <View style={styles.imgCoverBigOrder}>
-            <Image source={require("@Assets/image/EmptyCart.png")} style={styles.emptyCartImg1} />
+            {/* <Image source={require("@Assets/image/EmptyCart.png")} style={styles.emptyCartImg1} /> */}
         </View>
         <Text style={styles.emptyTextBig}>Nothing Here Yet</Text>
       

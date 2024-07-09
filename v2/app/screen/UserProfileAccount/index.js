@@ -28,6 +28,7 @@ import AppointmentDateBottomSheet from "./appointDateBottomSheet"
 import { group } from "../../util/group";
 import { ScrollView } from 'react-native-gesture-handler';
 import Config from "react-native-config";
+import WithdrawalList from './WithdrawalList';
 
 
 
@@ -44,6 +45,7 @@ const UserProfileAccount = props => {
   const items = user;
   const [active, setActive] = useState('1');
   const bottomSheetRefApDate = useRef();
+  const bottomSheetRefWithdrawalList = useRef()
   const [searchCategory, setSearchCategory] = useState('');
   const [searchCategoryArray, setSearchCategoryArray] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -63,22 +65,22 @@ const UserProfileAccount = props => {
     props.navigation.goBack()
   }
 
-
     
   const openDot = () =>{
-    dispatch(logout())
+    props.navigation.navigate('DrawerScreen')
   }
 
   const gotoEdit = () => {
     props.navigation.navigate('EditProfileView', {items})
   }
   useEffect(() => {
-    
+    dispatch(getUser())
    dispatch(getAvailableDate())
-    dispatch(getUser()) 
     dispatch(getUserInterest())
     dispatch(cleanFeedIdStatus())
-    dispatch(getFeedById(user?.id)) 
+    const data = {id:user?.id, no:feedIdData?.current_page + 1};
+    dispatch(getFeedById(data));
+
 
 }, [])
 
@@ -88,8 +90,17 @@ const updateDate = () => {
   bottomSheetRefApDate.current.show();
 };
 
+
+const openWithdraw = () =>{
+  bottomSheetRefWithdrawalList.current.show()
+}
+
 const closeApointmentSheet = () =>{
   bottomSheetRefApDate.current.close();
+}
+
+const closeWithdrawalList = () =>{
+  bottomSheetRefWithdrawalList.current.close();
 }
 
   const SupportList = ({props}) =>
@@ -153,12 +164,6 @@ const closeApointmentSheet = () =>{
     </View>
       </TouchableOpacity>
     ));
-
-
-
-
-
-   
  
 
   return (
@@ -168,10 +173,9 @@ const closeApointmentSheet = () =>{
     <ScrollView style={{flex:1}}>
     <StatusBar barStyle="dark-content" backgroundColor='#fff' hidden={false} />
         <PosterHeaderComponent
-          // title={`@${items.poster}`}
-          // onPress={openNotification}
           onPressBack={goBack}
-          onPressCart={openDot}
+          onPressCart={() => openDot()}
+          onPressWithdrawal = {() => openWithdraw()}
           // orderCount={items.carts?.total}
            />
            <View style={styles.topContainer}>
@@ -180,7 +184,7 @@ const closeApointmentSheet = () =>{
             <Image
                 style={styles.posterImg}
                 // source={items.avatar.url}
-                source={{ uri: items?.avatar?.url !== "" ? `${Config?.IMG_URL}${items?.avatar?.url}` : null}}
+                source={{  uri: items?.user_image_url == null ? `${Config?.IMG_URL}${user?.avatar?.url}` : `${Config?.SPACE_URL}${user?.user_image_url}`}}
                 resizeMode="contain"
               />
             </View>
@@ -218,9 +222,9 @@ const closeApointmentSheet = () =>{
            </View>
            <View style={styles.introContainer}>
               {items?.description == null ?
-            <Text style={styles.descText}>Hi my name is {items?.username} I am here to learn, heal and have fun</Text>
+            <Text style={styles.descText}>Hi my name is {items?.username == undefined ? user?.username : items?.username} I am here to learn, heal and have fun</Text>
                 :
-                <Text style={styles.descText}>{items?.description}</Text>
+            <Text style={styles.descText}>{items?.description}</Text>
               }
            </View>
            <View style={styles.supportCardContainer}>
@@ -294,6 +298,7 @@ const closeApointmentSheet = () =>{
          
         </View>
       <View style={styles.bottomContainer}>
+        
       {activeId === 1 ? (
           <MediaPost props={props} navigation={props.navigation} collections={feedIdData} />
         ) :
@@ -311,7 +316,10 @@ const closeApointmentSheet = () =>{
       />
       </ScrollView>
 
-
+        <WithdrawalList
+          bottomSheetWithdrawalList={bottomSheetRefWithdrawalList}
+          returnBackWithdrawalList ={closeWithdrawalList}
+          />
     </View>
 
     </SafeAreaView>

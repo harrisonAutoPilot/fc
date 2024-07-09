@@ -103,12 +103,9 @@ const SelectVector = (props) => {
         setShowBtn(true)
         // bounce()
 
-console.log("the id", selected)
     };
 
   
-
-    console.log("the list", avartarListData)
   
 
     const bounce = () => {
@@ -129,7 +126,6 @@ console.log("the id", selected)
 
     const nextScreen = () => {
         const values = { ...user, avatar_id: selected  }
-        console.log("the values", values)
 
         dispatch(registerUser(values));
 
@@ -159,8 +155,6 @@ console.log("the id", selected)
 
             setErrMsg(errors?.msg);
 
-            console.log("the final response",errors )
-
             waitTime();
 
         } else if (registerStatus === "success") {
@@ -168,8 +162,6 @@ console.log("the id", selected)
             setLoader(false);
 
             // dispatch(getPhoneVerificationPin());
-
-            console.log("it is successful")
 
             // navigation.navigate("SignUpSuccess");
 

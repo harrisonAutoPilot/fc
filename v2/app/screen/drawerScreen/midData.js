@@ -1,24 +1,18 @@
 const midLinks = [{
     id: "5",
-    name: "All Orders",
-    icon: "receipt",
+    name: "Toronet Wallet",
+    icon: "wallet",
     route: "Order",
    
 },
 {
     id: "6",
-    name: "Pending Orders",
-    icon: "timer-sand-empty",
+    name: "Wallet Withdrawal",
+    icon: "credit-card",
     route: "FAQ",
     side:true
 },
-// {
-//     id: "7",
-//     name: "Download Price List" ,
-//     icon: "download",
-//     route: "priceList",
-//     side:true
-// },
+
 
 
 ];

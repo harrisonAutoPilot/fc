@@ -31,10 +31,7 @@ const MediaPost = ({props, navigation,collections}) => {
     const[smPause, setSmPause] = useState(false)
     const bottomSheetS = useRef();
     const flatListRef = React.useRef()
-    // const {items }= props.route.params.data;
-    
 
-    // console.log("this is from the other end", collections)
 
     const [objectValues, setObjectValues] = useState()
     const [duration, setDuration] = useState("6 Months")

@@ -12,6 +12,7 @@ export const feedSlice = createSlice({
         allFeedStatus:"idle",
         allFeedErrors:{},
         allFeedDataMore:[],
+        feedIdDataMore:[],
         allFeedData:{},
 
         deleteFeedStatus:"idle",
@@ -71,6 +72,7 @@ export const feedSlice = createSlice({
             state.feedIdErrors = {}
             state.feedIdStatus = "idle"
             state.feedIdData = {}
+            state.feedIdDataMore = []
         },
         cleanFeedLike: (state) => {
             state.likeErrors = {}
@@ -220,6 +222,10 @@ export const feedSlice = createSlice({
                 .addCase(getFeedById.fulfilled, (state, action) => {
                 state.feedIdStatus = "success";
                 state.feedIdData = action?.payload;
+                state.feedIdDataMore = dict(state?.feedIdDataMore, action.payload.data);
+                state.feedIdStatus = "success";
+                state.feedIdErrors = {};
+
                 
             })
             .addCase(getFeedById.rejected, (state, action)=> {

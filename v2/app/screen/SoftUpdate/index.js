@@ -36,7 +36,7 @@ const SoftUpdate = () => {
       <View style={styles.main}>
         <View style={styles.innerCover}>
 
-        <Image source={require("@Assets/image/rh_logo.png")} style={styles.wifiImg} />
+        {/* <Image source={require("@Assets/image/rh_logo.png")} style={styles.wifiImg} /> */}
           <View style={styles.textCover}>
             <Text style={styles.bigText}>A new version is available</Text>
            <View style={styles.smCover}>
@@ -52,9 +52,7 @@ const SoftUpdate = () => {
 
       </View>
 
-     {/* <View style={styles.googleCover}>
-     <Image source={require("@Assets/image/google.webp")} style={styles.googleImg} />
-     </View> */}
+ 
     </Modal>
   )
 };

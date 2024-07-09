@@ -81,8 +81,26 @@ export default styles = StyleSheet.create({
         width:50,
         height:50,
         borderRadius:100,
-        backgroundColor:"rgba(51, 83, 203, 1)",
+        backgroundColor:"#000",
         alignItems:'center',
         justifyContent:'center'
+    },
+    countCover:{
+        width:18,
+        height:18,
+        backgroundColor:"#99cb01",
+        borderRadius:100,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+        position:'absolute',
+        top:-5,
+        right:-5,
+    },
+    countText:{
+        fontSize: 10,
+        fontFamily: "AnekLatin-SemiBold",
+        letterSpacing: 0.2,
+        color: "#fff"  
     }
 })

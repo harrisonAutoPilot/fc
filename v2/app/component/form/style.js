@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         letterSpacing: 0.2,
     },
     labelViewTeam: {
-        backgroundColor:'#f5f5f5',
+        backgroundColor:'#c1dfc4',
         position: "absolute",
         top: -10,
         left: 10,

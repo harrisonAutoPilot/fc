@@ -10,8 +10,6 @@ import Pdf from 'react-native-pdf';
 const BookDetails = (props) => {
   const [showDocument, setShowDocument] = useState(false);
 
-  console.log("the answer", props.book_url)
-
 
   return (
     <Modal
@@ -47,13 +45,13 @@ const BookDetails = (props) => {
                   console.log(`number of pages: ${numberOfPages}`);
                 }}
                 onPageChanged={(page, numberOfPages) => {
-                  console.log(`current page: ${page}`);
+                  // console.log(`current page: ${page}`);
                 }}
                 onError={error => {
                   console.log(error);
                 }}
                 onPressLink={uri => {
-                  console.log(`Link presse: ${uri}`);
+                  // console.log(`Link presse: ${uri}`);
                 }}
 
               />

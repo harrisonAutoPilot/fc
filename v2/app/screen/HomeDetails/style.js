@@ -36,17 +36,20 @@ videoCard:{
 
   },
   infoCover:{
-    width: "100%",
-    height:55,
-    // backgroundColor:'#fff',
+    width: "70%",
+    // height:55,
+    backgroundColor:'rgba(0,0,0,0.5)',
     borderRadius:0,
    paddingVertical:15,
     alignSelf:'center',
+    borderTopRightRadius:50,
+    borderBottomRightRadius:50,
     flexDirection:'row',
     justifyContent:'space-between',
     paddingHorizontal:10,
     alignItems:'center',
     position:'absolute',
+    left:0,
     top:hp('65%'),
   },
   userImgCover:{
@@ -410,7 +413,7 @@ marginTop:7,
     paddingVertical:5
   },
   headerText:{
-    color: '#454545',
+    color: '#000',
     fontSize: 16,
     fontFamily: "AnekLatin-Medium",
     lineHeight:22,

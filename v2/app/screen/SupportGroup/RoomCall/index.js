@@ -146,7 +146,7 @@ export default function RoomCall(props) {
 
   function ControlsContainer({join, leave, toggleWebcam, toggleMic,participants}) {
     const [showMiddle, setShowMiddle] = useState(false)
-    console.log("just testing", participants)
+  
     return (
       <View
         style={{

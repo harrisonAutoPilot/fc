@@ -183,12 +183,35 @@ export const updateUserPassword = createAsyncThunk("auth/password/update",
     });
 
 
-export const updateUserImage = createAsyncThunk("auth/image/update",
-    async (user, thunkAPI) => {
-        const Axios = await AxiosBase();
-        return apiRequest(Axios.post(`api/v1/users/upload-image/${user.id}`, user), thunkAPI)
+// export const updateUserImage = createAsyncThunk("auth/image/update",
+//     async (user, thunkAPI) => {
+//         const Axios = await AxiosBase();
+//         return apiRequest(Axios.post(`api/v1/users/upload-image/${user.file}`, user), thunkAPI)
 
-    });
+//     });
+
+    export const updateUserImage = createAsyncThunk("user/image/update",
+        async (data, thunkAPI) => {
+     
+           const formData = new FormData();
+         
+           for ( var key in data ) {
+                 formData.append(key, data[key]);
+              
+           }
+     
+           const Axios = await AxiosBase();
+           return apiRequest(Axios.post('api/v1/user/profile_image', formData,{
+               headers: {
+                    'Content-Type': 'multipart/form-data',
+               },
+           }
+              
+          ),
+          thunkAPI)
+        });
+     
+
 
 
     // these are the newly added endpoints
@@ -271,9 +294,9 @@ export const callHistoryLog = createAsyncThunk("auth/call/history",
 
 
 export const getAvailableDateByUserId = createAsyncThunk("auth/userAvailable/date",
-async (user, thunkAPI) => {
+async (id, thunkAPI) => {
 const Axios = await AxiosBase();
-return apiRequest(Axios.get(`api/v1/available_dates/${user.id}`, user),
+return apiRequest(Axios.get(`api/v1/available_dates/${id}`),
     thunkAPI)
 });
 
@@ -294,5 +317,69 @@ async (data, thunkAPI) => {
 export const addAppointmentMessage = createAsyncThunk("auth/appointment/message",
     async (data, thunkAPI) => {
         const Axios = await AxiosBase();
-        return apiRequest(Axios.post(`api/v1/appointment/${data.id}/message/create`, data), thunkAPI)
+        return apiRequest(Axios.post('api/v1/appointment/createWithMessage', data), thunkAPI)
     });
+
+
+
+    export const getAppointments = createAsyncThunk("auth/appointment/fetch",
+    async (_, thunkAPI) => {
+    const Axios = await AxiosBase();
+    return apiRequest(Axios.get('api/v1/user/appointments'),
+        thunkAPI)
+ });
+ 
+
+ export const getFollowers = createAsyncThunk("auth/followers/user",
+ async (_, thunkAPI) => {
+ const Axios = await AxiosBase();
+ return apiRequest(Axios.get('api/v1/user/followers'),
+     thunkAPI)
+});
+
+export const getFollowing = createAsyncThunk("auth/following/user",
+    async (_, thunkAPI) => {
+    const Axios = await AxiosBase();
+    return apiRequest(Axios.get('api/v1/user/followings'),
+        thunkAPI)
+   });
+
+
+
+   export const getAppointment = createAsyncThunk("auth/appointment/user",
+    async (no, thunkAPI) => {
+    const Axios = await AxiosBase();
+    return apiRequest(Axios.get(`api/v1/user/appointments?per_page=10&page=${no}`),
+        thunkAPI)
+   });
+
+   export const getConsel= createAsyncThunk("auth/consel/user",
+    async (no, thunkAPI) => {
+    const Axios = await AxiosBase();
+    return apiRequest(Axios.get(`api/v1/user/counsels?per_page=10&page=${no}`),
+        thunkAPI)
+   });
+
+   export const getMessages = createAsyncThunk("auth/counsel/message",
+    async (no, thunkAPI) => {
+    const Axios = await AxiosBase();
+    return apiRequest(Axios.get(`api/v1/appointment/${no}/messages`),
+        thunkAPI)
+   });
+
+
+   export const updateAppointment = createAsyncThunk("auth/appointment/update",
+    async (data, thunkAPI) => {
+        const Axios = await AxiosBase();
+        return apiRequest(Axios.patch(`api/v1/appointment/edit/${data.id}`, data), thunkAPI)
+    });
+
+    export const approveAppointment = createAsyncThunk("auth/appointment/approve",
+        async (no, thunkAPI) => {
+            const Axios = await AxiosBase();
+            return apiRequest(Axios.get(`api/v1/appointment/${no}/approve`), thunkAPI)
+        });
+    
+
+
+  

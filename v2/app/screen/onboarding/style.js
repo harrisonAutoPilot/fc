@@ -6,11 +6,12 @@ import {
 const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
     vontainer: {
-        backgroundColor: '#fff',
-        width: wp('100%'),
-        height: hp('100%'),
+        // backgroundColor: '#c1dfc14',
+      
+          // width: wp('100%'),
+          height: hp('100%'),
         // justifyContent:'center',
-        alignItems: 'center',
+        // alignItems: 'center',
     },
     logoImg: {
         width: 40,
@@ -93,6 +94,7 @@ const styles = StyleSheet.create({
     btnCover:{
         top:Platform.OS === 'ios' ? hp('90.5%'): hp('88.5%'),
     position:'absolute',
+    alignSelf:'center'
     
        
     },
@@ -164,7 +166,7 @@ smImgCover:{
         height:700,
         position:'absolute',
         left:-20,
-       zIndex:-10,
+    //    zIndex:-10,
         top:110
     },
     queContainer:{

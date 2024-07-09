@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef } from "react";
-import { View, Text, TouchableOpacity, Keyboard, TouchableWithoutFeedback, SafeAreaView } from "react-native";
+import { View, Text, TouchableOpacity, Keyboard,StatusBar, TouchableWithoutFeedback, SafeAreaView } from "react-native";
 import { useDispatch } from "react-redux";
 
 
@@ -7,6 +7,7 @@ import styles from "../style";
 import { LoginHeader, PinInputField, FormikValidator, OnboardinBtn } from "@Component2";
 import { login } from "@Request2/Auth";
 import { cleanLoginStatus } from "@Store2/Auth";
+import LinearGradient from 'react-native-linear-gradient';
 import { pinSchema } from "@Helper2/Schema";
 import Loader from "@Screen2/loader";
 import disable from "@Helper2/disable";
@@ -81,8 +82,8 @@ const Pin = ({ navigation, route }) => {
 
             setLoader(false);
 
-            setErrMsg(err.msg);
-           console.log("errrrr", err.msg) 
+            setErrMsg(err?.msg?.message);
+           console.log("errrrr", err?.msg?.message) 
            if (err.msg === "Account not verified! Please contact support!"){
           navigation.navigate("AwaitVerification")
           }
@@ -124,9 +125,14 @@ const Pin = ({ navigation, route }) => {
 
 
     return (
-
-        <View style={styles.mainContainer}>
-
+        
+        <LinearGradient
+        colors={['#c1dfc4','#ffffff']}
+        start={{ x: 0, y: 0}}
+        end={{ x: 0, y: 1}}
+        style={styles.mainContainer}>
+   <View >
+        <StatusBar barStyle="dark-content" backgroundColor='#c1dfc4' hidden={true} />
             <LoginHeader
                 onPress={goBack}
                 name="arrow-back"
@@ -219,7 +225,7 @@ const Pin = ({ navigation, route }) => {
             <Loader isVisible={loader} />
 
         </View>
-
+</LinearGradient>
     )
 };
 

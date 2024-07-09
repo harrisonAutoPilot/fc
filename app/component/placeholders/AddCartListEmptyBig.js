@@ -9,7 +9,7 @@ export default AddCartListEmptyBig = (props) => {
     return (
     <View style={styles.emptyCover}>
         <View style={styles.imgCoverBig}>
-            <Image source={require("@Assets/image/addCart.png")} style={styles.emptyCartImg} />
+            {/* <Image source={require("@Assets/image/addCart.png")} style={styles.emptyCartImg} /> */}
         </View>
         <Text style={styles.emptyTextBig}>Nothing here yet</Text>
         <Text style={styles.emptyText}>Add items to cart and start shopping</Text>

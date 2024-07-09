@@ -133,8 +133,6 @@ const sendPost = () =>{
   setProgress(true)
  const values = { interest_id: interestId, desc:note, title:postTitle, type:postType, file: mediaData}
 
- console.log("i got here media", values)
-
  dispatch(addFeed(values))
 }
 
@@ -292,7 +290,7 @@ useEffect(() => {
            setMyUpload(imageFile.uri)
          
            setMediaData(imageFile)
-           console.log("this is the inside oooo", imageFile)
+
            return (imageFile)
 
        

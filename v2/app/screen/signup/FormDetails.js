@@ -61,7 +61,6 @@ const FormDetails = ({ navigation }) => {
 
     const submit = async (data) => {
 
-    console.log("the other name", data)
         dispatch(getUserDetails({ username: data.username, email:data.email,  phone: `${'234'}${data.phone}`, password:data.new_password, name:'obi'  }));
 
         // navigation.navigate("FormPhoneDetails");

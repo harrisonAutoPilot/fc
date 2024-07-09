@@ -33,7 +33,7 @@ const RetrievePin = (props) => {
 
           <View style={styles.imageHolder}>
 
-            <Image source={require("../../assets/law1.jpg")} style={styles.padImg} />
+            {/* <Image source={require("../../assets/law1.jpg")} style={styles.padImg} /> */}
             <Text style={styles.titleText}>{props.title}</Text>
 
           </View>

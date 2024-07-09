@@ -7,59 +7,74 @@ import Icon from "react-native-vector-icons/AntDesign";
 import Acon from "react-native-vector-icons/MaterialCommunityIcons";
 import PlaceholderCard from "./PlaceHolderCard";
 import styles from "./style";
-import { getCustomers } from "@Request2/Customer";
+import Config from "react-native-config";
+
 import {request} from "../../../util/request";
-import EmptyPending from "./empty/emptyPending"
+import EmptyScheduled from "./empty/emptyScheduled"
 import FilterBottomSheet from "./FilterBottomSheet";
-import AppointmentDetailBottomSheet from "../appointDetailBottomSheet"
+import {cleanGetConsel,cleanGetMessage} from "@Store2/Auth";
+import { ActivityIndicator } from "react-native-paper";
+import {
+  cleanUpdateAppointment
+} from "@Store2/Auth";
+import ViewIncomingDetails from "./ViewIncomingDetails"
+import moment from "moment";
+import {
+    unFollowUser,
+    followUser,
+    getAvailableDateByUserId,
+    getUser,
+    createAppointment,
+    addAppointmentMessage,
+    getConsel,
+    getMessages,
+    updateAppointment,
+  } from "@Request2/Auth";
 
 
 const Incoming = (props) => {
     const dispatch = useDispatch();
+    const {
+        user,
+        conselData,
+        conselDataMore,
+        updateAppointmentErrors,
+        updateAppointmentData,
+        updateAppointmentStatus,
+        conselErrors,
+        conselStatus,
+        messageData,
+        messageErrors,
+        } = useSelector((state) => state.auth);
     const [refreshing, setRefreshing] = useState(false);
     const [sheetOpen, setSheetOpen] = useState(false);
     const [search, setSearch] = useState("")
     const [result, setResult] = useState([]);
+    const [waiter, setWaiter] = useState(false);
+    const [trackCartStatus, setTrackCartStatus] = useState(false);
     const bottomSheetS = useRef();
     const flatListRef = React.useRef()
-    const bottomSheetRefAppointmentDetails = useRef();
-    const [apDetails, setApDetails] = useState({});
-    
-
-    const { status, errors, customers } = useSelector((state) => state.customer);
-
-    const [objectValues, setObjectValues] = useState()
-    const [duration, setDuration] = useState("6 Months")
+    const bottomSheetRefIncoming = useRef(null);
+    const [itemDetails, setItemDetails] = useState({})
   
       const returnBack = () => {
           props.navigation.goBack();
         };
   
-        const filterList = () => {
-          bottomSheetS.current.show();
-      
-        };
-  
-        const changeDuration = (item) => {
-          setDuration(item)
-     
-        }
-
-        const closeApointmentSheet = () => {
-            bottomSheetRefAppointmentDetails.current.close();
-          };
-        
-          const checkDetails = (item) => {
-            setApDetails(item);
-            bottomSheetRefAppointmentDetails.current.show();
-          }; 
-
-      
+    
        const applyFilter =(item)=>{
         setDuration(item)
         bottomSheetS.current.close()
         console.log("what i selected", item)
        }
+
+
+    useEffect(()=> {
+    dispatch(cleanUpdateAppointment())
+    dispatch(cleanGetMessage())
+    dispatch(cleanGetConsel())
+    dispatch(getConsel())
+    },[])
 
     useEffect(()=> {
         setResult(props?.result)
@@ -82,57 +97,103 @@ const Incoming = (props) => {
     }, [search.length]);
 
 
-
+    const closeIncomingSheet = () =>{
+      bottomSheetRefIncoming?.current?.close()
+    }
+  
 
     const wait = (timeout) => {
         return new Promise(resolve => setTimeout(resolve, timeout));
     };
 
+
+    const viewDetails = (item) =>{
+      console.log("the item",item.id )
+      const no = item;
+      dispatch(getMessages(no))
+      bottomSheetRefIncoming?.current?.show()
+      setItemDetails(item)
+    
+    }
+
     const refreshView = () => {
         setRefreshing(true);
     
-        dispatch(getCustomers());
+        dispatch(getConsel());
         wait(2000).then(() => setRefreshing(false));
     }
 
-
+    const loadMoreConsel = useCallback(() => {
+  
+      setTrackCartStatus(true);
+  
+      dispatch(getConsel(conselData?.current_page + 1));
+      setWaiter(true);
+      setTimeout(() => {
+        setResult(conselDataMore);
+      }, 500);
+    }, [conselData?.current_page, trackCartStatus]);
+     
 
 
     const ListView = ({ item, index }) => {
 
         return (
-            <>
-            {item?.type == "incoming" ?
-            <TouchableOpacity style={styles.sentCard} onPress={() => checkDetails(item)}>
+        
+           
+            <TouchableOpacity style={styles.sentCard} onPress={() => viewDetails(item)} key={index}>
             <View style={styles.sentCardInnerLeft}>
                <View style={styles.calendarCard}>
-               <Image
-                       source={item?.counsellor_img}
-                    style={styles.calendarImg}
-                />
-                <View style={styles.timerCover}>
-                <Acon name="calendar" size={16} color="#e68a00" />
-                </View>
+               
+              <Image
+                style={styles.calendarImg}
+              source={{ uri: item?.counsellor?.avatar?.url !== "" ? `${Config?.IMG_URL}${item?.counsellor?.avatar?.url}` : null}}
+              resizeMode="cover"
+            />
+              <View style={styles.timerCover}>
+              <Image
+                source={require("@Assets2/image/down_arrow.png")}
+                style={{width:20, height:20}}
+                resizeMode="cover"
+              />
+              </View>
               </View>
               <View style={styles.sentCardContentLeft}>
-                <Text style={styles.counsellorName}>@{item.counsellor_name}</Text>
-                <Text style={styles.counselDate}>{item.appointment_date}</Text>
+              <View style={styles.usernameCover}>
+                <Text style={styles.counsellorName}>@{item.counsellor?.username}</Text>
+                <Image
+                source={require("@Assets2/image/badge.png")}
+                style={{width:13, height:13, marginTop:4}}
+                resizeMode="cover"
+              />
+              </View>
+                  <View style={styles.durationCover}>
+                    
+                    <View style={styles.smFlexTop}><Acon name="timer-outline" size={12} color="#000" style={styles.loveImg} /><Text style={styles.counselDateText}>{moment(item?.set_time)?.fromNow()}</Text></View>
+                   </View>
                 <View style={styles.bottomMenu}>
-                    <View style={styles.smFlex}><View style={styles.statusCoverIn}><Text style={styles.statusText}>{item.status}</Text></View></View>
-                    <View style={styles.smFlex}><Acon name="message-reply-text-outline" size={22} color="#000" style={styles.loveImg} /><Text style={styles.countText}>{item.msg_count}</Text></View>
+                   
+                    <View style={styles.smFlex}><Text style={styles.counselDate}>{moment(item?.created_at,)?.format('Y-MM-D H:m A')}</Text></View>
                    
                 </View>
             </View>
-            </View>
             
+            </View>
+           <View style={styles.rightContainer}>
+          <TouchableOpacity style={styles.iconCover}>
+          <Acon name="chat-outline" size={20} color="rgba(60, 60, 67, 0.6)" />
+          </TouchableOpacity >
+          <TouchableOpacity style={styles.iconCover}>
+          <Acon name="dots-horizontal" size={20} color="rgba(60, 60, 67, 0.6)" />
+         
+          </TouchableOpacity>
+           </View>
             <View>
-                <Text style={styles.counselDate}>{item.request_date}</Text>
+          
             </View>
            </TouchableOpacity>
-        :
-        null
-            }
-        </>    
+       
+       
         )
     };
 
@@ -140,48 +201,58 @@ const Incoming = (props) => {
       
            
             <View style={styles.bottomCover}>
-            {/* {refreshing || status === "pending" || status === "idle" ? <PlaceholderCard />
+              {refreshing || conselStatus === "pending" || conselStatus === "idle" ? <PlaceholderCard />
                 :
                     <>
                   <FlatList
                     showsVerticalScrollIndicator={false}
                     vertical
                     scrollEnabled={true}
-                    data={customers?.pending?.users }
+                    data={conselData.data}
                     keyExtractor={item => item.id}
-                    renderItem={<View />}
-                    ListEmptyComponent={EmptyPending}
+                    renderItem={ListView}
+                    ListEmptyComponent={EmptyScheduled}
                     enableEmptySections={true}
+                    onEndReached={() => {
+                      if (conselData?.current_page < conselData?.last_page) {
+                        loadMoreConsel();
+                      }
+                    }}
                     refreshControl =  {
 
                     <RefreshControl refreshing={refreshing} onRefresh={refreshView} />
                         
                     }
-                   
+                    ListFooterComponent={
+                      conselStatus === "pending" && (
+                        <ActivityIndicator size="large" animating={true} color="#fff" />
+                      )
+                    }
                     ref={flatListRef}
-                    extraData={customers?.pending?.users}
+                    extraData={conselData.data}
                 />
                     </>
-                   }  */}
+                   } 
 
               
-                <FlatList
+                {/* <FlatList
                     showsVerticalScrollIndicator={false}
-                    data={request}
+                    data={appointmentData.data}
                     keyExtractor={item => item.id}
                     // ListEmptyComponent={EmptyPending}
                     renderItem={ListView}
                     ListFooterComponent={<View style={{ height: 70 }} />}
                     columnWrapperStyle={styles.column}
                    
-                />
+                /> */}
 
-                 <AppointmentDetailBottomSheet
-                    bottomSheetRefStart={bottomSheetRefAppointmentDetails}
-                    poster={apDetails}
-                    close={closeApointmentSheet}
-                />
-
+                  <ViewIncomingDetails
+                    bottomSheetPropspectiveDetails={bottomSheetRefIncoming}
+                    returnBackProspective ={closeIncomingSheet}
+                    item={itemDetails}
+                  
+                    />
+              
 
 
             </View>

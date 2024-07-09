@@ -9,18 +9,21 @@ import PlaceholderCard from "./PlaceHolderCard";
 import styles from "./style";
 import { getCustomers } from "@Request2/Customer";
 import {request} from "../../../util/request";
-import EmptyPending from "./empty/emptyPending"
+import EmptyActive from "./empty/emptyActive"
 import FilterBottomSheet from "./FilterBottomSheet";
+import PromptModal from "./PromptModal";
 
 
 const Scheduled = ({props}) => {
     const dispatch = useDispatch();
     const [refreshing, setRefreshing] = useState(false);
+    const [showPromptModal, setShowPromptModal] = useState(true);
     const [sheetOpen, setSheetOpen] = useState(false);
     const [search, setSearch] = useState("")
     const [result, setResult] = useState([]);
     const bottomSheetS = useRef();
     const flatListRef = React.useRef()
+
     
 
     const { status, errors, customers } = useSelector((state) => state.customer);
@@ -95,7 +98,7 @@ const Scheduled = ({props}) => {
             <>
             {item?.type == "scheduled" ?
             <TouchableOpacity style={styles.sentCard} >
-            <View style={styles.sentCardInnerLeft}>
+            <View style={styles.scheduledCardInnerLeft}>
                <View style={styles.calendarCard}>
                <Image
                        source={item?.counsellor_img}
@@ -145,7 +148,7 @@ const Scheduled = ({props}) => {
                     data={customers?.pending?.users }
                     keyExtractor={item => item.id}
                     renderItem={<View />}
-                    ListEmptyComponent={EmptyPending}
+                    ListEmptyComponent={EmptyScheduled}
                     enableEmptySections={true}
                     refreshControl =  {
 
@@ -160,7 +163,7 @@ const Scheduled = ({props}) => {
                    }  */}
 
               
-                <FlatList
+                {/* <FlatList
                     showsVerticalScrollIndicator={false}
                     data={request}
                     keyExtractor={item => item.id}
@@ -169,10 +172,14 @@ const Scheduled = ({props}) => {
                     ListFooterComponent={<View style={{ height: 70 }} />}
                     columnWrapperStyle={styles.column}
                    
-                />
-
+                /> */}
+                    <EmptyActive />
               
-
+                    <PromptModal
+                        promptModal={showPromptModal}
+                        returnBack={() => setShowPromptModal(false)}
+                        // proceed={logUserOut}
+                    />
 
             </View>
             

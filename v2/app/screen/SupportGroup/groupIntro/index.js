@@ -21,14 +21,12 @@ const GroupIntroBottomSheet = (props) => {
   const [displayTo, setDisplayTo] = useState(false);
   const [note, setNote] = useState("");
 
-  console.log("the appointment details", item);
-
   const setPropsPeriod = (id) => {
-    console.log("the period ...", id);
+
     if (id == "last_3_months") {
       bottomSheetCalendar.current?.show();
       const date = { startDate: startDate, endDate: endDate };
-      console.log("just to know the start and end date", date);
+
       props.setPeriod(date && date);
       props.setEnd(endDate);
       props.setStart(startDate);
@@ -36,7 +34,7 @@ const GroupIntroBottomSheet = (props) => {
       props.setPeriod(id);
       setStartDate("");
       setEndDate("");
-      console.log("just to know the start and end date", id);
+
     }
   };
 

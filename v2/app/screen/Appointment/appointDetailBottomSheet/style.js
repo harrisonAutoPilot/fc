@@ -240,7 +240,35 @@ inputContainer:{
     fontFamily: 'AnekLatin-Medium',
     color: '#000',
     letterSpacing: 0.1,
-  }
+  },
+  errView:{
+    paddingVertical: 20,
+    paddingHorizontal: 16,
+    // backgroundColor: "#BA1A1A",
+    backgroundColor:'#f5f5f5',
+    position:'absolute',
+    zIndex:900,
+    marginHorizontal: 16,
+    borderLeftWidth:8,
+    borderLeftColor:'#BA1A1A',
+    borderRadius: 4,
+    shadowColor: 'rgba(0, 0, 0, 0.1)',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.9,
+    shadowRadius: 2,
+    alignSelf:'center',
+    elevation: 2,
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 20
+},
+errText:{
+    fontSize: 14,
+    fontFamily: "AnekLatin-Regular",
+    letterSpacing: 0.25,
+    marginLeft: 13,
+    color: "#BA1A1A"
+},
 });
 
 export default styles

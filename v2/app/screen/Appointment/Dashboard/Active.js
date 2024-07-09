@@ -50,10 +50,8 @@ const Active = (props) => {
      const applyFilter =(item)=>{
       setDuration(item)
       bottomSheetS.current.close()
-      console.log("what i selected", item)
+  
      }
-
-     console.log("the main ....", customers?.active?.users)
 
 
     const wait = (timeout) => {

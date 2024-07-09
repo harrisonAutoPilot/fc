@@ -93,8 +93,6 @@ const sendChat =(item)=>{
 
 }
 
-console.log("tooooo contact", contact)
-
 
 
  ContactList = ({item}) => (
